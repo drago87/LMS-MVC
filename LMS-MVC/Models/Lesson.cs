@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
-namespace LMS.Models
+namespace LMS_MVC.Models
 {
     public class Lesson
     {

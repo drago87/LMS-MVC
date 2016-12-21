@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 
-namespace LMS.Models
+namespace LMS_MVC.Models
 {
     public class Subject
     {

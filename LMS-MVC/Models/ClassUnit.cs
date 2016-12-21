@@ -1,12 +1,11 @@
-﻿using LMS.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 
-namespace LMS.Models
+namespace LMS_MVC.Models
 {
     public class ClassUnit
     {

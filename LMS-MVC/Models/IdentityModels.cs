@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.Collections.Generic;
 
 namespace LMS_MVC.Models
 {
@@ -12,17 +13,45 @@ namespace LMS_MVC.Models
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
+            //var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
             // Add custom user claims here
+            userIdentity.AddClaim(new Claim("Classunit", this.Classunit.ToString()));
             return userIdentity;
         }
+        //Extended Properties
+        public List<ClassUnit> Classunit { get; set; }
     }
+
+    
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
+        }
+
+        public DbSet<ClassUnit> MyClassUnit { get; set; }
+        public DbSet<Files> MyFiles { get; set; }
+        public DbSet<Subject> MySubjects { get; set; }
+        public DbSet<Lesson> MyLessons { get; set; }
+        public DbSet<Folder> MyFolders { get; set; }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<ClassUnit>().
+                HasRequired(f => f.Shared)
+                .WithRequiredPrincipal()
+                    .WillCascadeOnDelete(false);
+
+
+            modelBuilder.Entity<ClassUnit>().
+                HasRequired(f => f.Submission)
+                .WithRequiredPrincipal()
+                    .WillCascadeOnDelete(false);
+
         }
 
         public static ApplicationDbContext Create()
