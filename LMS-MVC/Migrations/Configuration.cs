@@ -62,13 +62,13 @@ namespace LMS_MVC.Migrations
             new ClassUnit { ClassName = "Grund5b" }
             );
 
-            ApplicationUser user1a = context.Users.FirstOrDefault(u => u.Email == "testLärare@test.com");
+            ApplicationUser user1a = context.Users.FirstOrDefault(u => u.Email == "testTeacher@test.com");
 
             if (user1a != null)
             {
                 userManager.AddToRole(user1.Id, "Teacher");
             }
-            ApplicationUser user2a = context.Users.FirstOrDefault(u => u.Email == "testElev@test.com");
+            ApplicationUser user2a = context.Users.FirstOrDefault(u => u.Email == "testStudent@test.com");
             if (user2a != null)
             {
                 userManager.AddToRole(user2.Id, "Student");
