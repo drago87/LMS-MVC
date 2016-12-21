@@ -5,7 +5,7 @@ using System.Security.Claims;
 using System.Security.Principal;
 using System.Web;
 
-namespace LMS.Extensions
+namespace LMS_MVC.Extensions
 {
     public static class IdentityExtensions
     {
