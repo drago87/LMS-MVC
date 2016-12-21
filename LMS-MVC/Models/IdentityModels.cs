@@ -17,7 +17,7 @@ namespace LMS_MVC.Models
             //Orginal
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
             // Add custom user claims here
-            userIdentity.AddClaim(new Claim("Classunit", this.Classunit.ToString()));
+            //userIdentity.AddClaim(new Claim("Classunit", this.Classunit.ToString()));
             return userIdentity;
         }
         //Extended Properties
