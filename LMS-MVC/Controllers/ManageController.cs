@@ -8,6 +8,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using LMS_MVC.Models;
 using LMS_MVC.Repositorys;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace LMS_MVC.Controllers
 {
@@ -322,13 +323,19 @@ namespace LMS_MVC.Controllers
             return result.Succeeded ? RedirectToAction("ManageLogins") : RedirectToAction("ManageLogins", new { Message = ManageMessageId.Error });
         }
 
-        public ActionResult AddToClass(string userName)
+        public ActionResult AddToClass()
         {
-            if (userName == null)
-            {
-                userName = "testTeatcher@test.com";
-            }
-            var user = _userManager.FindByName(userName);
+            //if (userName == null)
+            //{
+            //    userName = "testTeatcher@test.com";
+            //}
+            
+            //if (User.IsInRole("Teacher"))
+            //{
+                
+            //}
+
+            //ViewBag.ClssUnit = _repo.GetAllClasses();
             return View();
         }
 

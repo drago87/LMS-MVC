@@ -18,6 +18,18 @@ namespace LMS_MVC.Repositorys
         {
             return _ctx.MyClassUnit.ToList();
         }
+
+        public ICollection<Subject> GetAllSubjects()
+        {
+            //var ret = 
+            return _ctx.MySubjects.ToList();
+        }
+
+        public ICollection<Folder> GetAllFolders()
+        {
+            return _ctx.MyFolders.ToList();
+        }
+
         //public void test(ApplicationUser test)
         //{
         //    _ctx.
