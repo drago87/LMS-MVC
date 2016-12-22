@@ -3,21 +3,39 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using LMS_MVC.Controllers;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+
 namespace LMS_MVC.Repositorys
 {
     public class Repository
     {
         private ApplicationDbContext _ctx;
         //private ApplicationUserManager _userManager;
+        
 
         public Repository()
         {
+            
             _ctx = new ApplicationDbContext();
+        }
+
+        //public ICollection<User>
+
+        public ICollection<ApplicationUser> GetAllUsers()
+        {
+            return _ctx.Users.ToList();
+        }
+
+        public ICollection<IdentityRole> GetAllRoles()
+        {
+            return _ctx.Roles.ToList();
         }
 
         public ICollection<ClassUnit> GetAllClasses()
         {
-            return _ctx.MyClassUnit.ToList();
+           return _ctx.MyClassUnit.ToList();
         }
 
         public ClassUnit GetClassUnitByID(int ClassId)

@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Collections.Generic;
+using System;
 
 namespace LMS_MVC.Models
 {
@@ -20,7 +21,8 @@ namespace LMS_MVC.Models
             //Orginal
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
             // Add custom user claims here
-            userIdentity.AddClaim(new Claim("Classunit", this.Classunit.ToString()));
+            //userIdentity.AddClaim(new Claim("Classunit", this.Classunit.ToString()));
+            
             return userIdentity;
         }
 
@@ -61,6 +63,8 @@ namespace LMS_MVC.Models
         {
             return new ApplicationDbContext();
         }
-       //public System.Data.Entity.DbSet<LMS_MVC.Models.ApplicationUser> ApplicationUsers { get; set; }
+
+        public System.Data.Entity.DbSet<LMS_MVC.Models.ApplicationUser> ApplicationUsers { get; set; }
+
     }
 }

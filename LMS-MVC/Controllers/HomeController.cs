@@ -7,12 +7,15 @@ using Microsoft.AspNet.Identity;
 using LMS_MVC.Models;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.AspNet.Identity.EntityFramework;
+using LMS_MVC.Repositorys;
 
 namespace LMS_MVC.Controllers
 {
     public class HomeController : Controller
     {
         ApplicationDbContext db = new ApplicationDbContext();
+        Repository _repo = new Repository();
+        
 
         public ActionResult Index()
         {
@@ -52,6 +55,27 @@ namespace LMS_MVC.Controllers
             return View();
         }
 
-        
+        public ActionResult ShowAllUsers()
+        {
+            
+            ViewBag.Message = "A Testpage for now";
+
+            return View(_repo.GetAllUsers());
+        }
+
+        public ActionResult Edit()
+        {
+            ViewBag.ClssUnit = _repo.GetAllClasses();
+            ViewBag.Roles = _repo.GetAllRoles();
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "Id,Email,UserName,Roles")] ApplicationUser applicationUser)
+        {
+            //not done
+            return View();
+        }
     }
 }
