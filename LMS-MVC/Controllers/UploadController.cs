@@ -13,7 +13,7 @@ namespace LMS_MVC.Controllers
 {
     public class UploadController : Controller
     {
-        Repository _repo = new Repository();
+        SharedRepository _repo = new SharedRepository();
 
 
 

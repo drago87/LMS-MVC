@@ -7,12 +7,16 @@ using Microsoft.AspNet.Identity;
 using LMS_MVC.Models;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.AspNet.Identity.EntityFramework;
+using LMS_MVC.Repositorys;
+using System.Net;
 
 namespace LMS_MVC.Controllers
 {
     public class HomeController : Controller
     {
         ApplicationDbContext db = new ApplicationDbContext();
+        SharedRepository _repo = new SharedRepository();
+        
 
         public ActionResult Index()
         {
@@ -52,6 +56,47 @@ namespace LMS_MVC.Controllers
             return View();
         }
 
-        
+        public ActionResult ShowAllUsers()
+        {
+            
+            ViewBag.Message = "A Testpage for now";
+
+            return View(_repo.GetAllUsers());
+        }
+
+        public ActionResult Edit(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ApplicationUser applicationUser = _repo.GetUserById(id);
+            if (applicationUser == null)
+            {
+                return HttpNotFound();
+            }
+            
+            ViewBag.ClssUnit = _repo.GetAllClasses();
+            ViewBag.Roles = _repo.GetAllRoles();
+            return View(applicationUser);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Exclude = "ClassUnitID,RolesId")] ApplicationUser applicationUser, int ClassUnitID, string RolesId)
+        {
+
+            if (ModelState.IsValid)
+            {
+                //applicationUser.Classunit.Add(_repo.GetClassUnitByID(ClassUnitID));
+                IdentityRole role = _repo.GetRoleById(RolesId);
+                
+                _repo.UpdateUser(applicationUser);
+                _repo.AddUserToRole(applicationUser, role);
+                return RedirectToAction("ShowAllUsers");
+            }
+            //not done
+            return View(applicationUser);
+        }
     }
 }

@@ -3,25 +3,32 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using LMS_MVC.Controllers;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using System.Data.Entity;
+
 namespace LMS_MVC.Repositorys
 {
-    public class Repository
+    public class SharedRepository
     {
         private ApplicationDbContext _ctx;
         //private ApplicationUserManager _userManager;
+        
 
-        public Repository()
+        public SharedRepository()
         {
+            
             _ctx = new ApplicationDbContext();
         }
 
         public void AddFileToClassUnitShared(ApplicationUser user, Dossier file, ClassUnit _class = null)
         {
-            
-            if(_class == null)
+
+            if (_class == null)
             {
-                var folder = _ctx.MyFolders.Find(user.Classunit.FirstOrDefault().Shared.FolderID); 
-                file.Folder = folder; 
+                var folder = _ctx.MyFolders.Find(user.Classunit.FirstOrDefault().Shared.FolderID);
+                file.Folder = folder;
                 folder.Files.Add(file);
             }
             else
@@ -33,11 +40,44 @@ namespace LMS_MVC.Repositorys
             _ctx.SaveChanges();
 
         }
+        public ICollection<ApplicationUser> GetAllUsers()
+        {
+            return _ctx.Users.ToList();
+        }
 
+        public ApplicationUser GetUserById(string id)
+        {
+            return _ctx.Users.FirstOrDefault(b => b.Id == id);
+        }
+
+        public void UpdateUser(ApplicationUser user)
+        {
+            _ctx.Entry(user).State = EntityState.Modified;
+            _ctx.SaveChanges();
+        }
+
+        public ICollection<IdentityRole> GetAllRoles()
+        {
+            return _ctx.Roles.ToList();
+        }
+
+        public IdentityRole GetRoleById(string id)
+        {
+            return _ctx.Roles.FirstOrDefault(b => b.Id == id);
+        }
+
+        public void AddUserToRole(ApplicationUser user, IdentityRole role)
+        {
+            var userStore = new UserStore<ApplicationUser>(_ctx);
+            var userManager = new UserManager<ApplicationUser>(userStore);
+
+            userManager.AddToRole(user.Id, role.Name);
+            _ctx.SaveChanges();
+        }
 
         public ICollection<ClassUnit> GetAllClasses()
         {
-            return _ctx.MyClassUnit.ToList();
+           return _ctx.MyClassUnit.ToList();
         }
 
         public ClassUnit GetClassUnitByID(int ClassId)
@@ -76,6 +116,6 @@ namespace LMS_MVC.Repositorys
             return _ctx.MyFiles.Where(b => b.Folder == Fold).ToList();
         }
 
-
+        
     }
 }

@@ -17,10 +17,10 @@ namespace LMS_MVC.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-        private Repository _repo;
+        private SharedRepository _repo;
         public ManageController()
         {
-            _repo = new Repository();
+            _repo = new SharedRepository();
         }
 
         public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
@@ -334,7 +334,7 @@ namespace LMS_MVC.Controllers
             //{
                 
             //}
-
+            
             ViewBag.ClssUnit = _repo.GetAllClasses();
             return View();
         }
@@ -343,16 +343,16 @@ namespace LMS_MVC.Controllers
         [ValidateAntiForgeryToken]
         [Authorize(Roles="Teacher")]
 
-        public void AddUserToClassUnit(string Id)
+        public void AddUserToClassUnit(string Id, int ClassUnitID)
         {
             if (ModelState.IsValid)
             {
                 var user = _userManager.FindById(Id);
-
-                if (user != null)
+                var classunit = _repo.GetClassUnitByID(ClassUnitID);
+                if (user != null && classunit != null)
                 {
                     //need to change
-                    user.Classunit.Add(new ClassUnit());
+                    user.Classunit.Add(classunit);
                 }
             }
         }
