@@ -15,11 +15,23 @@ namespace LMS_MVC.Models
 
         public string ClassName { get; set; }
 
-        public ICollection<ApplicationUser> Participants { get; set; }
+        //public ICollection<ApplicationUser> Participants { get; set; }
 
         public Folder Shared { get; set; }
 
         public Folder Submission { get; set; }
+
+        public List<Lesson> Schema { get; set; }
+
+        public ClassUnit()
+        {
+            Schema = new List<Lesson>();
+        }
+
+        public List<Lesson> GetSchema(DateTime _from, DateTime _to)
+        {
+            return Schema.Where(time => time.StartTime >= _from && time.StopTime <= _to).ToList();
+        }
 
     }
 }

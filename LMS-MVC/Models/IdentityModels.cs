@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Collections.Generic;
+using System;
 
 namespace LMS_MVC.Models
 {
@@ -20,6 +21,8 @@ namespace LMS_MVC.Models
             //userIdentity.AddClaim(new Claim("Classunit", this.Classunit.ToString()));
             return userIdentity;
         }
+        //Extended Properties
+        public List<ClassUnit> Classunit { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
@@ -28,12 +31,13 @@ namespace LMS_MVC.Models
             //Orginal
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
             // Add custom user claims here
-            userIdentity.AddClaim(new Claim("Classunit", this.Classunit.ToString()));
+            //userIdentity.AddClaim(new Claim("Classunit", this.Classunit.ToString()));
+            
             return userIdentity;
         }
 
         //Extended Properties
-        public List<ClassUnit> Classunit { get; set; }
+        //public List<ClassUnit> Classunit { get; set; } //anlu remmat
     }
 
     
@@ -46,7 +50,7 @@ namespace LMS_MVC.Models
         }
 
         public DbSet<ClassUnit> MyClassUnit { get; set; }
-        public DbSet<Files> MyFiles { get; set; }
+        public DbSet<Dossier> MyFiles { get; set; }
         public DbSet<Subject> MySubjects { get; set; }
         public DbSet<Lesson> MyLessons { get; set; }
         public DbSet<Folder> MyFolders { get; set; }
@@ -71,5 +75,9 @@ namespace LMS_MVC.Models
         {
             return new ApplicationDbContext();
         }
+
+        //If this line Appers delete it
+        //public System.Data.Entity.DbSet<LMS_MVC.Models.ApplicationUser> ApplicationUsers { get; set; }
+
     }
 }
