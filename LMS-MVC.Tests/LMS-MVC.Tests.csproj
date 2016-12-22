@@ -92,7 +92,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\Dropbox\Programering\Uppgifter\LMS-MVC\LMS-MVC\LMS-MVC.csproj">
+    <ProjectReference Include="..\LMS-MVC\LMS-MVC.csproj">
       <Project>{69A0F311-0450-4DF4-B646-75376FA8E053}</Project>
       <Name>LMS-MVC</Name>
     </ProjectReference>
