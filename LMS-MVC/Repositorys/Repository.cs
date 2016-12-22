@@ -19,10 +19,19 @@ namespace LMS_MVC.Repositorys
             return _ctx.MyClassUnit.ToList();
         }
 
+        public ClassUnit GetClassUnitByID(string ID)
+        {
+            return null;
+        }
+
         public ICollection<Subject> GetAllSubjects()
         {
-            //var ret = 
             return _ctx.MySubjects.ToList();
+        }
+
+        public Subject GetSubjectByID(string ID)
+        {
+            return null;
         }
 
         public ICollection<Folder> GetAllFolders()
@@ -30,10 +39,9 @@ namespace LMS_MVC.Repositorys
             return _ctx.MyFolders.ToList();
         }
 
-        //public void test(ApplicationUser test)
-        //{
-        //    _ctx.
-        //    test.
-        //}
+        public Folder GetFolderByID(string ID)
+        {
+            return null;
+        }
     }
 }

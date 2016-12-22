@@ -335,7 +335,7 @@ namespace LMS_MVC.Controllers
                 
             //}
 
-            //ViewBag.ClssUnit = _repo.GetAllClasses();
+            ViewBag.ClssUnit = _repo.GetAllClasses();
             return View();
         }
 
