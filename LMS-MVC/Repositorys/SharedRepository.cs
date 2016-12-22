@@ -6,6 +6,7 @@ using System.Web;
 using LMS_MVC.Controllers;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.Data.Entity;
 
 namespace LMS_MVC.Repositorys
 {
@@ -44,9 +45,34 @@ namespace LMS_MVC.Repositorys
             return _ctx.Users.ToList();
         }
 
+        public ApplicationUser GetUserById(string id)
+        {
+            return _ctx.Users.FirstOrDefault(b => b.Id == id);
+        }
+
+        public void UpdateUser(ApplicationUser user)
+        {
+            _ctx.Entry(user).State = EntityState.Modified;
+            _ctx.SaveChanges();
+        }
+
         public ICollection<IdentityRole> GetAllRoles()
         {
             return _ctx.Roles.ToList();
+        }
+
+        public IdentityRole GetRoleById(string id)
+        {
+            return _ctx.Roles.FirstOrDefault(b => b.Id == id);
+        }
+
+        public void AddUserToRole(ApplicationUser user, IdentityRole role)
+        {
+            var userStore = new UserStore<ApplicationUser>(_ctx);
+            var userManager = new UserManager<ApplicationUser>(userStore);
+
+            userManager.AddToRole(user.Id, role.Name);
+            _ctx.SaveChanges();
         }
 
         public ICollection<ClassUnit> GetAllClasses()
@@ -90,6 +116,6 @@ namespace LMS_MVC.Repositorys
             return _ctx.MyFiles.Where(b => b.Folder == Fold).ToList();
         }
 
-
+        
     }
 }
