@@ -20,7 +20,7 @@ namespace LMS_MVC.Models
         public int FileID { get; set; }
         //public Files _Files { get; set; }
 
-        public virtual List<Files> Files { get; set; }
+        public virtual List<Dossier> Files { get; set; }
 
 
     }
