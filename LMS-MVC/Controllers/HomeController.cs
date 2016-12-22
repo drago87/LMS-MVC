@@ -14,7 +14,7 @@ namespace LMS_MVC.Controllers
     public class HomeController : Controller
     {
         ApplicationDbContext db = new ApplicationDbContext();
-        Repository _repo = new Repository();
+        SharedRepository _repo = new SharedRepository();
         
 
         public ActionResult Index()

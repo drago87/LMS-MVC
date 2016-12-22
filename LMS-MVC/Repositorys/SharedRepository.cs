@@ -9,13 +9,13 @@ using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace LMS_MVC.Repositorys
 {
-    public class Repository
+    public class SharedRepository
     {
         private ApplicationDbContext _ctx;
         //private ApplicationUserManager _userManager;
         
 
-        public Repository()
+        public SharedRepository()
         {
             
             _ctx = new ApplicationDbContext();

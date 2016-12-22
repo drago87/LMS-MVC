@@ -17,10 +17,10 @@ namespace LMS_MVC.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-        private Repository _repo;
+        private SharedRepository _repo;
         public ManageController()
         {
-            _repo = new Repository();
+            _repo = new SharedRepository();
         }
 
         public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
