@@ -176,7 +176,7 @@
     <Compile Include="Models\AccountViewModels Old.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ClassUnit.cs" />
-    <Compile Include="Models\Files.cs" />
+    <Compile Include="Models\Dossier.cs" />
     <Compile Include="Models\Folder.cs" />
     <Compile Include="Models\IdentityModels Old.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -272,7 +272,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>59035</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

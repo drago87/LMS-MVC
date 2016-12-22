@@ -36,7 +36,7 @@ namespace LMS_MVC.Models
         }
 
         public DbSet<ClassUnit> MyClassUnit { get; set; }
-        public DbSet<Files> MyFiles { get; set; }
+        public DbSet<Dossier> MyFiles { get; set; }
         public DbSet<Subject> MySubjects { get; set; }
         public DbSet<Lesson> MyLessons { get; set; }
         public DbSet<Folder> MyFolders { get; set; }

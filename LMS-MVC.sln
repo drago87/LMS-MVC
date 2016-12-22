@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LMS-MVC", "LMS-MVC\LMS-MVC.csproj", "{69A0F311-0450-4DF4-B646-75376FA8E053}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LMS-MVC.Tests", "..\..\..\..\Documents\Visual Studio 2013\Projects\LMS-MVC\LMS-MVC.Tests\LMS-MVC.Tests.csproj", "{5AE605B8-AF99-4DCD-973D-E38604DB83C0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LMS-MVC.Tests", "LMS-MVC.Tests\LMS-MVC.Tests.csproj", "{5AE605B8-AF99-4DCD-973D-E38604DB83C0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

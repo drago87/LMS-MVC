@@ -7,7 +7,7 @@ using System.Text;
 
 namespace LMS_MVC.Models
 {
-    public class Files
+    public class Dossier
     {
         [Key]
         public int FileID { get; set; }
