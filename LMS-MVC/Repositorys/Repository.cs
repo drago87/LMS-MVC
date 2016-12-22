@@ -8,6 +8,7 @@ namespace LMS_MVC.Repositorys
     public class Repository
     {
         private ApplicationDbContext _ctx;
+        //private ApplicationUserManager _userManager;
 
         public Repository()
         {
@@ -19,9 +20,9 @@ namespace LMS_MVC.Repositorys
             return _ctx.MyClassUnit.ToList();
         }
 
-        public ClassUnit GetClassUnitByID(string ClassName)
+        public ClassUnit GetClassUnitByID(int ClassId)
         {
-            return _ctx.MyClassUnit.FirstOrDefault(b => b.ClassName == ClassName);
+            return _ctx.MyClassUnit.FirstOrDefault(b => b.ClassUnitID == ClassId);
         }
 
         public ICollection<Subject> GetAllSubjects()
@@ -51,7 +52,10 @@ namespace LMS_MVC.Repositorys
 
         public ICollection<Dossier> GetAllFilesInFolder(Folder Fold)
         {
+            
             return _ctx.MyFiles.Where(b => b.Folder == Fold).ToList();
         }
+
+
     }
 }
