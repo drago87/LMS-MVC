@@ -12,12 +12,13 @@ namespace LMS_MVC.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
+            AutomaticMigrationDataLossAllowed = false;
         }
 
         protected override void Seed(LMS_MVC.Models.ApplicationDbContext context)
         {
-            if (!context.Roles.Any(r => r.Name == "Teacher"))
+            /*if (!context.Roles.Any(r => r.Name == "Teacher"))
             {
                 var roleStore = new RoleStore<IdentityRole>(context);
                 var roleManager = new RoleManager<IdentityRole>(roleStore);
@@ -73,7 +74,7 @@ namespace LMS_MVC.Migrations
             {
                 userManager.AddToRole(user2.Id, "Student");
             }
-            context.SaveChanges();
+            context.SaveChanges();*/
         }
     }
 }

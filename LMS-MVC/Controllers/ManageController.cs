@@ -7,6 +7,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using LMS_MVC.Models;
+using LMS_MVC.Repositorys;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace LMS_MVC.Controllers
 {
@@ -15,9 +17,10 @@ namespace LMS_MVC.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-
+        private Repository _repo;
         public ManageController()
         {
+            _repo = new Repository();
         }
 
         public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
@@ -318,6 +321,22 @@ namespace LMS_MVC.Controllers
             }
             var result = await UserManager.AddLoginAsync(User.Identity.GetUserId(), loginInfo.Login);
             return result.Succeeded ? RedirectToAction("ManageLogins") : RedirectToAction("ManageLogins", new { Message = ManageMessageId.Error });
+        }
+
+        public ActionResult AddToClass()
+        {
+            //if (userName == null)
+            //{
+            //    userName = "testTeatcher@test.com";
+            //}
+            
+            //if (User.IsInRole("Teacher"))
+            //{
+                
+            //}
+
+            //ViewBag.ClssUnit = _repo.GetAllClasses();
+            return View();
         }
 
         protected override void Dispose(bool disposing)

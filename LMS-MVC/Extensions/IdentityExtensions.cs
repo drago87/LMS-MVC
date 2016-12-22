@@ -9,12 +9,12 @@ namespace LMS.Extensions
 {
     public static class IdentityExtensions
     {
-        public static string GetClassunit(this IIdentity identity)
+       /* public static string GetClassunit(this IIdentity identity)
         {
             var claim = ((ClaimsIdentity)identity).FindFirst("Classunit");
             //// Test for null to avoid issues during local testing
             return (claim != null) ? claim.Value : string.Empty;
             
-        }
+        }*/
     }
 }

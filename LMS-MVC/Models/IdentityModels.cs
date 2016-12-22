@@ -61,5 +61,6 @@ namespace LMS_MVC.Models
         {
             return new ApplicationDbContext();
         }
+       //public System.Data.Entity.DbSet<LMS_MVC.Models.ApplicationUser> ApplicationUsers { get; set; }
     }
 }
