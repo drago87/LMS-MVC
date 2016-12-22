@@ -335,10 +335,27 @@ namespace LMS_MVC.Controllers
                 
             //}
 
-            //ViewBag.ClssUnit = _repo.GetAllClasses();
+            ViewBag.ClssUnit = _repo.GetAllClasses();
             return View();
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles="Teacher")]
+
+        public void AddUserToClassUnit(string Id)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = _userManager.FindById(Id);
+
+                if (user != null)
+                {
+                    //need to change
+                    user.Classunit.Add(new ClassUnit());
+                }
+            }
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing && _userManager != null)
