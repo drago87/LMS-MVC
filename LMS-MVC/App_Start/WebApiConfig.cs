@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Web.Http;
 using Microsoft.Owin.Security.OAuth;
 using Newtonsoft.Json.Serialization;
+using System.Web.Http.Cors;
 
 namespace LMS_MVC
 {
@@ -19,6 +20,9 @@ namespace LMS_MVC
 
             // Web API routes
             config.MapHttpAttributeRoutes();
+
+            // Allow Angular to communicate from another host, port
+            config.EnableCors();
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
