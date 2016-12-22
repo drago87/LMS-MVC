@@ -19,9 +19,9 @@ namespace LMS_MVC.Repositorys
             return _ctx.MyClassUnit.ToList();
         }
 
-        public ClassUnit GetClassUnitByID(string ID)
+        public ClassUnit GetClassUnitByID(string ClassName)
         {
-            return null;
+            return _ctx.MyClassUnit.FirstOrDefault(b => b.ClassName == ClassName);
         }
 
         public ICollection<Subject> GetAllSubjects()
@@ -29,9 +29,9 @@ namespace LMS_MVC.Repositorys
             return _ctx.MySubjects.ToList();
         }
 
-        public Subject GetSubjectByID(string ID)
+        public Subject GetSubjectByName(string Name)
         {
-            return null;
+            return _ctx.MySubjects.FirstOrDefault(b => b.SubjectName == Name);
         }
 
         public ICollection<Folder> GetAllFolders()
@@ -39,9 +39,19 @@ namespace LMS_MVC.Repositorys
             return _ctx.MyFolders.ToList();
         }
 
-        public Folder GetFolderByID(string ID)
+        public Folder GetFolderByID(int ID)
         {
-            return null;
+            return _ctx.MyFolders.FirstOrDefault(b => b.FolderID == ID);
+        }
+
+        public ICollection<Dossier> GetAllFiles()
+        {
+            return _ctx.MyFiles.ToList();
+        }
+
+        public ICollection<Dossier> GetAllFilesInFolder(Folder Fold)
+        {
+            return _ctx.MyFiles.Where(b => b.Folder == Fold).ToList();
         }
     }
 }
