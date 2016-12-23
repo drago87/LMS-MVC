@@ -8,7 +8,7 @@
     </tr>
 
     <tr ng-repeat="ClassUnit in model.classunits" ng-animate="'animate'">
-        <td>{{ClassUnit.Name}}</td>
+        <td>{{ClassUnit.ClassName}}</td>
         <td>
             <button class="btn btn-xs" ng-click="model.startedit(ClassUnit)"><i class="fa fa-edit" aria-hidden="true"></i></button> &nbsp;
             <button class="btn btn-danger btn-xs" ng-click="model.remove(ClassUnit)"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
@@ -19,7 +19,7 @@
 <div class="row">
     <div class="col-lg-4 form-group">
         <label for="InputFirstName">Namn</label>
-        <input type="text" class="form-control" id="InputFirstName" ng-model="model.ClassUnit.Name" />
+        <input type="text" class="form-control" id="InputFirstName" ng-model="model.ClassUnit.ClassName" />
     </div>
 </div>
 

@@ -27,8 +27,9 @@
             url: '/students',
             component: 'studentIndex',
             resolve: {
-                students: function() {
-                    return sampleStudents;
+                students: function(Student) {
+                    //return sampleStudents;
+                    return Student.query();
                 }
             }
         }
@@ -37,8 +38,28 @@
             url: '/classunits',
             component: 'classUnitIndex',
             resolve: {
-                classunits: function() {
-                    return sampleClassUnits;
+                classunits: function(ClassUnit, $http) {
+                    //return sampleClassUnits;
+                    return ClassUnit.query();
+
+                    //var accesstoken = sessionStorage.getItem('accessToken');
+                    //var authHeaders = {};
+                    //if (accesstoken) {
+                    //    authHeaders.Authorization = 'Bearer ' + accesstoken;
+                    //}
+
+                    //var promise = $http({
+                    //    url: "/api/classunits",
+                    //    method: "GET",
+                    //    headers: authHeaders
+                    //});
+
+                    //promise.then(function (res) {
+                    //    console.log("classunits data: ", res.data);
+                    //    return res.data;
+                    //}, function (err) {
+                    //    console.log("Error!!! " + err.status);
+                    //});
                 }
             }
         }
