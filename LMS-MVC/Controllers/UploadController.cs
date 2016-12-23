@@ -48,3 +48,22 @@ namespace LMS_MVC.Controllers
         }
     }
 }
+
+/*
+ * string path1 = @"C:\Users\Public\TestFolder\Unsorted.txt";
+ * string path1 = @"../TestFolder\Unsorted.txt";
+ * 
+ * 
+ * if (!File.Exists(path1))
+            {
+                var myFile = File.Create(path1);
+                myFile.Close();
+                PrintToFile(path1);  
+            }
+ * 
+ * public static void PrintToFile(string thefile)
+        {
+          System.IO.File.WriteAllLines(thefile,content);
+           
+        }
+ */

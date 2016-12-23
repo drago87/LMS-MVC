@@ -88,15 +88,17 @@ namespace LMS_MVC.Controllers
 
             if (ModelState.IsValid)
             {
-                IdentityRole role = _repo.GetRoleById(RolesId);
-                if (applicationUser.Classunit == null)
+                /*IdentityRole role = _repo.GetRoleById(RolesId);
+                if (applicationUser.ClassUnits == null)
                 {
-                    applicationUser.Classunit = new List<ClassUnit>();
+                    applicationUser.ClassUnits = new List<ClassUnit>();
                 }
 
-                applicationUser.Classunit.Add(_repo.GetClassUnitByID(ClassUnitID));
+                applicationUser.ClassUnits.Add(_repo.GetClassUnitByID(ClassUnitID));
+                //_repo.AddUserToClass(applicationUser, _repo.GetClassUnitByID(ClassUnitID));
                 _repo.UpdateUser(applicationUser);
-                _repo.AddUserToRole(applicationUser, role);
+                _repo.AddUserToRole(applicationUser, role);*/
+                _repo.edit(applicationUser, RolesId, ClassUnitID);
                 return RedirectToAction("ShowAllUsers");
             }
             //not done
@@ -117,7 +119,7 @@ namespace LMS_MVC.Controllers
 
             List<string> tempRoleNames = new List<string>();
             List<string> tempClassNames = new List<string>();
-            if (applicationUser.Roles != null)
+            if (applicationUser.Roles != null && applicationUser.Roles.Count > 0)
             {
                 foreach (var item in applicationUser.Roles)
                 {
@@ -129,9 +131,9 @@ namespace LMS_MVC.Controllers
                 tempRoleNames.Add("Not assigned a Role yet!");
             }
 
-            if (applicationUser.Classunit != null)
+            if (applicationUser.ClassUnits != null && applicationUser.ClassUnits.Count > 0)
             {
-                foreach (var item in applicationUser.Classunit)
+                foreach (var item in applicationUser.ClassUnits)
                 {
                     tempClassNames.Add(item.ClassName);
                 }
