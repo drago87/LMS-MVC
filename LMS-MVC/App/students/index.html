@@ -1,0 +1,50 @@
+<h3>Studenter</h3>
+
+<table class="table table-striped table-hover">
+    <tr>
+        <!--<th>SSN</th>-->
+        <th>Förnamn</th>
+        <th>Efternamn</th>
+        <th>Klass</th>
+        <th></th>
+    </tr>
+
+    <tr ng-repeat="student in model.students" ng-animate="'animate'">
+        <!--<td>{{student.SSN}}</td>-->
+        <td>{{student.FirstName}}</td>
+        <td>{{student.LastName}}</td>
+        <td>
+            <!--{{student.StudyGroup}}-->
+            </td>
+        <td>
+            <button class="btn btn-xs" ng-click="model.startedit(student)"><i class="fa fa-edit" aria-hidden="true"></i></button> &nbsp;
+            <button class="btn btn-danger btn-xs" ng-click="model.remove(student)"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+        </td>
+    </tr>
+</table>
+
+<div class="row">
+    <div class="col-lg-4 form-group">
+        <label for="InputFirstName">Förnamn</label>
+        <input type="text" class="form-control" id="InputFirstName" ng-model="model.student.FirstName" />
+    </div>
+
+    <div class="col-lg-4 form-group">
+        <label for="InputLastName">Efternamn</label>
+        <input type="text" class="form-control" id="InputLastName" ng-model="model.student.LastName" />
+    </div>
+
+    <div class="col-lg-4 form-group">
+        <label for="InputStudyGroup">Klass</label>
+        <input type="text" class="form-control" id="InputStudyGroup" ng-model="model.student.StudyGroup" />
+    </div>
+
+    <!--<div class="col-lg-4 form-group">
+        <label for="InputSSN">SSN</label>
+        <input type="text" class="form-control" id="InputSSN" ng-model="model.student.SSN" />
+    </div>-->
+</div>
+
+<button ng-hide="model.editing" class="btn btn-primary" ng-click="model.add()">Lägg till</button>
+<button ng-show="model.editing" class="btn btn-primary" ng-click="model.update()">Uppdatera</button>
+<button ng-show="model.editing" class="btn btn-default" ng-click="model.clear()">Avbryt</button>
