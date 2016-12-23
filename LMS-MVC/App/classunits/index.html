@@ -1,0 +1,28 @@
+<h3>Klasser</h3>
+
+<table class="table">
+    <tr>
+        <!--<th>SSN</th>-->
+        <th>Namn</th>
+        <th></th>
+    </tr>
+
+    <tr ng-repeat="ClassUnit in model.classunits" ng-animate="'animate'">
+        <td>{{ClassUnit.Name}}</td>
+        <td>
+            <button class="btn btn-xs" ng-click="model.startedit(ClassUnit)"><i class="fa fa-edit" aria-hidden="true"></i></button> &nbsp;
+            <button class="btn btn-danger btn-xs" ng-click="model.remove(ClassUnit)"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+        </td>
+    </tr>
+</table>
+
+<div class="row">
+    <div class="col-lg-4 form-group">
+        <label for="InputFirstName">Namn</label>
+        <input type="text" class="form-control" id="InputFirstName" ng-model="model.ClassUnit.Name" />
+    </div>
+</div>
+
+<button ng-hide="model.editing" class="btn btn-primary" ng-click="model.add()">Lägg till</button>
+<button ng-show="model.editing" class="btn btn-primary" ng-click="model.update()">Uppdatera</button>
+<button ng-show="model.editing" class="btn btn-default" ng-click="model.clear()">Avbryt</button>

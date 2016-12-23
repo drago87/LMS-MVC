@@ -1,0 +1,22 @@
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">{{model.brand}} {{model.identity.currentUser}}</a>
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li ng-repeat="menu in model.menus">
+                  <a ui-sref="{{menu.state}}" ui-sref-active="active">{{menu.name}}</a>
+                </li>
+                <li ng-show="model.identity.userName"><a ui-sref="logout"   ui-sref-active="active">Logga ut</a></li>
+                <li ng-hide="model.identity.userName"><a ui-sref="login"    ui-sref-active="active">Logga in</a></li>
+<!--                <li ng-hide="model.identity.userName"><a ui-sref="register" ui-sref-active="active">Registrera</a></li>-->
+            </ul>
+        </div>
+    </div>
+</div>
