@@ -1,25 +1,18 @@
 (function () {
-    "use strict"
+    "use strict";
 
 angular.module("app")
   .component("loginIndex", {
     templateUrl: "/App/login/index.html",
     // bindings: { students: '<' },
     // controllerAs: "model",
-    controller: function ($scope, loginService, Identity, $state) {
+    controller: function ($scope, loginService, Identity) {
 
     //Scope Declaration
     $scope.responseData = "";
     $scope.userName = "";
     $scope.userLoginEmail = "";
     $scope.userLoginPassword = "";
-
-    // $scope.accessToken = "";
-    // $scope.refreshToken = "";
-
-    // $scope.redirect = function () {
-    //     window.location.href = '/ejsan124/Index';
-    // };
 
     //Function to Login. This will generate Token 
     $scope.login = function () {
