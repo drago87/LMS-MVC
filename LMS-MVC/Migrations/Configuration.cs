@@ -12,7 +12,8 @@ namespace LMS_MVC.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
+            AutomaticMigrationDataLossAllowed = true;
         }
 
         protected override void Seed(LMS_MVC.Models.ApplicationDbContext context)

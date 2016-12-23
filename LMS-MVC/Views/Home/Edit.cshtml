@@ -43,10 +43,10 @@
 
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Classunit, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.ClassUnits, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("ClassUnitID", new SelectList(ViewBag.ClssUnit, "ClassUnitID", "ClassName"))
-                @Html.ValidationMessageFor(model => model.Classunit, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.ClassUnits, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -54,7 +54,7 @@
             @Html.LabelFor(model => model.Roles, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("RolesId", new SelectList(ViewBag.Roles, "Id", "Name"))
-                @Html.ValidationMessageFor(model => model.Classunit, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.Roles, "", new { @class = "text-danger" })
             </div>
         </div>
 

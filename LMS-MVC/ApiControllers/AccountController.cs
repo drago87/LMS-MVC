@@ -25,7 +25,7 @@ namespace LMS_MVC.Controllers
     {
         private const string LocalLoginProvider = "Local";
         private ApplicationUserManager _userManager;
-
+        public string UserId { get; set; }
         public AccountController()
         {
         }
