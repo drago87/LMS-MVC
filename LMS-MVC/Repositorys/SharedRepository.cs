@@ -115,11 +115,53 @@ namespace LMS_MVC.Repositorys
             return _ctx.MyFiles.Where(b => b.Folder == Fold).ToList();
         }
 
+        #region ClassUnits
+
         internal ICollection<ClassUnit> GetClassUnits()
         {
             var classunits = _ctx.MyClassUnit.ToList();
             return classunits;
         }
- 
+
+        public void UpdateClassUnit(ClassUnit classunit)
+        {
+            _ctx.Entry(classunit).State = EntityState.Modified;
+            _ctx.SaveChanges(); 
+        }
+
+        //public Person RemovePerson(int id)
+        public ClassUnit RemoveClassUnit(int id)
+        {
+            ClassUnit classunit = _ctx.MyClassUnit.Find(id);
+            if (classunit == null)
+            {
+                //return NotFound();
+                return null;
+            }
+
+            _ctx.MyClassUnit.Remove(classunit);
+            _ctx.SaveChanges();
+            return classunit;
+
+        }
+
+        internal object AddClassUnit(ClassUnit classunit)
+        {
+            ClassUnit newClassunit = _ctx.MyClassUnit.Add(classunit);
+            _ctx.SaveChanges();
+            return newClassunit.ClassUnitID;
+        }
+
+        #endregion
+
+        #region Students
+
+        internal ICollection<user> GetStudents()
+        {
+            var classunits = _ctx.my.ToList();
+            return classunits;
+        }
+
+        #endregion
     }
 }
