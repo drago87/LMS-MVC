@@ -8,25 +8,28 @@ angular.module("app")
     controllerAs: "model",
     controller: function (ClassUnit, Common) {
         var vm = this;
+
         this.add = function () {
-            var newclassUnit = new classUnit(vm.classUnit);
-            Common.AddEntity(newclassUnit, vm.classunits);
+            var newClassUnit = new ClassUnit(vm.ClassUnit);
+            Common.AddEntity(newClassUnit, vm.classunits);
         }
-        this.remove = function (classUnit) {
-            _.remove(vm.classunits, function(s){
-                return s.Id == classUnit.Id;
+        this.remove = function (ClassUnit) {
+            ClassUnit.$remove(function () {
+                _.remove(vm.classunits, function(s){
+                    return s.ClassUnitID == ClassUnit.ClassUnitID;
+                });
             });
         }
-        this.startedit = function (classUnit) {
-            vm.classUnit = angular.copy(classUnit);
+        this.startedit = function (ClassUnit) {
+            vm.ClassUnit = angular.copy(ClassUnit);
             vm.editing = true;
         }
         this.update = function () {
-            vm.classUnit.$update();
+            vm.ClassUnit.$update();
             vm.clear();
         }
         this.clear = function () {
-            vm.classUnit = new classUnit();
+            vm.ClassUnit = new ClassUnit();
             vm.editing = false;
         }
     }

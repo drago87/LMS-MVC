@@ -17,24 +17,24 @@ angular.module("app.data", ["ngResource"])
          $httpProvider.defaults.useXDomain = true;
     })
 
-    .factory("ClassUnit", function ($resource, $http) {
+    .factory("ClassUnit", function ($resource) {
         var headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('accessToken') };
         var actions = getActions(headers);
 
-        return $resource(serverurl + '/api/classunits/:ClassUnitID', { _id: '@ClassUnitID' }, actions);
+        return $resource(serverurl + '/api/classunits/:Id',
+             { Id: '@ClassUnitID' },
+             actions);
     })
 
     .factory("Student", function ($resource) {
         var headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('accessToken') };
         var actions = getActions(headers);
 
-        return $resource(serverurl + '/api/students/:id', { _id: '@id' }, actions);
-        //return $resource(
-        //    serverurl + "/api/students/:Id",
-        //    { Id: "@Id" },
-        //    { update: { method: "PUT" },
-        //    } //);
+        return $resource(serverurl + '/api/students/:Id',
+            { Id: "@Id" },
+            actions);
     })
+
     .factory('Identity', function($state) {
         var svc = {
             userName: null,
@@ -68,9 +68,6 @@ angular.module("app.data", ["ngResource"])
                 sessionStorage.removeItem('accessToken');
                 sessionStorage.removeItem('refreshToken');
                 this.setUserName(null);
-                // $state.reload();
-                // $state.go('login');
-                // $state.go($state.current, {}, {reload: true});
             }
         }
         return svc;
@@ -99,7 +96,6 @@ angular.module("app.data", ["ngResource"])
                     username: userlogin.username, password: userlogin.password
                 }),
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                // headers: {'Content-Type': 'application/json'}
             });
             return resp;
         };
@@ -123,10 +119,7 @@ angular.module("app.data", ["ngResource"])
         };
     })
 
-// create: { method: "POST" },
 // create: { method: "POST", isArray: true },
-// save: { method:'POST', headers: [{'Content-Type': 'application/json'}] }
-
 // $scope.wordImageTest.response = new WordImage();
 // $scope.wordImageTest.response.$save();
 // WordImage.save(data);
