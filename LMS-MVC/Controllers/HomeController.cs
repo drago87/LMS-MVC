@@ -88,15 +88,66 @@ namespace LMS_MVC.Controllers
 
             if (ModelState.IsValid)
             {
-                //applicationUser.Classunit.Add(_repo.GetClassUnitByID(ClassUnitID));
                 IdentityRole role = _repo.GetRoleById(RolesId);
-                
+                if (applicationUser.Classunit == null)
+                {
+                    applicationUser.Classunit = new List<ClassUnit>();
+                }
+
+                applicationUser.Classunit.Add(_repo.GetClassUnitByID(ClassUnitID));
                 _repo.UpdateUser(applicationUser);
                 _repo.AddUserToRole(applicationUser, role);
                 return RedirectToAction("ShowAllUsers");
             }
             //not done
             return View(applicationUser);
+        }
+
+        public ActionResult Details(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ApplicationUser applicationUser = _repo.GetUserById(id);
+            if (applicationUser == null)
+            {
+                return HttpNotFound();
+            }
+
+            List<string> tempRoleNames = new List<string>();
+            List<string> tempClassNames = new List<string>();
+            if (applicationUser.Roles != null)
+            {
+                foreach (var item in applicationUser.Roles)
+                {
+                    tempRoleNames.Add(_repo.GetRoleById(item.RoleId).Name);
+                }
+            }
+            else
+            {
+                tempRoleNames.Add("Not assigned a Role yet!");
+            }
+
+            if (applicationUser.Classunit != null)
+            {
+                foreach (var item in applicationUser.Classunit)
+                {
+                    tempClassNames.Add(item.ClassName);
+                }
+            }
+            else
+            {
+                tempClassNames.Add("Not assigned a Class unit yet!");
+            }
+
+
+            ViewBag.ClassUnits = tempClassNames;
+            ViewBag.Roles = tempRoleNames;
+            //ViewBag.ClassUnits = applicationUser.Classunit;
+            //ViewBag.Roles = applicationUser.Roles;
+            return View(applicationUser);
+            //return View();
         }
     }
 }
