@@ -1,0 +1,33 @@
+﻿.ng-enter,
+.ng-leave,
+.ng-move {
+    -moz-transition: 0.5s linear all;
+    -o-transition: 0.5s linear all;
+    -webkit-transition: 0.5s linear all;
+    transition: 0.5s linear all;
+}
+
+.ng-enter,
+.ng-move {
+  height: 0;
+  opacity: 0;
+  overflow: hidden;
+}
+
+.ng-enter.ng-enter-active,
+.ng-move.ng-move-active {
+  height: 36px;
+  opacity: 1;
+}
+
+.ng-leave {
+  opacity: 1;
+  overflow: hidden;
+}
+
+.ng-leave.ng-leave-active {
+  height: 0;
+  opacity: 0;
+  padding-bottom: 0;
+  padding-top: 0;
+}
