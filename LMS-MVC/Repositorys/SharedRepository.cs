@@ -14,7 +14,6 @@ namespace LMS_MVC.Repositorys
     {
         private ApplicationDbContext _ctx;
         //private ApplicationUserManager _userManager;
-        
 
         public SharedRepository()
         {
@@ -116,6 +115,11 @@ namespace LMS_MVC.Repositorys
             return _ctx.MyFiles.Where(b => b.Folder == Fold).ToList();
         }
 
-        
+        internal ICollection<ClassUnit> GetClassUnits()
+        {
+            var classunits = _ctx.MyClassUnit.ToList();
+            return classunits;
+        }
+ 
     }
 }
