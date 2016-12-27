@@ -38,7 +38,7 @@
             url: '/classunits',
             component: 'classUnitIndex',
             resolve: {
-                classunits: function(ClassUnit, $http) {
+                classunits: function(ClassUnit) {
                     //return sampleClassUnits;
                     return ClassUnit.query();
 

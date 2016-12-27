@@ -4,6 +4,7 @@
     var module = angular.module('app',
         [ 'ui.router',
           'ngAnimate',
+          'ngResource',
           'app.data',
           'app.common'
         ])

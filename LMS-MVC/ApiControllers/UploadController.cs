@@ -4,29 +4,28 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
-using System.Web.Mvc;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.AspNet.Identity;
 using LMS_MVC.Models;
+using System.Net.Http;
+using System.Web.Http;
 
 namespace LMS_MVC.Controllers
 {
-    public class UploadController : Controller
+    public class UploadController : ApiController
     {
         SharedRepository _repo = new SharedRepository();
 
 
-
         [Authorize(Roles = "Teacher, Student")]
-        public ActionResult UploadDocument()
+        public IHttpActionResult UploadDocument()
         {
-            return View();
+            return Ok();
         }
 
         [HttpPost]
-        public ActionResult Upload()
+        public IHttpActionResult Upload()
         {
-
             if (Request.Files.Count > 0)
             {
                 var file = Request.Files[0];
