@@ -46,11 +46,8 @@ namespace LMS_MVC.Repositorys
 
         public ApplicationUser GetUserById(string id)
         {
-            var temp = _ctx.Users.FirstOrDefault(b => b.Id == id);
-            var classtemp = _ctx.MyClassUnit.SingleOrDefault(x => x.ClassUnitID == 1);
-
-
-            return temp;
+            
+            return _ctx.Users.FirstOrDefault(b => b.Id == id);
         }
 
         public void UpdateUser(ApplicationUser user)
@@ -156,10 +153,7 @@ namespace LMS_MVC.Repositorys
 
             theUser.ClassUnits.Add(classunit);
             classunit.Participants.Add(theUser);
-            //user.ClassUnits.Add(classunit);
-
             
-
             userManager.AddToRole(theUser.Id, role.Name);
 
             //_ctx.Entry(user).State = EntityState.Modified;

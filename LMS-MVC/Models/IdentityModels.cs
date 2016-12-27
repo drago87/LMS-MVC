@@ -26,7 +26,7 @@ namespace LMS_MVC.Models
             return userIdentity;
         }
         //Extended Properties
-        public List<ClassUnit> ClassUnits { get; set; }
+        public virtual List<ClassUnit> ClassUnits { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {

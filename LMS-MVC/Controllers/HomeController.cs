@@ -146,10 +146,9 @@ namespace LMS_MVC.Controllers
 
             ViewBag.ClassUnits = tempClassNames;
             ViewBag.Roles = tempRoleNames;
-            //ViewBag.ClassUnits = applicationUser.Classunit;
-            //ViewBag.Roles = applicationUser.Roles;
+            
             return View(applicationUser);
-            //return View();
+            
         }
     }
 }
