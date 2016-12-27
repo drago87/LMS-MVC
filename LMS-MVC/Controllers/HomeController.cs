@@ -88,15 +88,68 @@ namespace LMS_MVC.Controllers
 
             if (ModelState.IsValid)
             {
-                //applicationUser.Classunit.Add(_repo.GetClassUnitByID(ClassUnitID));
-                IdentityRole role = _repo.GetRoleById(RolesId);
-                
+                /*IdentityRole role = _repo.GetRoleById(RolesId);
+                if (applicationUser.ClassUnits == null)
+                {
+                    applicationUser.ClassUnits = new List<ClassUnit>();
+                }
+
+                applicationUser.ClassUnits.Add(_repo.GetClassUnitByID(ClassUnitID));
+                //_repo.AddUserToClass(applicationUser, _repo.GetClassUnitByID(ClassUnitID));
                 _repo.UpdateUser(applicationUser);
-                _repo.AddUserToRole(applicationUser, role);
+                _repo.AddUserToRole(applicationUser, role);*/
+                _repo.edit(applicationUser, RolesId, ClassUnitID);
                 return RedirectToAction("ShowAllUsers");
             }
             //not done
             return View(applicationUser);
+        }
+
+        public ActionResult Details(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ApplicationUser applicationUser = _repo.GetUserById(id);
+            if (applicationUser == null)
+            {
+                return HttpNotFound();
+            }
+
+            List<string> tempRoleNames = new List<string>();
+            List<string> tempClassNames = new List<string>();
+            if (applicationUser.Roles != null && applicationUser.Roles.Count > 0)
+            {
+                foreach (var item in applicationUser.Roles)
+                {
+                    tempRoleNames.Add(_repo.GetRoleById(item.RoleId).Name);
+                }
+            }
+            else
+            {
+                tempRoleNames.Add("Not assigned a Role yet!");
+            }
+
+            if (applicationUser.ClassUnits != null && applicationUser.ClassUnits.Count > 0)
+            {
+                foreach (var item in applicationUser.ClassUnits)
+                {
+                    tempClassNames.Add(item.ClassName);
+                }
+            }
+            else
+            {
+                tempClassNames.Add("Not assigned a Class unit yet!");
+            }
+
+
+            ViewBag.ClassUnits = tempClassNames;
+            ViewBag.Roles = tempRoleNames;
+            //ViewBag.ClassUnits = applicationUser.Classunit;
+            //ViewBag.Roles = applicationUser.Roles;
+            return View(applicationUser);
+            //return View();
         }
     }
 }

@@ -15,7 +15,7 @@ namespace LMS_MVC.Models
 
         public string ClassName { get; set; }
 
-        //public ICollection<ApplicationUser> Participants { get; set; }
+        public ICollection<ApplicationUser> Participants { get; set; }
 
         public Folder Shared { get; set; }
 
@@ -26,6 +26,7 @@ namespace LMS_MVC.Models
         public ClassUnit()
         {
             Schema = new List<Lesson>();
+            Participants = new List<ApplicationUser>();
         }
 
         public List<Lesson> GetSchema(DateTime _from, DateTime _to)

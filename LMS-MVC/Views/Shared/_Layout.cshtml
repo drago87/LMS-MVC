@@ -4,12 +4,16 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
-    @Styles.Render("~/Content/css")
+    @*    @Styles.Render("~/Content/css")*@
     @Scripts.Render("~/bundles/modernizr")
-    <script src="~/Scripts/angular.js"></script>
-    <script src="~/App/Module.js"></script></head>
+    <link rel="stylesheet" href="/Content/bootstrap-slate.min.css" />
+    <link rel="stylesheet" href="/Content/font-awesome.min.css" />
+    <link rel="stylesheet" href="/Content/site.css" />
+    <meta name="description" content="The description of my page" />
 </head>
-<body>
+<body ng-app="app">
+
+    <menu-bar brand="'Study'">
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -31,16 +35,45 @@
             </div>
         </div>
     </div>
+    </menu-bar>
+
+    <div ng-controller="MainCtrl">
     <div class="container body-content">
-        @RenderBody()
+        <ui-view>
+            @RenderBody()
+        </ui-view>
+
         <hr />
+
         <footer>
             <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
         </footer>
     </div>
+    </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
-</body>
+    <script src="/Scripts/jquery-1.10.2.min.js"></script>
+    <!--<script src="/Scripts/bootstrap-without-jquery.min.js"></script>-->
+    <!--<script src="/Scripts/bootstrap.min.js"></script>-->
+    <script src="/Scripts/lodash.custom.min.js"></script>
+    <script src="/Scripts/angular.js"></script>
+    <script src="/Scripts/angular-ui-router.js"></script>
+    <script src="/Scripts/angular-resource.js"></script>
+    <script src="/Scripts/angular-animate.js"></script>
+    <script src="/App/services.js"></script>
+    <script src="/App/common.js"></script>
+    <script src="/App/app.module.js"></script>
+    <script src="/App/directives.js"></script>
+    <script src="/App/navbar/index.js"></script>
+    <script src="/App/students/index.js"></script>
+    <script src="/App/classunits/index.js"></script>
+    <script src="/App/login/index.js"></script>
+    <script src="/App/logout/index.js"></script>
+    <script src="/App/register/index.js"></script>
+    <!--<script src="/App/employeeCtrl.js"></script>-->
+    <script src="/App/router.js"></script></body>
+    @*@Scripts.Render("~/bundles/jquery")*@
+    @*@Scripts.Render("~/bundles/bootstrap")*@
+    @*<script src="~/Scripts/angular.js"></script>*@
+    @*<script src="~/App/Module.js"></script>*@
+    @*@RenderSection("scripts", required: false)*@
 </html>

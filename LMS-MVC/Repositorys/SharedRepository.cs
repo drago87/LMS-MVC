@@ -14,7 +14,6 @@ namespace LMS_MVC.Repositorys
     {
         private ApplicationDbContext _ctx;
         //private ApplicationUserManager _userManager;
-        
 
         public SharedRepository()
         {
@@ -27,7 +26,7 @@ namespace LMS_MVC.Repositorys
 
             if (_class == null)
             {
-                var folder = _ctx.MyFolders.Find(user.Classunit.FirstOrDefault().Shared.FolderID);
+                var folder = _ctx.MyFolders.Find(user.ClassUnits.FirstOrDefault().Shared.FolderID);
                 file.Folder = folder;
                 folder.Files.Add(file);
             }
@@ -47,12 +46,17 @@ namespace LMS_MVC.Repositorys
 
         public ApplicationUser GetUserById(string id)
         {
-            return _ctx.Users.FirstOrDefault(b => b.Id == id);
+            var temp = _ctx.Users.FirstOrDefault(b => b.Id == id);
+            var classtemp = _ctx.MyClassUnit.SingleOrDefault(x => x.ClassUnitID == 1);
+
+
+            return temp;
         }
 
         public void UpdateUser(ApplicationUser user)
         {
             _ctx.Entry(user).State = EntityState.Modified;
+
             _ctx.SaveChanges();
         }
 
@@ -83,6 +87,25 @@ namespace LMS_MVC.Repositorys
         public ClassUnit GetClassUnitByID(int ClassId)
         {
             return _ctx.MyClassUnit.FirstOrDefault(b => b.ClassUnitID == ClassId);
+        }
+
+        public void AddUserToClass(ApplicationUser user, ClassUnit classunit)
+        {
+            
+            var temp = _ctx.MyClassUnit.Single(b => b.ClassUnitID == classunit.ClassUnitID);//.Participants.Add(user);
+            var temp2 = _ctx.Users.Single(b => b.Id == user.Id);
+            /*if (temp2.ClassUnits == null)
+            {
+                temp2.ClassUnits = new List<ClassUnit>();
+            }
+            if (temp.Participants == null)
+            {
+                temp.Participants = new List<ApplicationUser>();
+            }*/
+            
+            temp.Participants.Add(temp2);
+            //classunit.Participants.Add(user);
+            
         }
 
         public ICollection<Subject> GetAllSubjects()
@@ -116,6 +139,75 @@ namespace LMS_MVC.Repositorys
             return _ctx.MyFiles.Where(b => b.Folder == Fold).ToList();
         }
 
-        
+        #region ClassUnits
+
+        internal ICollection<ClassUnit> GetClassUnits()
+        {
+            var classunits = _ctx.MyClassUnit.ToList();
+            return classunits;
+        }
+
+        public void UpdateClassUnit(ClassUnit classunit)
+        {
+            _ctx.Entry(classunit).State = EntityState.Modified;
+            _ctx.SaveChanges(); 
+        }
+
+        //public Person RemovePerson(int id)
+        public ClassUnit RemoveClassUnit(int id)
+        {
+            ClassUnit classunit = _ctx.MyClassUnit.Find(id);
+            if (classunit == null)
+            {
+                //return NotFound();
+                return null;
+            }
+
+            _ctx.MyClassUnit.Remove(classunit);
+            _ctx.SaveChanges();
+            return classunit;
+
+        }
+
+        internal object AddClassUnit(ClassUnit classunit)
+        {
+            ClassUnit newClassunit = _ctx.MyClassUnit.Add(classunit);
+            _ctx.SaveChanges();
+            return newClassunit.ClassUnitID;
+        }
+
+        #endregion
+
+        #region Students
+
+        //internal ICollection<user> GetStudents()
+        //{
+        //    var classunits = _ctx.my.ToList();
+        //    return classunits;
+        //}
+
+        #endregion
+        public void edit(ApplicationUser user, string roleId, int classunitId)
+        {
+            IdentityRole role = _ctx.Roles.SingleOrDefault(b => b.Id == roleId);
+            ClassUnit classunit = _ctx.MyClassUnit.SingleOrDefault(b => b.ClassUnitID == classunitId);
+
+            var userStore = new UserStore<ApplicationUser>(_ctx);
+            var userManager = new UserManager<ApplicationUser>(userStore);
+            ApplicationUser theUser = _ctx.Users.SingleOrDefault(b => b.Id == user.Id);
+
+            theUser.ClassUnits.Add(classunit);
+            classunit.Participants.Add(theUser);
+            //user.ClassUnits.Add(classunit);
+
+            
+
+            userManager.AddToRole(theUser.Id, role.Name);
+
+            //_ctx.Entry(user).State = EntityState.Modified;
+
+            _ctx.SaveChanges();
+        }
+ 
     }
 }
