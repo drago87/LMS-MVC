@@ -108,8 +108,8 @@ namespace LMS_MVC.Controllers
             }
 
 
-            ViewBag.ClassUnits = _repo.ReturnUserClassUnitsNameAsList(applicationUser);
-            ViewBag.Roles = _repo.ReturnUserRolesNameAsList(applicationUser);
+            ViewBag.ClassUnits = _repo.GetUserClassUnitsNameAsList(applicationUser);
+            ViewBag.Roles = _repo.GetUserRolesNameAsList(applicationUser);
             
             return View(applicationUser);
             

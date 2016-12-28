@@ -23,7 +23,7 @@ namespace LMS.Controllers
         [Authorize]
         public ICollection<ClassUnit> GetClassUnits()
         {
-            var classunits = _repo.GetClassUnits();
+            var classunits = _repo.GetAllClasses();
             return classunits;
         }
 

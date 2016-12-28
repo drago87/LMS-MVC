@@ -39,6 +39,8 @@ namespace LMS_MVC.Repositorys
             _ctx.SaveChanges();
 
         }
+
+        #region Users
         public ICollection<ApplicationUser> GetAllUsers()
         {
             return _ctx.Users.ToList();
@@ -57,6 +59,9 @@ namespace LMS_MVC.Repositorys
             _ctx.SaveChanges();
         }
 
+        #endregion
+
+        #region Roles
         public ICollection<IdentityRole> GetAllRoles()
         {
             return _ctx.Roles.ToList();
@@ -76,6 +81,9 @@ namespace LMS_MVC.Repositorys
             _ctx.SaveChanges();
         }
 
+        #endregion
+
+        #region Classes
         public ICollection<ClassUnit> GetAllClasses()
         {
            return _ctx.MyClassUnit.ToList();
@@ -91,66 +99,18 @@ namespace LMS_MVC.Repositorys
             
             var temp = _ctx.MyClassUnit.Single(b => b.ClassUnitID == classunit.ClassUnitID);//.Participants.Add(user);
             var temp2 = _ctx.Users.Single(b => b.Id == user.Id);
-            /*if (temp2.ClassUnits == null)
-            {
-                temp2.ClassUnits = new List<ClassUnit>();
-            }
-            if (temp.Participants == null)
-            {
-                temp.Participants = new List<ApplicationUser>();
-            }*/
             
             temp.Participants.Add(temp2);
-            //classunit.Participants.Add(user);
             
-        }
-
-        public ICollection<Subject> GetAllSubjects()
-        {
-            return _ctx.MySubjects.ToList();
-        }
-
-        public Subject GetSubjectByName(string Name)
-        {
-            return _ctx.MySubjects.FirstOrDefault(b => b.SubjectName == Name);
-        }
-
-        public ICollection<Folder> GetAllFolders()
-        {
-            return _ctx.MyFolders.ToList();
-        }
-
-        public Folder GetFolderByID(int ID)
-        {
-            return _ctx.MyFolders.FirstOrDefault(b => b.FolderID == ID);
-        }
-
-        public ICollection<Dossier> GetAllFiles()
-        {
-            return _ctx.MyFiles.ToList();
-        }
-
-        public ICollection<Dossier> GetAllFilesInFolder(Folder Fold)
-        {
             
-            return _ctx.MyFiles.Where(b => b.Folder == Fold).ToList();
-        }
-
-        #region ClassUnits
-
-        internal ICollection<ClassUnit> GetClassUnits()
-        {
-            var classunits = _ctx.MyClassUnit.ToList();
-            return classunits;
         }
 
         public void UpdateClassUnit(ClassUnit classunit)
         {
             _ctx.Entry(classunit).State = EntityState.Modified;
-            _ctx.SaveChanges(); 
+            _ctx.SaveChanges();
         }
 
-        //public Person RemovePerson(int id)
         public ClassUnit RemoveClassUnit(int id)
         {
             ClassUnit classunit = _ctx.MyClassUnit.Find(id);
@@ -172,18 +132,51 @@ namespace LMS_MVC.Repositorys
             _ctx.SaveChanges();
             return newClassunit.ClassUnitID;
         }
+        #endregion
+
+        #region Subject
+        public ICollection<Subject> GetAllSubjects()
+        {
+            return _ctx.MySubjects.ToList();
+        }
+
+        public Subject GetSubjectByName(string Name)
+        {
+            return _ctx.MySubjects.FirstOrDefault(b => b.SubjectName == Name);
+        }
+
 
         #endregion
 
-        #region Students
+        #region Folders
+        public ICollection<Folder> GetAllFolders()
+        {
+            return _ctx.MyFolders.ToList();
+        }
 
-        //internal ICollection<user> GetStudents()
-        //{
-        //    var classunits = _ctx.my.ToList();
-        //    return classunits;
-        //}
+        public Folder GetFolderByID(int ID)
+        {
+            return _ctx.MyFolders.FirstOrDefault(b => b.FolderID == ID);
+        }
 
         #endregion
+
+        #region Files
+
+        public ICollection<Dossier> GetAllFiles()
+        {
+            return _ctx.MyFiles.ToList();
+        }
+
+        public ICollection<Dossier> GetAllFilesInFolder(Folder Fold)
+        {
+            
+            return _ctx.MyFiles.Where(b => b.Folder == Fold).ToList();
+        }
+
+        #endregion
+
+
         public void edit(ApplicationUser user, string roleId, int classunitId)
         {
             IdentityRole role = _ctx.Roles.SingleOrDefault(b => b.Id == roleId);
@@ -203,7 +196,7 @@ namespace LMS_MVC.Repositorys
             _ctx.SaveChanges();
         }
 
-        public List<string> ReturnUserRolesNameAsList(ApplicationUser applicationUser)
+        public List<string> GetUserRolesNameAsList(ApplicationUser applicationUser)
         {
             List<string> tempRoleNames = new List<string>();
             
@@ -222,7 +215,7 @@ namespace LMS_MVC.Repositorys
             return tempRoleNames;
         }
 
-        public List<string> ReturnUserClassUnitsNameAsList(ApplicationUser applicationUser)
+        public List<string> GetUserClassUnitsNameAsList(ApplicationUser applicationUser)
         {
             List<string> tempClassNames = new List<string>();
             
