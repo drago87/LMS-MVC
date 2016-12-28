@@ -202,6 +202,45 @@ namespace LMS_MVC.Repositorys
 
             _ctx.SaveChanges();
         }
+
+        public List<string> ReturnUserRolesNameAsList(ApplicationUser applicationUser)
+        {
+            List<string> tempRoleNames = new List<string>();
+            
+            if (applicationUser.Roles != null && applicationUser.Roles.Count > 0)
+            {
+                foreach (var item in applicationUser.Roles)
+                {
+                    tempRoleNames.Add(GetRoleById(item.RoleId).Name);
+                }
+            }
+            else
+            {
+                tempRoleNames.Add("Not assigned a Role yet!");
+            }
+
+            return tempRoleNames;
+        }
+
+        public List<string> ReturnUserClassUnitsNameAsList(ApplicationUser applicationUser)
+        {
+            List<string> tempClassNames = new List<string>();
+            
+
+            if (applicationUser.ClassUnits != null && applicationUser.ClassUnits.Count > 0)
+            {
+                foreach (var item in applicationUser.ClassUnits)
+                {
+                    tempClassNames.Add(item.ClassName);
+                }
+            }
+            else
+            {
+                tempClassNames.Add("Not assigned a Class unit yet!");
+            }
+
+            return tempClassNames;
+        }
  
     }
 }
