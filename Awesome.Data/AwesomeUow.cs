@@ -36,7 +36,11 @@ namespace Awesome.Data
             RepositoryProvider = repositoryProvider;
         }
 
+        private AwesomeDbContext DbContext { get; set; }
+
         public IRepository<ClassUnit> Classunits { get { return GetStandardRepo<ClassUnit>(); } }
+
+        public IRepository<Subject> Subjects { get { return GetStandardRepo<Subject>(); } }
 
         public void Commit()
         {
@@ -67,7 +71,6 @@ namespace Awesome.Data
         {
             return RepositoryProvider.GetRepository<T>();
         }
-        private AwesomeDbContext DbContext { get; set; }
 
         public void Dispose()
         {

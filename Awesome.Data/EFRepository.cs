@@ -11,16 +11,17 @@ namespace Awesome.Data
 {
     public class EFRepository<T> : IRepository<T> where T : class
     {
-        public EFRepository(DbContext dbContext)
+        public EFRepository(DbContext context)
         {
-            if (dbContext == null)
+            if (context == null)
                 throw new ArgumentNullException("dbContext");
-            DbContext = dbContext;
+            DbContext = context;
             DbSet = DbContext.Set<T>();
         }
 
         protected DbContext DbContext { get; set; }
         protected DbSet<T> DbSet { get; set; }
+
         public virtual IQueryable<T> GetAll()
         {
             return DbSet;
