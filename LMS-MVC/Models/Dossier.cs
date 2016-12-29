@@ -20,6 +20,5 @@ namespace LMS_MVC.Models
 
         [Required]
         public Folder Folder { get; set; }
-
     }
 }

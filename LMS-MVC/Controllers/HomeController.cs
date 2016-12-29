@@ -16,7 +16,6 @@ namespace LMS_MVC.Controllers
     {
         ApplicationDbContext db = new ApplicationDbContext();
         SharedRepository _repo = new SharedRepository();
-        
 
         public ActionResult Index()
         {
@@ -26,14 +25,10 @@ namespace LMS_MVC.Controllers
         public ActionResult About()
         {
             //var userStore = new UserStore<ApplicationUser>(context);
-
             //var userManager = new UserManager<ApplicationUser>(userStore);
-
             //var user = userManager.FindById(User.Identity.GetUserId());
 
-
             ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
-
 
             IdentityRole temp = db.Roles.Single(r => r.Name == "Teacher");
 
@@ -41,8 +36,6 @@ namespace LMS_MVC.Controllers
             {
                 throw new NotImplementedException();
             }
-                
-
 
             ViewBag.Message = "Your application description page.";
 

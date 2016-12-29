@@ -18,6 +18,8 @@ namespace LMS_MVC.Migrations
 
         protected override void Seed(LMS_MVC.Models.ApplicationDbContext context)
         {
+            var a = context.Roles;
+
             if (!context.Roles.Any(r => r.Name == "Teacher"))
             {
                 var roleStore = new RoleStore<IdentityRole>(context);
