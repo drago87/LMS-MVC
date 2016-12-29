@@ -39,19 +39,13 @@ namespace LMS_MVC.Models
             
             return userIdentity;
         }
-
         //Extended Properties
         //public List<ClassUnit> Classunit { get; set; } //anlu remmat
     }
 
-    
-
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
-        public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
-        {
-        }
+        public ApplicationDbContext() : base("DefaultConnection", throwIfV1Schema: false) { }
 
         public DbSet<ClassUnit> MyClassUnit { get; set; }
         public DbSet<Dossier> MyFiles { get; set; }
@@ -67,22 +61,18 @@ namespace LMS_MVC.Models
                 .WithRequiredPrincipal()
                     .WillCascadeOnDelete(false);
 
-
             modelBuilder.Entity<ClassUnit>().
                 HasRequired(f => f.Submission)
                 .WithRequiredPrincipal()
                     .WillCascadeOnDelete(false);
-
         }
 
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
         }
-
        
         //If this line Appers delete it
         //public System.Data.Entity.DbSet<LMS_MVC.Models.ApplicationUser> ApplicationUsers { get; set; }
-
     }
 }

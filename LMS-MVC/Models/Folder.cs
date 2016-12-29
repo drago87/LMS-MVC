@@ -12,16 +12,15 @@ namespace LMS_MVC.Models
     {
         [Key]
         public int FolderID { get; set; }
+
         [DisplayName("Folder Name")]
         public string FolderName { get; set; }
 
-
         [ForeignKey("Files") ]
         public int FileID { get; set; }
+
         //public Files _Files { get; set; }
 
         public virtual List<Dossier> Files { get; set; }
-
-
     }
 }
