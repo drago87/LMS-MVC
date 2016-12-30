@@ -34,6 +34,7 @@ namespace Awesome.Data
             CreateDbContext();
             repositoryProvider.DbContext = DbContext;
             RepositoryProvider = repositoryProvider;
+            //Folders = new FolderRepository(DbContext);
         }
 
         private AwesomeDbContext DbContext { get; set; }
@@ -41,6 +42,14 @@ namespace Awesome.Data
         public IRepository<ClassUnit> Classunits { get { return GetStandardRepo<ClassUnit>(); } }
         public IRepository<Subject> Subjects { get { return GetStandardRepo<Subject>(); } }
         public IRepository<Lesson> Lessons { get { return GetStandardRepo<Lesson>(); } }
+
+        //public IRepository<Folder> Folders { get { return GetStandardRepo<Folder>(); } }
+        //public IFolderRepository Folders { get { return GetStandardRepo<IFolderRepository>(); } }
+        //public IFolderRepository Folders { get { return GetRepo<IFolderRepository>(); } }
+        //public IFolderRepository Folders { get { return new FolderRepository(DbContext); } } // Stack overflow exception
+        //public IFolderRepository Folders { get { return (IFolderRepository) GetStandardRepo<Folder>(); } }
+
+        public IFolderRepository Folders { get { return new FolderRepository(DbContext); } private set {} }
 
         public void Commit()
         {
@@ -66,6 +75,12 @@ namespace Awesome.Data
         {
             return RepositoryProvider.GetRepositoryForEntityType<T>();
         }
+
+        //private IFolderRepository GetFolderRepo<T>()
+        //{
+        //    //return RepositoryProvider.GetRepositoryForEntityType<IFolderRepository>();
+        //    return GetRepo<IFolderRepository>();
+        //}
 
         private T GetRepo<T>() where T : class
         {

@@ -237,9 +237,12 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ApiBaseController.cs" />
     <Compile Include="Controllers\Api\LessonsController.cs" />
+    <Compile Include="Controllers\Api\FoldersController.cs" />
     <Compile Include="Controllers\Api\SubjectsController.cs" />
     <Compile Include="Controllers\Api\ClassUnitsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\FoldersController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\SubjectsController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
@@ -262,7 +265,6 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Scripts\AwesomeAngularWebApp.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\HelpPage\Views\Web.config" />
@@ -296,11 +298,8 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Views\Home\About.cshtml" />
-    <None Include="Views\Home\login.cshtml" />
-    <None Include="Views\Home\register.cshtml" />
     <None Include="Views\Home\values.cshtml" />
-    <Content Include="Scripts\Services\SessionService.js" />
-    <Content Include="Views\Home\ShowAllUsers.html" />
+    <Content Include="Views\Users\Index.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -328,8 +327,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Scripts\Controllers\" />
-    <Folder Include="Scripts\Factories\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
