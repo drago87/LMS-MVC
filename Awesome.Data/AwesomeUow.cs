@@ -39,8 +39,8 @@ namespace Awesome.Data
         private AwesomeDbContext DbContext { get; set; }
 
         public IRepository<ClassUnit> Classunits { get { return GetStandardRepo<ClassUnit>(); } }
-
         public IRepository<Subject> Subjects { get { return GetStandardRepo<Subject>(); } }
+        public IRepository<Lesson> Lessons { get { return GetStandardRepo<Lesson>(); } }
 
         public void Commit()
         {
