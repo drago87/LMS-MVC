@@ -22,13 +22,10 @@ namespace Awesome.Controllers
             Uow = uow;
         }
 
-        //private ApplicationDbContext db = new ApplicationDbContext();
-
         // GET: Subjects
         public ActionResult Index()
         {
             return View(Uow.Subjects.GetAll());
-            //return View(db.Subjects.ToList());
         }
 
         // GET: Subjects/Details/5

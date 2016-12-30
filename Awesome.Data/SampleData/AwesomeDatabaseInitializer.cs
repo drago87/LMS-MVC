@@ -50,6 +50,7 @@ namespace Awesome.Data.SampleData
             var grund1a = new ClassUnit { ClassName = "Grund1A" };
             var grund3a = new ClassUnit { ClassName = "Grund3A" };
             var grund5b = new ClassUnit { ClassName = "Grund5b" };
+
             context.Classunits.AddOrUpdate(
                 c => c.ClassUnitID,
                 grund1a, grund3a, grund5b
