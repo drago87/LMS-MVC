@@ -11,11 +11,11 @@ namespace Awesome.Data
 {
     public class EFRepository<T> : IRepository<T> where T : class
     {
-        public EFRepository(DbContext context)
+        public EFRepository(DbContext ctx)
         {
-            if (context == null)
+            if (ctx == null)
                 throw new ArgumentNullException("dbContext");
-            DbContext = context;
+            DbContext = ctx;
             DbSet = DbContext.Set<T>();
         }
 
