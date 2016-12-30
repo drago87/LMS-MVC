@@ -15,38 +15,36 @@ namespace Awesome.Controllers
 {
     public class SubjectsController : Controller
     {
-        //private IAwesomeUow Uow { get; set; }
+        private IAwesomeUow Uow { get; set; }
 
-        //public SubjectsController(IAwesomeUow uow)
-        //{
-        //    Uow = uow;
-        //}
+        public SubjectsController(IAwesomeUow uow)
+        {
+            Uow = uow;
+        }
 
-        private ApplicationDbContext db = new ApplicationDbContext();
+        //private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Subjects
         public ActionResult Index()
         {
-            //var subjects = Uow.Subjects.GetAll();
-            //return View(subjects.ToList());
-
-            return View(db.Subjects.ToList());
+            return View(Uow.Subjects.GetAll());
+            //return View(db.Subjects.ToList());
         }
 
         // GET: Subjects/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Subject subject = db.Subjects.Find(id);
-            if (subject == null)
-            {
-                return HttpNotFound();
-            }
-            return View(subject);
-        }
+        //public ActionResult Details(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    //Subject subject = db.Subjects.Find(id);
+        //    if (subject == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(subject);
+        //}
 
         // GET: Subjects/Create
         public ActionResult Create()
@@ -57,84 +55,84 @@ namespace Awesome.Controllers
         // POST: Subjects/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "SubjectID,SubjectName")] Subject subject)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Subjects.Add(subject);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Create([Bind(Include = "SubjectID,SubjectName")] Subject subject)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        db.Subjects.Add(subject);
+        //        db.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
 
-            return View(subject);
-        }
+        //    return View(subject);
+        //}
 
         // GET: Subjects/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Subject subject = db.Subjects.Find(id);
-            if (subject == null)
-            {
-                return HttpNotFound();
-            }
-            return View(subject);
-        }
+        //public ActionResult Edit(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    Subject subject = db.Subjects.Find(id);
+        //    if (subject == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(subject);
+        //}
 
         // POST: Subjects/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "SubjectID,SubjectName")] Subject subject)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(subject).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(subject);
-        }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Edit([Bind(Include = "SubjectID,SubjectName")] Subject subject)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        db.Entry(subject).State = EntityState.Modified;
+        //        db.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
+        //    return View(subject);
+        //}
 
         // GET: Subjects/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Subject subject = db.Subjects.Find(id);
-            if (subject == null)
-            {
-                return HttpNotFound();
-            }
-            return View(subject);
-        }
+        //public ActionResult Delete(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    Subject subject = db.Subjects.Find(id);
+        //    if (subject == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(subject);
+        //}
 
         // POST: Subjects/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Subject subject = db.Subjects.Find(id);
-            db.Subjects.Remove(subject);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult DeleteConfirmed(int id)
+        //{
+        //    Subject subject = db.Subjects.Find(id);
+        //    db.Subjects.Remove(subject);
+        //    db.SaveChanges();
+        //    return RedirectToAction("Index");
+        //}
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+        //protected override void Dispose(bool disposing)
+        //{
+        //    if (disposing)
+        //    {
+        //        db.Dispose();
+        //    }
+        //    base.Dispose(disposing);
+        //}
     }
 }
