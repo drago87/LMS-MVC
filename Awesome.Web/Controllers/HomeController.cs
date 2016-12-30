@@ -15,7 +15,7 @@ namespace Awesome.Controllers
     //[EnableCors(origins: "*", headers: "*", methods: "*")]
     public class HomeController : Controller
     {
-        AwesomeDbContext db = new AwesomeDbContext();
+        //AwesomeDbContext db = new AwesomeDbContext();
         //SharedRepository _repo = new SharedRepository();
 
         public ActionResult Index()
