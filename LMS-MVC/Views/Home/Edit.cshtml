@@ -41,10 +41,15 @@
             </div>
         </div>
 
-
+        
         <div class="form-group">
             @Html.LabelFor(model => model.ClassUnits, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
+          @*      @foreach (var item in ViewBag.ClssUnit)
+    {
+        @Html.CheckBox("ClassUnitID")
+        <span> @item.ClassName</span>
+    } *@
                 @Html.DropDownList("ClassUnitID", new SelectList(ViewBag.ClssUnit, "ClassUnitID", "ClassName"))
                 @Html.ValidationMessageFor(model => model.ClassUnits, "", new { @class = "text-danger" })
             </div>
@@ -53,6 +58,11 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Roles, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
+          @*      @foreach (var item in ViewBag.Roles)
+    {
+        @Html.CheckBox("RolesId")
+        <span> @item.Name</span>
+    }*@
                 @Html.DropDownList("RolesId", new SelectList(ViewBag.Roles, "Id", "Name"))
                 @Html.ValidationMessageFor(model => model.Roles, "", new { @class = "text-danger" })
             </div>

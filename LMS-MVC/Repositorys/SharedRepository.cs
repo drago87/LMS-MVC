@@ -179,19 +179,50 @@ namespace LMS_MVC.Repositorys
 
         public void edit(ApplicationUser user, string roleId, int classunitId)
         {
-            IdentityRole role = _ctx.Roles.SingleOrDefault(b => b.Id == roleId);
-            ClassUnit classunit = _ctx.MyClassUnit.SingleOrDefault(b => b.ClassUnitID == classunitId);
-
             var userStore = new UserStore<ApplicationUser>(_ctx);
             var userManager = new UserManager<ApplicationUser>(userStore);
             ApplicationUser theUser = _ctx.Users.SingleOrDefault(b => b.Id == user.Id);
 
-            theUser.ClassUnits.Add(classunit);
-            classunit.Participants.Add(theUser);
-            
-            userManager.AddToRole(theUser.Id, role.Name);
+            if (roleId != "-1")
+            {
+                IdentityRole role = _ctx.Roles.SingleOrDefault(b => b.Id == roleId);
+                //AddRemoveFromRole
+                if (GetUserRolesNameAsList(theUser).Contains(role.Name))
+                {
+                    userManager.RemoveFromRole(theUser.Id, role.Name);
+                }
+                else
+                {
+                    userManager.AddToRole(theUser.Id, role.Name);
+                }
+            }
 
-            //_ctx.Entry(user).State = EntityState.Modified;
+            if (classunitId != -1)
+            {
+                ClassUnit classunit = _ctx.MyClassUnit.SingleOrDefault(b => b.ClassUnitID == classunitId);
+
+
+                //AddRemoveFromClassUnit
+                if (theUser.ClassUnits.Contains(classunit))
+                {
+                    theUser.ClassUnits.Remove(classunit);
+                    classunit.Participants.Remove(theUser);
+                }
+                else
+                {
+                    theUser.ClassUnits.Add(classunit);
+                    classunit.Participants.Add(theUser);
+                }
+            }
+
+            theUser.Email = user.Email;
+            theUser.UserName = user.UserName;
+            theUser.PhoneNumber = user.PhoneNumber;
+
+
+            _ctx.Entry(theUser).State = EntityState.Modified;
+
+            
 
             _ctx.SaveChanges();
         }

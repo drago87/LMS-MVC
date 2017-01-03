@@ -9,6 +9,8 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.AspNet.Identity.EntityFramework;
 using LMS_MVC.Repositorys;
 using System.Net;
+using System.Threading.Tasks;
+using Microsoft.Owin.Security;
 
 namespace LMS_MVC.Controllers
 {
@@ -16,6 +18,7 @@ namespace LMS_MVC.Controllers
     {
         ApplicationDbContext db = new ApplicationDbContext();
         SharedRepository _repo = new SharedRepository();
+        private ApplicationUserManager _userManager;
 
         public ActionResult Index()
         {
@@ -68,9 +71,17 @@ namespace LMS_MVC.Controllers
             {
                 return HttpNotFound();
             }
-            
-            ViewBag.ClssUnit = _repo.GetAllClasses();
-            ViewBag.Roles = _repo.GetAllRoles();
+
+            List<ClassUnit> classunitsList = new List<ClassUnit>();
+            classunitsList.Add(new ClassUnit { ClassName = "---ClassUnits---", ClassUnitID = -1});
+            classunitsList.AddRange(_repo.GetAllClasses());
+
+            List<IdentityRole> rolesList = new List<IdentityRole>();
+            rolesList.Add(new IdentityRole { Name = "---Roles---", Id = "-1" });
+            rolesList.AddRange(_repo.GetAllRoles());
+
+            ViewBag.ClssUnit = classunitsList;
+            ViewBag.Roles = rolesList;
             return View(applicationUser);
         }
 
@@ -107,5 +118,66 @@ namespace LMS_MVC.Controllers
             return View(applicationUser);
             
         }
+
+        //[Authorize(Roles="Teacher")]
+        [AllowAnonymous]
+        public ActionResult Register()
+        {
+            return View();
+        }
+
+        //
+        // POST: /Account/Register
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Register(RegisterViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var result = await UserManager.CreateAsync(user, model.Password);
+                if (result.Succeeded)
+                {
+                    //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
+                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
+                    // Send an email with this link
+                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+                    return RedirectToAction("Index", "Home");
+                }
+                AddErrors(result);
+            }
+
+            // If we got this far, something failed, redisplay form
+            return View(model);
+        }
+
+
+
+        #region Helpers
+        private void AddErrors(IdentityResult result)
+        {
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError("", error);
+            }
+        }
+
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
+        }
+        #endregion
     }
 }
