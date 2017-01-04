@@ -1,0 +1,53 @@
+<h3>Ämnen</h3>
+
+<table class="table">
+    <tr>
+        <th>Ämne</th>
+        <th></th>
+    </tr>
+
+    <tr ng-repeat="subject in model.subjects" ng-animate="'animate'">
+        <td>{{subject.SubjectName}}</td>
+        <td>
+            <button class="btn btn-xs" ng-click="model.startedit(subject)"><i class="fa fa-edit" aria-hidden="true"></i></button> &nbsp;
+            <button class="btn btn-danger btn-xs" ng-click="model.remove(subject)"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+        </td>
+    </tr>
+</table>
+
+<div class="row">
+    <div class="col-lg-4 form-group">
+        <label for="InputSubjectName">Ämne</label>
+        <input type="text" class="form-control" id="InputSubjectName" ng-enter="model.submit()" ng-model="model.subject.SubjectName" />
+    </div>
+</div>
+
+<table class="table">
+    <tr>
+        <th>Ämne</th>
+        <th>Från</th>
+        <th>Till</th>
+    </tr>
+
+    <tr ng-repeat="lesson in model.lessons" ng-animate="'animate'">
+        <td>{{lesson.SubjectID}}</td>
+        <td>{{lesson.StartTime}}</td>
+        <td>{{lesson.StopTime}}</td>
+        <td>
+            <button class="btn btn-xs" ng-click="model.startedit(lesson)"><i class="fa fa-edit" aria-hidden="true"></i></button> &nbsp;
+            <button class="btn btn-danger btn-xs" ng-click="model.remove(lesson)"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+        </td>
+    </tr>
+</table>
+
+<div class="row">
+    <div class="col-lg-4 form-group">
+        <label for="InputLessonName">Lektion</label>
+        <input type="text" class="form-control" id="InputSubjectName" ng-enter="model.submit()" ng-model="model.lesson.LessonName" />
+    </div>
+</div>
+
+
+<button ng-hide="model.editing" class="btn btn-primary" ng-click="model.add()">Lägg till</button>
+<button ng-show="model.editing" class="btn btn-primary" ng-click="model.update()">Uppdatera</button>
+<button ng-show="model.editing" class="btn btn-default" ng-click="model.clear()">Avbryt</button>
