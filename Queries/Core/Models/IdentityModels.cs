@@ -36,8 +36,9 @@ namespace Queries.Core.Models
 
         // DBSets
         public virtual DbSet<Subject>   Subjects   { get; set; }
-        public virtual DbSet<ClassUnit> Classunits { get; set; }
         public virtual DbSet<Lesson>    Lessons    { get; set; }
+        public virtual DbSet<ClassUnit> Classunits { get; set; }
+        public virtual DbSet<Folder>    Folders    { get; set; }
 
         public static ApplicationDbContext Create()
         {

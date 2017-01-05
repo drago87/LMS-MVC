@@ -223,6 +223,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\api\ClassUnitController.cs" />
+    <Compile Include="Controllers\api\FolderController.cs" />
     <Compile Include="Controllers\api\LessonController.cs" />
     <Compile Include="Controllers\api\SubjectController.cs" />
     <Compile Include="Controllers\api\SampleController.cs" />
