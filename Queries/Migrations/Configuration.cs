@@ -7,7 +7,9 @@ namespace Queries.Migrations
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
+    using System.Data.Entity.Validation;
     using System.Linq;
+    using System.Text;
 
     internal sealed class Configuration : DbMigrationsConfiguration<Queries.Core.Models.ApplicationDbContext>
     {
@@ -18,7 +20,6 @@ namespace Queries.Migrations
 
         protected override void Seed(Queries.Core.Models.ApplicationDbContext context)
         {
-            //Queries.Data.SampleData.Seed(context);
 
             # region Roles
             if (!context.Roles.Any(r => r.Name == "Teacher"))
@@ -41,7 +42,7 @@ namespace Queries.Migrations
                 roleManager.Create(role);
             }
 
-            var userStore   = new UserStore<ApplicationUser>(context);
+            var userStore = new UserStore<ApplicationUser>(context);
             var userManager = new UserManager<ApplicationUser>(userStore);
 
             var user1 = new ApplicationUser { UserName = "testTeacher@test.com", Email = "testTeacher@test.com" };
@@ -75,10 +76,10 @@ namespace Queries.Migrations
             #endregion
 
             #region Subjects
-            var matte    = new Subject { SubjectName = "Matte" };
+            var matte = new Subject { SubjectName = "Matte" };
             var engelska = new Subject { SubjectName = "Engelska" };
             var historia = new Subject { SubjectName = "Historia" };
-            var biologi  = new Subject { SubjectName = "Biologi" };
+            var biologi = new Subject { SubjectName = "Biologi" };
             context.Subjects.AddOrUpdate(
                 s => s.SubjectName,
                 historia, biologi, matte, engelska);
@@ -88,15 +89,69 @@ namespace Queries.Migrations
             var nu = DateTime.Now;
             context.Lessons.AddOrUpdate(
                 l => l.StartTime,
-                new Lesson { Subject = matte,    ClassUnit = grund1a, StartTime = nu.AddHours(1), StopTime = nu.AddHours(2) },
+                new Lesson { Subject = matte, ClassUnit = grund1a, StartTime = nu.AddHours(1), StopTime = nu.AddHours(2) },
                 new Lesson { Subject = engelska, ClassUnit = grund1a, StartTime = nu.AddHours(2), StopTime = nu.AddHours(3) },
-                new Lesson { Subject = biologi,  ClassUnit = grund1a, StartTime = nu.AddHours(3), StopTime = nu.AddHours(4) },
+                new Lesson { Subject = biologi, ClassUnit = grund1a, StartTime = nu.AddHours(3), StopTime = nu.AddHours(4) },
                 new Lesson { Subject = historia, ClassUnit = grund1a, StartTime = nu.AddHours(4), StopTime = nu.AddHours(5) },
-                new Lesson { Subject = matte,    ClassUnit = grund3a, StartTime = nu.AddHours(1), StopTime = nu.AddHours(2) },
-                new Lesson { Subject = matte,    ClassUnit = grund5b, StartTime = nu.AddHours(1), StopTime = nu.AddHours(2) }
+                new Lesson { Subject = matte, ClassUnit = grund3a, StartTime = nu.AddHours(1), StopTime = nu.AddHours(2) },
+                new Lesson { Subject = matte, ClassUnit = grund5b, StartTime = nu.AddHours(1), StopTime = nu.AddHours(2) }
             );
-            context.SaveChanges();
             #endregion
+
+            #region Folders
+            context.Folders.AddOrUpdate(
+                f => f.FolderName,
+                new Folder { FolderName = "Ovrigt" },
+                new Folder { FolderName = "Mupp" },
+                new Folder { FolderName = "MegaMappen" }
+            );
+            #endregion
+
+            SaveChanges(context);
+
+            #region Dossier
+            var ovrigtmapp = context.Folders.FirstOrDefault(f => f.FolderName == "Ovrigt");
+            var megamapp   = context.Folders.FirstOrDefault(f => f.FolderName == "MegaMappen");
+
+            context.Dossiers.AddOrUpdate(
+                d => d.FileName,
+                new Dossier { FileName = "Eriks BiologiProv", FilePath = "erik-biologi.txt", Folder = ovrigtmapp },
+                new Dossier { FileName = "Nisses Mek",        FilePath = "nisse-mek.txt",    Folder = megamapp }
+            );
+            #endregion
+
+            SaveChanges(context);
+        }
+
+        /// <summary>
+        /// Wrapper for SaveChanges adding the Validation Messages to the generated exception
+        /// </summary>
+        /// <param name="context">The context.</param>
+        private void SaveChanges(DbContext context)
+        {
+            try
+            {
+                context.SaveChanges();
+            }
+            catch (DbEntityValidationException ex)
+            {
+                StringBuilder sb = new StringBuilder();
+
+                foreach (var failure in ex.EntityValidationErrors)
+                {
+                    sb.AppendFormat("{0} failed validation\n", failure.Entry.Entity.GetType());
+                    foreach (var error in failure.ValidationErrors)
+                    {
+                        sb.AppendFormat("- {0} : {1}", error.PropertyName, error.ErrorMessage);
+                        sb.AppendLine();
+                    }
+                }
+
+                throw new DbEntityValidationException(
+                    "Entity Validation Failed - errors follow:\n" +
+                    sb.ToString(), ex
+                ); // Add the original exception as the innerException
+            }
         }
     }
 }

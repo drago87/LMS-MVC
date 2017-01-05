@@ -61,6 +61,7 @@ namespace bat_mvc.App_Start
             container.RegisterType<IRepository<Subject>,   Repository<Subject>>(new PerRequestLifetimeManager());
             container.RegisterType<IRepository<Lesson>,    Repository<Lesson>>(new PerRequestLifetimeManager());
             container.RegisterType<IRepository<ClassUnit>, Repository<ClassUnit>>(new PerRequestLifetimeManager());
+            container.RegisterType<IRepository<Folder>,    Repository<Folder>>(new PerRequestLifetimeManager());
 
             //SubjectsController(IRepository<Subject> subjectRepository, IUnitOfWork uow)
         }
@@ -70,9 +71,7 @@ namespace bat_mvc.App_Start
         {
 			var container = new UnityContainer();
             
-            // register all your components with the container here
-            // it is NOT necessary to register your controllers
-            // e.g. container.RegisterType<ITestService, TestService>();
+            // register your components here. (it is NOT necessary to register controllers)
             
             container.RegisterType<DbContext, ApplicationDbContext>(new HierarchicalLifetimeManager());
             container.RegisterType<AccountController>(new InjectionConstructor());
@@ -81,6 +80,7 @@ namespace bat_mvc.App_Start
             container.RegisterType<IRepository<Subject>,   Repository<Subject>>(new PerRequestLifetimeManager());
             container.RegisterType<IRepository<Lesson>,    Repository<Lesson>>(new PerRequestLifetimeManager());
             container.RegisterType<IRepository<ClassUnit>, Repository<ClassUnit>>(new PerRequestLifetimeManager());
+            container.RegisterType<IRepository<Folder>,    Repository<Folder>>(new PerRequestLifetimeManager());
 
             GlobalConfiguration.Configuration.DependencyResolver = new UnityDependencyResolver(container);
         }
