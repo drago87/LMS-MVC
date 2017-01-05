@@ -6,8 +6,9 @@ namespace Queries.Core
 {
     public interface IUnitOfWork : IDisposable
     {
-        //IAuthorRepository Authors { get; }
         IRepository<Subject> Subjects { get; }
+        IRepository<ClassUnit> Classunits { get; }
+        IRepository<Lesson> Lessons { get; }
         int Complete();
     }
 }

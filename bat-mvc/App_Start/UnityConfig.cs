@@ -12,6 +12,7 @@ using Queries.Core.Domain;
 using Queries.Core.Repositories;
 using Queries.Core.Models;
 using bat_mvc.Controllers;
+using bat_mvc.Controllers.api;
 
 namespace bat_mvc.App_Start
 {
@@ -46,24 +47,20 @@ namespace bat_mvc.App_Start
             // NOTE: To load from web.config uncomment the line below. Make sure to add a Microsoft.Practices.Unity.Configuration to the using statements.
             // container.LoadConfiguration();
 
-            // TODO: Register your types here
-
-            //container.RegisterType<ApplicationDbContext>(new HierarchicalLifetimeManager());
             container.RegisterType<DbContext, ApplicationDbContext>(new HierarchicalLifetimeManager());
 
             container.RegisterType<AccountController>(new InjectionConstructor());
-            //container.RegisterType<RolesAdminController>(new InjectionConstructor());
             container.RegisterType<ManageController>(new InjectionConstructor());
+            //container.RegisterType<RolesAdminController>(new InjectionConstructor());
             //container.RegisterType<UsersAdminController>(new InjectionConstructor());
-
             //container.RegisterType<IUserStore<ApplicationUser>, ApplicationUserManager>(new HierarchicalLifetimeManager());
 
             container.RegisterType<IUnitOfWork, UnitOfWork>(new PerRequestLifetimeManager());
             //container.RegisterType<ApplicationDbContext, ApplicationDbContext>(new PerRequestLifetimeManager());
-            //container.RegisterType<AuthorRepository, AuthorRepository>(new PerRequestLifetimeManager());
             //container.RegisterType<ICustomerService, CustomerService>(new PerRequestLifetimeManager());
-            //container.RegisterType<IRepository<Author>, Repository<Author>>(new PerRequestLifetimeManager());
-            container.RegisterType<IRepository<Subject>, Repository<Subject>>(new PerRequestLifetimeManager());
+            container.RegisterType<IRepository<Subject>,   Repository<Subject>>(new PerRequestLifetimeManager());
+            container.RegisterType<IRepository<Lesson>,    Repository<Lesson>>(new PerRequestLifetimeManager());
+            container.RegisterType<IRepository<ClassUnit>, Repository<ClassUnit>>(new PerRequestLifetimeManager());
 
             //SubjectsController(IRepository<Subject> subjectRepository, IUnitOfWork uow)
         }
@@ -81,7 +78,9 @@ namespace bat_mvc.App_Start
             container.RegisterType<AccountController>(new InjectionConstructor());
             container.RegisterType<ManageController>(new InjectionConstructor());
             container.RegisterType<IUnitOfWork, UnitOfWork>(new PerRequestLifetimeManager());
-            container.RegisterType<IRepository<Subject>, Repository<Subject>>(new PerRequestLifetimeManager());
+            container.RegisterType<IRepository<Subject>,   Repository<Subject>>(new PerRequestLifetimeManager());
+            container.RegisterType<IRepository<Lesson>,    Repository<Lesson>>(new PerRequestLifetimeManager());
+            container.RegisterType<IRepository<ClassUnit>, Repository<ClassUnit>>(new PerRequestLifetimeManager());
 
             GlobalConfiguration.Configuration.DependencyResolver = new UnityDependencyResolver(container);
         }

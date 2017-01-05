@@ -34,8 +34,10 @@ namespace Queries.Core.Models
             Database.SetInitializer(new DatabaseInitializer());
         }
 
-        //public virtual DbSet<Author> Authors   { get; set; }
-        public virtual DbSet<Subject> Subjects { get; set; }
+        // DBSets
+        public virtual DbSet<Subject>   Subjects   { get; set; }
+        public virtual DbSet<ClassUnit> Classunits { get; set; }
+        public virtual DbSet<Lesson>    Lessons    { get; set; }
 
         public static ApplicationDbContext Create()
         {

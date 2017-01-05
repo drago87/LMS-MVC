@@ -25,7 +25,7 @@ namespace Queries.Core.Domain
 
         public List<Lesson> Schema { get; set; }
 
-        //public ICollection<ApplicationUser> Participants { get; set; }
+        // public ICollection<ApplicationUser> Participants { get; set; }
 
         public List<Lesson> GetSchema(DateTime _from, DateTime _to)
         {

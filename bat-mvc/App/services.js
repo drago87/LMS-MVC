@@ -18,22 +18,22 @@ angular.module("app.data", ["ngResource"])
         $httpProvider.defaults.useXDomain = true;
     })
     .factory("ClassUnit", function ($resource) {
-        return $resource(serverurl + '/api/classunits/:Id',
+        return $resource(serverurl + '/api/classunit/:Id',
              { Id: '@ClassUnitID' },
             getActions());
     })
     .factory("Subject", function ($resource) {
-        return $resource(serverurl + '/api/subjects/:Id',
+        return $resource(serverurl + '/api/subject/:Id',
              { Id: '@SubjectID' },
             getActions());
     })
     .factory("Lesson", function ($resource) {
-        return $resource(serverurl + '/api/lessons/:Id',
+        return $resource(serverurl + '/api/lesson/:Id',
              { Id: '@LessonID' },
             getActions());
     })
     .factory("Student", function ($resource) {
-        return $resource(serverurl + "/api/students/:Id",
+        return $resource(serverurl + "/api/student/:Id",
             { Id: "@Id" },
             getActions());
             //  getActions({ 'Authorization': 'Bearer ' + sessionStorage.getItem('accessToken') }));

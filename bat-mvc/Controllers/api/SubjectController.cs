@@ -23,11 +23,8 @@ namespace bat_mvc.Controllers.api
         }
 
         // GET api/<controller>
-        //public IEnumerable<Subject> Get()
-        //public String Get()
         public IEnumerable<Subject> Get()
         {
-            //return "tjo";
             var subjects = _uow.Subjects.GetAll();
             return subjects;
         }

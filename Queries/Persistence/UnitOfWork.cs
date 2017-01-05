@@ -8,17 +8,18 @@ namespace Queries.Persistence
 {
     public class UnitOfWork : IUnitOfWork
     {
-        //private readonly PlutoContext _context;
         private readonly ApplicationDbContext _context;
 
-        //public IAuthorRepository    Authors { get; private set; }
-        public IRepository<Subject> Subjects { get; private set; }
+        public IRepository<Subject>   Subjects   { get; private set; }
+        public IRepository<ClassUnit> Classunits { get; private set; }
+        public IRepository<Lesson>    Lessons    { get; private set; }
 
         public UnitOfWork(ApplicationDbContext context)
         {
-            _context = context;
-            //Authors  = new AuthorRepository(_context);
-            Subjects = new Repository<Subject>(_context);
+            _context   = context;
+            Subjects   = new Repository<Subject>(_context);
+            Classunits = new Repository<ClassUnit>(_context);
+            Lessons    = new Repository<Lesson>(_context);
         }
 
         public int Complete()

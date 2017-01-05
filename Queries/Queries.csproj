@@ -104,6 +104,8 @@
     <Compile Include="Core\Models\AccountViewModels.cs" />
     <Compile Include="Core\Models\IdentityModels.cs" />
     <Compile Include="Core\Models\ManageViewModels.cs" />
+    <Compile Include="Core\ViewModels\ClassUnitViewModel.cs" />
+    <Compile Include="Core\ViewModels\UserViewModel.cs" />
     <Compile Include="Migrations\201701041212083_Initial.cs" />
     <Compile Include="Migrations\201701041212083_Initial.Designer.cs">
       <DependentUpon>201701041212083_Initial.cs</DependentUpon>
@@ -112,13 +114,16 @@
     <Compile Include="Migrations\201701041310366_mjaha.Designer.cs">
       <DependentUpon>201701041310366_mjaha.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201701051216479_classunit.cs" />
+    <Compile Include="Migrations\201701051216479_classunit.Designer.cs">
+      <DependentUpon>201701051216479_classunit.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Persistence\Repositories\AuthorRepository.cs" />
     <Compile Include="Persistence\EntityConfigurations\CourseConfiguration.cs" />
     <Compile Include="Core\Repositories\IAuthorRepository.cs" />
     <Compile Include="Core\Repositories\IRepository.cs" />
     <Compile Include="Core\IUnitOfWork.cs" />
-    <Compile Include="Persistence\PlutoContext.cs" />
     <Compile Include="Program.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -136,6 +141,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201701041310366_mjaha.resx">
       <DependentUpon>201701041310366_mjaha.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701051216479_classunit.resx">
+      <DependentUpon>201701051216479_classunit.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
