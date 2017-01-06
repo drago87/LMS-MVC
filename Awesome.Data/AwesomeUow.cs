@@ -37,6 +37,7 @@ namespace Awesome.Data
         }
 
         public IRepository<ClassUnit> Classunits { get { return GetStandardRepo<ClassUnit>(); } }
+        public IRepository<Subject> Subjects { get { return GetStandardRepo<Subject>(); } }
 
         public void Commit()
         {
@@ -53,6 +54,7 @@ namespace Awesome.Data
             //Load navigation property explicitly
             DbContext.Configuration.LazyLoadingEnabled = false;
 
+            //
             DbContext.Configuration.ValidateOnSaveEnabled = false;
         }
 

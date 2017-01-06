@@ -40,7 +40,7 @@ namespace Awesome.Web.App_Start
         }
 
         /// <summary>
-        /// Creates the kernel that will manage your application.
+        /// Initialize the Ninject Kernel that will manage your application
         /// </summary>
         /// <returns>The created kernel.</returns>
         private static IKernel CreateKernel()
@@ -71,7 +71,6 @@ namespace Awesome.Web.App_Start
         private static void RegisterServices(IKernel kernel)
         {
             kernel.Bind<RepositoryFactories>().To<RepositoryFactories>().InSingletonScope();
-
             kernel.Bind<IRepositoryProvider>().To<RepositoryProvider>();
             kernel.Bind<IAwesomeUow>().To<AwesomeUow>();
         }
