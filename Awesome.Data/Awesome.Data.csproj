@@ -57,6 +57,7 @@
   <ItemGroup>
     <Compile Include="AwesomeDbContext.cs" />
     <Compile Include="EFRepository.cs" />
+    <Compile Include="FolderRepository.cs" />
     <Compile Include="Helpers\IRepositoryProvider.cs" />
     <Compile Include="Helpers\RepositoryFactories.cs" />
     <Compile Include="Helpers\RepositoryProvider.cs" />

@@ -11,6 +11,9 @@ namespace Awesome.Data.Contracts
         //To query using LINQ
         IQueryable<T> GetAll();
 
+        //Exempel från video:
+        //IEnumerable<T> Find(Expression<Func<T, bool>> predicate);
+
         //Returning Movie or Review by id
         T GetById(int id);
 

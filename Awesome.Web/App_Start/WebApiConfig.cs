@@ -12,8 +12,8 @@ namespace Awesome
 {
     public static class WebApiConfig
     {
-        public static string ControllerOnly = "ApiControllerOnly";
-        public static string ControllerAndId = "ApiControllerAndIntegerId";
+        public static string ControllerOnly   = "ApiControllerOnly";
+        public static string ControllerAndId  = "ApiControllerAndIntegerId";
         public static string ControllerAction = "ApiControllerAction";
 
         public static void Register(HttpConfiguration config)
@@ -45,7 +45,6 @@ namespace Awesome
             config.Routes.MapHttpRoute(
                name: ControllerAction,
                routeTemplate: "api/{controller}/{action}"
-
             );
 
             //config.Routes.MapHttpRoute(

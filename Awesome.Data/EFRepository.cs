@@ -11,12 +11,11 @@ namespace Awesome.Data
 {
     public class EFRepository<T> : IRepository<T> where T : class
     {
-        public EFRepository(DbContext context)
+        public EFRepository(DbContext ctx)
         {
-            if (context == null)
+            if (ctx == null)
                 throw new ArgumentNullException("dbContext");
-
-            DbContext = context;
+            DbContext = ctx;
             DbSet = DbContext.Set<T>();
         }
 
@@ -26,12 +25,6 @@ namespace Awesome.Data
         public virtual IQueryable<T> GetAll()
         {
             return DbSet;
-        }
-
-        // Repository patterns with c# and ef done right föreslår ienumerable:
-        public virtual IEnumerable<T> GetAlla()
-        {
-            return DbContext.Set<T>().ToList();
         }
 
         public virtual T GetById(int id)
@@ -83,16 +76,5 @@ namespace Awesome.Data
 
             Delete(entity);
         }
-        // Föreslagna tillägg från RP done right:
-        //public void AddRange(IEnumerable<T> entities)
-        //{
-        //    DbContext.Set<T>().AddRange(entities);
-        //}
-
-        //public void RemoveRange(IEnumerable<T> entities)
-        //{
-        //    DbContext.Set<T>().RemoveRange(entities);
-        //}
-
     }
 }

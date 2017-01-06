@@ -7,6 +7,7 @@ using System.Linq;
 using System.Collections.Generic;
 using Awesome.Model;
 using Awesome.Data;
+using System.Data.Entity;
 
 namespace Awesome.Models
 {
@@ -65,5 +66,7 @@ namespace Awesome.Models
         {
             return new ApplicationDbContext();
         }
+
+        public DbSet<Subject> Subjects { get; set; }
     }
 }

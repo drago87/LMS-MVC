@@ -14,6 +14,10 @@ namespace Awesome.Data.Contracts
     {
         void Commit();
         IRepository<ClassUnit> Classunits { get; }
-        IRepository<Subject> Subjects { get; }
+        IRepository<Subject>   Subjects   { get; }
+        IRepository<Lesson>    Lessons    { get; }
+
+        //IRepository<Folder> Folders { get; }
+        IFolderRepository Folders { get; }
     }
 }
