@@ -76,5 +76,15 @@ namespace Awesome.Data
 
             Delete(entity);
         }
+        // Föreslagna tillägg från RP done right:
+        //public void AddRange(IEnumerable<T> entities)
+        //{
+        //    DbContext.Set<T>().AddRange(entities);
+        //}
+
+        //public void RemoveRange(IEnumerable<T> entities)
+        //{
+        //    DbContext.Set<T>().RemoveRange(entities);
+        //}
     }
 }
