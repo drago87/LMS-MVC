@@ -12,115 +12,115 @@ using System.Web.Mvc;
 
 namespace bat_mvc.Controllers
 {
-    public class FoldersController : Controller
+    public class ClassUnitsController : Controller
     {
-        public readonly IRepository<Folder> _folderRepo;
+        public readonly IRepository<Subject> _classunitRepo;
         public readonly IUnitOfWork _uow;
 
-        public FoldersController(IRepository<Folder> folderRepository, IUnitOfWork uow)
+        public ClassUnitsController(IRepository<Subject> classunitRepository, IUnitOfWork uow)
         {
-            _folderRepo = folderRepository;
+            _classunitRepo = classunitRepository;
             _uow = uow;
         }
 
-        // GET: Folders
+        // GET: ClassUnits
         public ActionResult Index()
         {
-            var folders = _uow.Folders.GetAll();  //.GetSomeFolders(3));
-            return View(folders);
+            var classunits = _uow.Classunits.GetAll();
+            return View(classunits);
         }
 
-        // GET: Folders/Details/5
+        // GET: ClassUnits/Details/5
         //public ActionResult Details(int? id)
         //{
         //    if (id == null)
         //    {
         //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
         //    }
-        //    //Folder Folder = db.Folders.Find(id);
-        //    if (Folder == null)
+        //    //Subject classunit = db.ClassUnits.Find(id);
+        //    if (classunit == null)
         //    {
         //        return HttpNotFound();
         //    }
-        //    return View(Folder);
+        //    return View(classunit);
         //}
 
-        // GET: Folders/Create
+        // GET: ClassUnits/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Folders/Create
+        // POST: ClassUnits/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         //[HttpPost]
         //[ValidateAntiForgeryToken]
-        //public ActionResult Create([Bind(Include = "FolderID,FolderName")] Folder Folder)
+        //public ActionResult Create([Bind(Include = "SubjectID,SubjectName")] Subject classunit)
         //{
         //    if (ModelState.IsValid)
         //    {
-        //        db.Folders.Add(Folder);
+        //        db.ClassUnits.Add(classunit);
         //        db.SaveChanges();
         //        return RedirectToAction("Index");
         //    }
 
-        //    return View(Folder);
+        //    return View(classunit);
         //}
 
-        // GET: Folders/Edit/5
+        // GET: ClassUnits/Edit/5
         //public ActionResult Edit(int? id)
         //{
         //    if (id == null)
         //    {
         //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
         //    }
-        //    Folder Folder = db.Folders.Find(id);
-        //    if (Folder == null)
+        //    Subject classunit = db.ClassUnits.Find(id);
+        //    if (classunit == null)
         //    {
         //        return HttpNotFound();
         //    }
-        //    return View(Folder);
+        //    return View(classunit);
         //}
 
-        // POST: Folders/Edit/5
+        // POST: ClassUnits/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         //[HttpPost]
         //[ValidateAntiForgeryToken]
-        //public ActionResult Edit([Bind(Include = "FolderID,FolderName")] Folder Folder)
+        //public ActionResult Edit([Bind(Include = "SubjectID,SubjectName")] Subject classunit)
         //{
         //    if (ModelState.IsValid)
         //    {
-        //        db.Entry(Folder).State = EntityState.Modified;
+        //        db.Entry(classunit).State = EntityState.Modified;
         //        db.SaveChanges();
         //        return RedirectToAction("Index");
         //    }
-        //    return View(Folder);
+        //    return View(classunit);
         //}
 
-        // GET: Folders/Delete/5
+        // GET: ClassUnits/Delete/5
         //public ActionResult Delete(int? id)
         //{
         //    if (id == null)
         //    {
         //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
         //    }
-        //    Folder Folder = db.Folders.Find(id);
-        //    if (Folder == null)
+        //    Subject classunit = db.ClassUnits.Find(id);
+        //    if (classunit == null)
         //    {
         //        return HttpNotFound();
         //    }
-        //    return View(Folder);
+        //    return View(classunit);
         //}
 
-        // POST: Folders/Delete/5
+        // POST: ClassUnits/Delete/5
         //[HttpPost, ActionName("Delete")]
         //[ValidateAntiForgeryToken]
         //public ActionResult DeleteConfirmed(int id)
         //{
-        //    Folder Folder = db.Folders.Find(id);
-        //    db.Folders.Remove(Folder);
+        //    Subject classunit = db.ClassUnits.Find(id);
+        //    db.ClassUnits.Remove(classunit);
         //    db.SaveChanges();
         //    return RedirectToAction("Index");
         //}

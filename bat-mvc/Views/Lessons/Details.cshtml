@@ -1,0 +1,50 @@
+﻿@model Queries.Core.Domain.Lesson
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Lesson</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ClassUnit.ClassName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ClassUnit.ClassName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Subject.SubjectName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Subject.SubjectName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StartTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StartTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StopTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StopTime)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.LessonID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

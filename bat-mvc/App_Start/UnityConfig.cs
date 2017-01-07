@@ -56,14 +56,13 @@ namespace bat_mvc.App_Start
             //container.RegisterType<IUserStore<ApplicationUser>, ApplicationUserManager>(new HierarchicalLifetimeManager());
 
             container.RegisterType<IUnitOfWork, UnitOfWork>(new PerRequestLifetimeManager());
-            //container.RegisterType<ApplicationDbContext, ApplicationDbContext>(new PerRequestLifetimeManager());
-            //container.RegisterType<ICustomerService, CustomerService>(new PerRequestLifetimeManager());
             container.RegisterType<IRepository<Subject>,   Repository<Subject>>(new PerRequestLifetimeManager());
             container.RegisterType<IRepository<Lesson>,    Repository<Lesson>>(new PerRequestLifetimeManager());
             container.RegisterType<IRepository<ClassUnit>, Repository<ClassUnit>>(new PerRequestLifetimeManager());
             container.RegisterType<IRepository<Folder>,    Repository<Folder>>(new PerRequestLifetimeManager());
+            container.RegisterType<IRepository<Dossier>,   Repository<Dossier>>(new PerRequestLifetimeManager());
 
-            //SubjectsController(IRepository<Subject> subjectRepository, IUnitOfWork uow)
+            //container.RegisterType<ICustomerService, CustomerService>(new PerRequestLifetimeManager());
         }
 
         // Added later for WEBAPI
@@ -81,6 +80,7 @@ namespace bat_mvc.App_Start
             container.RegisterType<IRepository<Lesson>,    Repository<Lesson>>(new PerRequestLifetimeManager());
             container.RegisterType<IRepository<ClassUnit>, Repository<ClassUnit>>(new PerRequestLifetimeManager());
             container.RegisterType<IRepository<Folder>,    Repository<Folder>>(new PerRequestLifetimeManager());
+            container.RegisterType<IRepository<Dossier>,   Repository<Dossier>>(new PerRequestLifetimeManager());
 
             GlobalConfiguration.Configuration.DependencyResolver = new UnityDependencyResolver(container);
         }
