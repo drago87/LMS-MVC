@@ -31,19 +31,15 @@ namespace bat_mvc.Controllers
         }
 
         // GET: ClassUnits/Details/5
-        //public ActionResult Details(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    //Subject classunit = db.ClassUnits.Find(id);
-        //    if (classunit == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(classunit);
-        //}
+        public ActionResult Details(int id)
+        {
+            ClassUnit classunit = _uow.Classunits.Get(id);
+            if (classunit == null)
+            {
+                return HttpNotFound();
+            }
+            return View(classunit);
+        }
 
         // GET: ClassUnits/Create
         public ActionResult Create()
@@ -54,84 +50,85 @@ namespace bat_mvc.Controllers
         // POST: ClassUnits/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Create([Bind(Include = "SubjectID,SubjectName")] Subject classunit)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        db.ClassUnits.Add(classunit);
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "ClassUnitID,ClassName")] ClassUnit classunit)
+        {
+            if (ModelState.IsValid)
+            {
+                _uow.Classunits.Add(classunit);
 
-        //    return View(classunit);
-        //}
+                return RedirectToAction("Index");
+            }
+
+            return View(classunit);
+        }
 
         // GET: ClassUnits/Edit/5
-        //public ActionResult Edit(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    Subject classunit = db.ClassUnits.Find(id);
-        //    if (classunit == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(classunit);
-        //}
+        public ActionResult Edit(int id)
+        {
+            //if (id == null)
+            //{
+            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            //}
+
+            ClassUnit classunit = _uow.Classunits.Get(id);
+            if (classunit == null)
+            {
+                return HttpNotFound();
+            }
+            return View(classunit);
+        }
 
         // POST: ClassUnits/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Edit([Bind(Include = "SubjectID,SubjectName")] Subject classunit)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        db.Entry(classunit).State = EntityState.Modified;
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
-        //    return View(classunit);
-        //}
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "ClassUnitId,ClassUnitName")] ClassUnit classunit)
+        {
+            if (ModelState.IsValid)
+            {
+                //classunit.ObjectState = ObjectState.Modified;
+                //_uow.update(classunit);
+                //await _uow.SaveAsync();
+                return RedirectToAction("Index");
+            }
+            return View(classunit);
+        }
 
         // GET: ClassUnits/Delete/5
-        //public ActionResult Delete(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    Subject classunit = db.ClassUnits.Find(id);
-        //    if (classunit == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(classunit);
-        //}
+        public ActionResult Delete(int id)
+        {
+            //if (id == null)
+            //{
+            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            //}
+            ClassUnit classunit = _uow.Classunits.Get(id);
+            if (classunit == null)
+            {
+                return HttpNotFound();
+            }
+            return View(classunit);
+        }
 
         // POST: ClassUnits/Delete/5
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult DeleteConfirmed(int id)
-        //{
-        //    Subject classunit = db.ClassUnits.Find(id);
-        //    db.ClassUnits.Remove(classunit);
-        //    db.SaveChanges();
-        //    return RedirectToAction("Index");
-        //}
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            ClassUnit classunit = _uow.Classunits.Get(id);
+            _uow.Classunits.Remove(classunit);
+            return RedirectToAction("Index");
+        }
 
-        //protected override void Dispose(bool disposing)
-        //{
-        //    if (disposing)
-        //    {
-        //        db.Dispose();
-        //    }
-        //    base.Dispose(disposing);
-        //}
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _uow.Dispose();
+            }
+            base.Dispose(disposing);
+        }
     }
 }
