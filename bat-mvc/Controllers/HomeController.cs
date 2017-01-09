@@ -1,15 +1,25 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using LMS_MVC.Repositorys;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Queries.Core.Domain;
+using Queries.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.Owin.Security;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace bat_mvc.Controllers
 {
     public class HomeController : Controller
     {
 
+        SharedRepository _repo = new SharedRepository();
+        private ApplicationUserManager _userManager;
 
         public ActionResult Index()
         {
@@ -36,7 +46,7 @@ namespace bat_mvc.Controllers
 
             return View();
         }
-        /*
+        
         public ActionResult ShowAllUsers()
         {
             
@@ -164,6 +174,6 @@ namespace bat_mvc.Controllers
             }
         }
         #endregion
-        */
+        
     }
 }

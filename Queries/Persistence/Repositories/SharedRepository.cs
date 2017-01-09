@@ -1,111 +1,254 @@
-﻿//    public class SharedRepository
-//    {
-//        //private ApplicationUserManager _userManager;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using System.Data.Entity;
+using Queries.Core.Models;
+using Queries.Core.Domain;
 
-//        #region Classes
-//        public void AddUserToClass(ApplicationUser user, ClassUnit classunit)
-//        {
-//            var temp = _ctx.MyClassUnit.Single(b => b.ClassUnitID == classunit.ClassUnitID);//.Participants.Add(user);
-//            var temp2 = _ctx.Users.Single(b => b.Id == user.Id);
+namespace LMS_MVC.Repositorys
+{
+    public class SharedRepository
+    {
+        private ApplicationDbContext _ctx;
+        //private ApplicationUserManager _userManager;
 
-//            temp.Participants.Add(temp2);
-//        }
+        public SharedRepository()
+        {
+            _ctx = new ApplicationDbContext();
+        }
 
-//        public void UpdateClassUnit(ClassUnit classunit)
-//        {
-//            _ctx.Entry(classunit).State = EntityState.Modified;
-//            _ctx.SaveChanges();
-//        }
-//        #endregion
+        #region Users
+        public ICollection<ApplicationUser> GetAllUsers()
+        {
+            return _ctx.Users.ToList();
+        }
 
-//        #region Subject
-//        public Subject GetSubjectByName(string Name)
-//        {
-//            return _ctx.MySubjects.FirstOrDefault(b => b.SubjectName == Name);
-//        }
-//        #endregion
+        public ApplicationUser GetUserById(string id)
+        {
+            var temp = _ctx.Users.FirstOrDefault(b => b.Id == id);
+            return temp;
+        }
 
-//        public void edit(ApplicationUser user, string roleId, int classunitId)
-//        {
-//            var userStore = new UserStore<ApplicationUser>(_ctx);
-//            var userManager = new UserManager<ApplicationUser>(userStore);
-//            ApplicationUser theUser = _ctx.Users.SingleOrDefault(b => b.Id == user.Id);
+        public void UpdateUser(ApplicationUser user)
+        {
+            _ctx.Entry(user).State = EntityState.Modified;
 
-//            if (roleId != "-1")
-//            {
-//                IdentityRole role = _ctx.Roles.SingleOrDefault(b => b.Id == roleId);
-//                //AddRemoveFromRole
-//                if (GetUserRolesNameAsList(theUser).Contains(role.Name))
-//                {
-//                    userManager.RemoveFromRole(theUser.Id, role.Name);
-//                }
-//                else
-//                {
-//                    userManager.AddToRole(theUser.Id, role.Name);
-//                }
-//            }
+            _ctx.SaveChanges();
+        }
 
-//            if (classunitId != -1)
-//            {
-//                ClassUnit classunit = _ctx.MyClassUnit.SingleOrDefault(b => b.ClassUnitID == classunitId);
+        #endregion
 
-//                //AddRemoveFromClassUnit
-//                if (theUser.ClassUnits.Contains(classunit))
-//                {
-//                    theUser.ClassUnits.Remove(classunit);
-//                    classunit.Participants.Remove(theUser);
-//                }
-//                else
-//                {
-//                    theUser.ClassUnits.Add(classunit);
-//                    classunit.Participants.Add(theUser);
-//                }
-//            }
+        #region Roles
+        public ICollection<IdentityRole> GetAllRoles()
+        {
+            return _ctx.Roles.ToList();
+        }
 
-//            theUser.Email = user.Email;
-//            theUser.UserName = user.UserName;
-//            theUser.PhoneNumber = user.PhoneNumber;
-//            _ctx.Entry(theUser).State = EntityState.Modified;
-//            _ctx.SaveChanges();
-//        }
+        public IdentityRole GetRoleById(string id)
+        {
+            return _ctx.Roles.FirstOrDefault(b => b.Id == id);
+        }
 
-//        public List<string> GetUserRolesNameAsList(ApplicationUser applicationUser)
-//        {
-//            List<string> tempRoleNames = new List<string>();
+        public void AddUserToRole(ApplicationUser user, IdentityRole role)
+        {
+            var userStore = new UserStore<ApplicationUser>(_ctx);
+            var userManager = new UserManager<ApplicationUser>(userStore);
 
-//            if (applicationUser.Roles != null && applicationUser.Roles.Count > 0)
-//            {
-//                foreach (var item in applicationUser.Roles)
-//                {
-//                    tempRoleNames.Add(GetRoleById(item.RoleId).Name);
-//                }
-//            }
-//            else
-//            {
-//                tempRoleNames.Add("Not assigned a Role yet!");
-//            }
+            userManager.AddToRole(user.Id, role.Name);
+            _ctx.SaveChanges();
+        }
 
-//            return tempRoleNames;
-//        }
+        #endregion
 
-//        public List<string> GetUserClassUnitsNameAsList(ApplicationUser applicationUser)
-//        {
-//            List<string> tempClassNames = new List<string>();
+        #region Classes
+        public ICollection<ClassUnit> GetAllClasses()
+        {
+            return _ctx.Classunits.ToList();
+        }
 
-//            if (applicationUser.ClassUnits != null && applicationUser.ClassUnits.Count > 0)
-//            {
-//                foreach (var item in applicationUser.ClassUnits)
-//                {
-//                    tempClassNames.Add(item.ClassName);
-//                }
-//            }
-//            else
-//            {
-//                tempClassNames.Add("Not assigned a Class unit yet!");
-//            }
+        public ClassUnit GetClassUnitByID(int ClassId)
+        {
+            return _ctx.Classunits.FirstOrDefault(b => b.ClassUnitID == ClassId);
+        }
 
-//            return tempClassNames;
-//        }
+        public void AddUserToClass(ApplicationUser user, ClassUnit classunit)
+        {
 
-//    }
-//}
+            var temp = _ctx.Classunits.Single(b => b.ClassUnitID == classunit.ClassUnitID);//.Participants.Add(user);
+            var temp2 = _ctx.Users.Single(b => b.Id == user.Id);
+
+            temp.Participants.Add(temp2);
+
+
+        }
+
+        public void UpdateClassUnit(ClassUnit classunit)
+        {
+            _ctx.Entry(classunit).State = EntityState.Modified;
+            _ctx.SaveChanges();
+        }
+
+        public ClassUnit RemoveClassUnit(int id)
+        {
+            ClassUnit classunit = _ctx.Classunits.Find(id);
+            if (classunit == null)
+            {
+                //return NotFound();
+                return null;
+            }
+
+            _ctx.Classunits.Remove(classunit);
+            _ctx.SaveChanges();
+            return classunit;
+
+        }
+
+        internal object AddClassUnit(ClassUnit classunit)
+        {
+            ClassUnit newClassunit = _ctx.Classunits.Add(classunit);
+            _ctx.SaveChanges();
+            return newClassunit.ClassUnitID;
+        }
+        #endregion
+
+        #region Subject
+        public ICollection<Subject> GetAllSubjects()
+        {
+            return _ctx.Subjects.ToList();
+        }
+
+        public Subject GetSubjectByName(string Name)
+        {
+            return _ctx.Subjects.FirstOrDefault(b => b.SubjectName == Name);
+        }
+
+
+        #endregion
+
+        #region Folders
+        public ICollection<Folder> GetAllFolders()
+        {
+            return _ctx.Folders.ToList();
+        }
+
+        public Folder GetFolderByID(int ID)
+        {
+            return _ctx.Folders.FirstOrDefault(b => b.FolderID == ID);
+        }
+
+        #endregion
+
+        #region Files
+
+        public ICollection<Dossier> GetAllFiles()
+        {
+            return _ctx.Dossiers.ToList();
+        }
+
+        public ICollection<Dossier> GetAllFilesInFolder(Folder Fold)
+        {
+
+            return _ctx.Dossiers.Where(b => b.Folder == Fold).ToList();
+        }
+
+        #endregion
+
+
+        public void edit(ApplicationUser user, string roleId, int classunitId)
+        {
+            var userStore = new UserStore<ApplicationUser>(_ctx);
+            var userManager = new UserManager<ApplicationUser>(userStore);
+            ApplicationUser theUser = _ctx.Users.SingleOrDefault(b => b.Id == user.Id);
+
+            if (roleId != "-1")
+            {
+                IdentityRole role = _ctx.Roles.SingleOrDefault(b => b.Id == roleId);
+                //AddRemoveFromRole
+                if (GetUserRolesNameAsList(theUser).Contains(role.Name))
+                {
+                    userManager.RemoveFromRole(theUser.Id, role.Name);
+                }
+                else
+                {
+                    userManager.AddToRole(theUser.Id, role.Name);
+                }
+            }
+
+            if (classunitId != -1)
+            {
+                ClassUnit classunit = _ctx.Classunits.SingleOrDefault(b => b.ClassUnitID == classunitId);
+
+
+                //AddRemoveFromClassUnit
+                if (theUser.ClassUnits.Contains(classunit))
+                {
+                    //theUser.ClassUnits.Remove(classunit);
+                    classunit.Participants.Remove(theUser);
+                }
+                else
+                {
+                    //theUser.ClassUnits.Add(classunit);
+                    classunit.Participants.Add(theUser);
+                }
+
+                _ctx.Entry(classunit).State = EntityState.Modified;
+                _ctx.SaveChanges();
+                
+            }
+
+            theUser.Email = user.Email;
+            theUser.UserName = user.UserName;
+            theUser.PhoneNumber = user.PhoneNumber;
+
+
+            _ctx.Entry(theUser).State = EntityState.Modified;
+            
+
+
+            _ctx.SaveChanges();
+        }
+
+        public List<string> GetUserRolesNameAsList(ApplicationUser applicationUser)
+        {
+            List<string> tempRoleNames = new List<string>();
+
+            if (applicationUser.Roles != null && applicationUser.Roles.Count > 0)
+            {
+                foreach (var item in applicationUser.Roles)
+                {
+                    tempRoleNames.Add(GetRoleById(item.RoleId).Name);
+                }
+            }
+            else
+            {
+                tempRoleNames.Add("Not assigned a Role yet!");
+            }
+
+            return tempRoleNames;
+        }
+
+        public List<string> GetUserClassUnitsNameAsList(ApplicationUser applicationUser)
+        {
+            List<string> tempClassNames = new List<string>();
+
+
+            if (applicationUser.ClassUnits != null && applicationUser.ClassUnits.Count > 0)
+            {
+                foreach (var item in applicationUser.ClassUnits)
+                {
+                    tempClassNames.Add(item.ClassName);
+                }
+            }
+            else
+            {
+                tempClassNames.Add("Not assigned a Class unit yet!");
+            }
+
+            return tempClassNames;
+        }
+
+    }
+}
