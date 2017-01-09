@@ -19,8 +19,6 @@ namespace Queries.Core.Domain
         //[ForeignKey("Files")]
         //public int FileID { get; set; }
 
-        //public Files _Files { get; set; }
-
         public virtual List<Dossier> Files { get; set; }
     }
 }

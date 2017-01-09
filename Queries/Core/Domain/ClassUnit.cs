@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Queries.Core.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -12,6 +13,7 @@ namespace Queries.Core.Domain
         public ClassUnit()
         {
             Schema = new List<Lesson>();
+            Participants = new List<ApplicationUser>();
         }
 
         [Key]
@@ -19,13 +21,13 @@ namespace Queries.Core.Domain
 
         public string ClassName { get; set; }
 
+        public virtual ICollection<ApplicationUser> Participants { get; set; }
+
         public Folder Shared { get; set; }
 
         public Folder Submission { get; set; }
 
         public List<Lesson> Schema { get; set; }
-
-        // public ICollection<ApplicationUser> Participants { get; set; }
 
         public List<Lesson> GetSchema(DateTime _from, DateTime _to)
         {
