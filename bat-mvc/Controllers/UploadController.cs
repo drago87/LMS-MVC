@@ -15,23 +15,16 @@ namespace bat_mvc.Controllers
     public class UploadController : Controller
     {
 
-        public readonly IRepository<Dossier> _dossierRepo;
-        public readonly IUnitOfWork _uow;
 
-        public UploadController(IRepository<Dossier> dossierRepository, IUnitOfWork uow)
-        {
-            _dossierRepo = dossierRepository;
-            _uow = uow;
-        }
-
-        //[Authorize(Roles = "Teacher, Student")]
+        [Authorize(Roles = "Teacher, Student")]
         public ActionResult UploadDocument()
         {
             return View();
         }
 
         [HttpPost]
-        public ActionResult Upload()
+        [ValidateAntiForgeryToken]
+        public ActionResult Upload(Folder _folder)
         {
 
             if (Request.Files.Count > 0)
@@ -45,7 +38,7 @@ namespace bat_mvc.Controllers
                     var path = System.Web.Hosting.HostingEnvironment.MapPath("~/Files/") + fileName;
                     file.SaveAs(path);
                     var user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
-
+                    
                     //_repo.AddFileToClassUnitShared(user, new Dossier { FileName = file.FileName, FilePath = path });
 
                 }
