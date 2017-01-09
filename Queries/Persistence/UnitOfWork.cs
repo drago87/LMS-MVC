@@ -10,11 +10,12 @@ namespace Queries.Persistence
     {
         private readonly ApplicationDbContext _context;
 
-        public IRepository<Subject>   Subjects   { get; private set; }
-        public IRepository<ClassUnit> Classunits { get; private set; }
-        public IRepository<Lesson>    Lessons    { get; private set; }
-        public IRepository<Folder>    Folders    { get; private set; }
-        public IRepository<Dossier>   Dossiers   { get; private set; }
+        public IRepository<Subject>           Subjects   { get; private set; }
+        public IRepository<ClassUnit>         Classunits { get; private set; }
+        public IRepository<Lesson>            Lessons    { get; private set; }
+        public IRepository<Folder>            Folders    { get; private set; }
+        public IRepository<Dossier>           Dossiers   { get; private set; }
+        public IRepository<ApplicationUser>   Users      { get; private set; }
 
         public UnitOfWork(ApplicationDbContext context)
         {
@@ -24,6 +25,7 @@ namespace Queries.Persistence
             Lessons    = new Repository<Lesson>(_context);
             Folders    = new Repository<Folder>(_context);
             Dossiers   = new Repository<Dossier>(_context);
+            Users      = new Repository<ApplicationUser>(_context);
         }
 
         public int Complete()

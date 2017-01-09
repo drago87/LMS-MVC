@@ -44,16 +44,13 @@ namespace bat_mvc.App_Start
         /// change the defaults), as Unity allows resolving a concrete type even if it was not previously registered.</remarks>
         public static void RegisterTypes(IUnityContainer container)
         {
-            // NOTE: To load from web.config uncomment the line below. Make sure to add a Microsoft.Practices.Unity.Configuration to the using statements.
-            // container.LoadConfiguration();
+            // container.LoadConfiguration(); // To load from web.config. add using Microsoft.Practices.Unity.Configuration
 
             container.RegisterType<DbContext, ApplicationDbContext>(new HierarchicalLifetimeManager());
 
+            //container.RegisterType<IUserStore<ApplicationUser>, ApplicationUserManager>(new HierarchicalLifetimeManager());
             container.RegisterType<AccountController>(new InjectionConstructor());
             container.RegisterType<ManageController>(new InjectionConstructor());
-            //container.RegisterType<RolesAdminController>(new InjectionConstructor());
-            //container.RegisterType<UsersAdminController>(new InjectionConstructor());
-            //container.RegisterType<IUserStore<ApplicationUser>, ApplicationUserManager>(new HierarchicalLifetimeManager());
 
             container.RegisterType<IUnitOfWork, UnitOfWork>(new PerRequestLifetimeManager());
             container.RegisterType<IRepository<Subject>,   Repository<Subject>>(new PerRequestLifetimeManager());
@@ -61,17 +58,17 @@ namespace bat_mvc.App_Start
             container.RegisterType<IRepository<ClassUnit>, Repository<ClassUnit>>(new PerRequestLifetimeManager());
             container.RegisterType<IRepository<Folder>,    Repository<Folder>>(new PerRequestLifetimeManager());
             container.RegisterType<IRepository<Dossier>,   Repository<Dossier>>(new PerRequestLifetimeManager());
+            container.RegisterType<IRepository<ApplicationUser>,   Repository<ApplicationUser>>(new PerRequestLifetimeManager());
 
-            //container.RegisterType<ICustomerService, CustomerService>(new PerRequestLifetimeManager());
+            container.RegisterType<IFolderRepository, FolderRepository>(new PerRequestLifetimeManager());
+            //container.RegisterType<IFolderService, FolderService>(new PerRequestLifetimeManager());
         }
 
-        // Added later for WEBAPI
+        // for WEBAPI
         public static void RegisterComponents()
         {
 			var container = new UnityContainer();
-            
-            // register your components here. (it is NOT necessary to register controllers)
-            
+
             container.RegisterType<DbContext, ApplicationDbContext>(new HierarchicalLifetimeManager());
             container.RegisterType<AccountController>(new InjectionConstructor());
             container.RegisterType<ManageController>(new InjectionConstructor());
@@ -81,6 +78,9 @@ namespace bat_mvc.App_Start
             container.RegisterType<IRepository<ClassUnit>, Repository<ClassUnit>>(new PerRequestLifetimeManager());
             container.RegisterType<IRepository<Folder>,    Repository<Folder>>(new PerRequestLifetimeManager());
             container.RegisterType<IRepository<Dossier>,   Repository<Dossier>>(new PerRequestLifetimeManager());
+            container.RegisterType<IRepository<ApplicationUser>,   Repository<ApplicationUser>>(new PerRequestLifetimeManager());
+
+            container.RegisterType<IFolderRepository, FolderRepository>(new PerRequestLifetimeManager());
 
             GlobalConfiguration.Configuration.DependencyResolver = new UnityDependencyResolver(container);
         }
