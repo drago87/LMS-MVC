@@ -108,21 +108,9 @@
     <Compile Include="Persistence\Repositories\SharedRepository.cs" />
     <Compile Include="Core\ViewModels\ClassUnitViewModel.cs" />
     <Compile Include="Core\ViewModels\UserViewModel.cs" />
-    <Compile Include="Migrations\201701041212083_Initial.cs" />
-    <Compile Include="Migrations\201701041212083_Initial.Designer.cs">
-      <DependentUpon>201701041212083_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201701041310366_mjaha.cs" />
-    <Compile Include="Migrations\201701041310366_mjaha.Designer.cs">
-      <DependentUpon>201701041310366_mjaha.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201701051216479_classunit.cs" />
-    <Compile Include="Migrations\201701051216479_classunit.Designer.cs">
-      <DependentUpon>201701051216479_classunit.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201701051444433_folder-fileidFK.cs" />
-    <Compile Include="Migrations\201701051444433_folder-fileidFK.Designer.cs">
-      <DependentUpon>201701051444433_folder-fileidFK.cs</DependentUpon>
+    <Compile Include="Migrations\201701090932020_First.cs" />
+    <Compile Include="Migrations\201701090932020_First.Designer.cs">
+      <DependentUpon>201701090932020_First.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Persistence\Repositories\AuthorRepository.cs" />
@@ -142,17 +130,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201701041212083_Initial.resx">
-      <DependentUpon>201701041212083_Initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201701041310366_mjaha.resx">
-      <DependentUpon>201701041310366_mjaha.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201701051216479_classunit.resx">
-      <DependentUpon>201701051216479_classunit.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201701051444433_folder-fileidFK.resx">
-      <DependentUpon>201701051444433_folder-fileidFK.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201701090932020_First.resx">
+      <DependentUpon>201701090932020_First.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

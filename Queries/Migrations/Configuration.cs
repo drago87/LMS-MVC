@@ -15,7 +15,7 @@ namespace Queries.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
         }
 
         protected override void Seed(Queries.Core.Models.ApplicationDbContext context)
@@ -98,7 +98,7 @@ namespace Queries.Migrations
             );
             #endregion
 
-            #region Folders
+ /*           #region Folders
             context.Folders.AddOrUpdate(
                 f => f.FolderName,
                 new Folder { FolderName = "Ovrigt" },
@@ -118,7 +118,7 @@ namespace Queries.Migrations
                 new Dossier { FileName = "Eriks BiologiProv", FilePath = "erik-biologi.txt", Folder = ovrigtmapp },
                 new Dossier { FileName = "Nisses Mek",        FilePath = "nisse-mek.txt",    Folder = megamapp }
             );
-            #endregion
+            #endregion*/
 
             SaveChanges(context);
         }

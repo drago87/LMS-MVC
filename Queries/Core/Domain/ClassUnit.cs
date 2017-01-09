@@ -10,12 +10,7 @@ namespace Queries.Core.Domain
 {
     public class ClassUnit
    {
-        public ClassUnit()
-        {
-            Schema = new List<Lesson>();
-            Participants = new List<ApplicationUser>();
-        }
-
+        
         [Key]
         public int ClassUnitID { get; set; }
 
@@ -28,6 +23,12 @@ namespace Queries.Core.Domain
         public Folder Submission { get; set; }
 
         public List<Lesson> Schema { get; set; }
+
+        public ClassUnit()
+        {
+            Schema = new List<Lesson>();
+            Participants = new List<ApplicationUser>();
+        }
 
         public List<Lesson> GetSchema(DateTime _from, DateTime _to)
         {
