@@ -47,14 +47,14 @@ namespace Queries.Data.SampleData
             #endregion
 
             #region Klasser
-            //var grund1a = new ClassUnit { ClassName = "Grund1A" };
-            //var grund3a = new ClassUnit { ClassName = "Grund3A" };
-            //var grund5b = new ClassUnit { ClassName = "Grund5b" };
+            var grund1a = new ClassUnit { ClassName = "Grund1A" };
+            var grund3a = new ClassUnit { ClassName = "Grund3A" };
+            var grund5b = new ClassUnit { ClassName = "Grund5b" };
 
-            //context.Classunits.AddOrUpdate(
-            //    c => c.ClassUnitID,
-            //    grund1a, grund3a, grund5b
-            //);
+            context.Classunits.AddOrUpdate(
+                c => c.ClassUnitID,
+                grund1a, grund3a, grund5b
+            );
 
             //ApplicationUser user1a = context.Users.FirstOrDefault(u => u.Email == "testTeacher@test.com");
             //if (user1a != null)

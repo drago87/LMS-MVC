@@ -203,10 +203,7 @@ namespace LMS_MVC.Repositorys
             theUser.UserName = user.UserName;
             theUser.PhoneNumber = user.PhoneNumber;
 
-
             _ctx.Entry(theUser).State = EntityState.Modified;
-            
-
 
             _ctx.SaveChanges();
         }
@@ -215,7 +212,7 @@ namespace LMS_MVC.Repositorys
         {
             List<string> tempRoleNames = new List<string>();
 
-            if (applicationUser.Roles != null && applicationUser.Roles.Count > 0)
+            if (applicationUser.Roles.Any())
             {
                 foreach (var item in applicationUser.Roles)
                 {
