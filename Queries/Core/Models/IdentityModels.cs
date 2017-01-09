@@ -6,7 +6,6 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Queries.Core.Domain;
 using Queries.Data.SampleData;
 
-//namespace bat_mvc.Models
 namespace Queries.Core.Models
 {
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
@@ -36,8 +35,10 @@ namespace Queries.Core.Models
 
         // DBSets
         public virtual DbSet<Subject>   Subjects   { get; set; }
-        public virtual DbSet<ClassUnit> Classunits { get; set; }
         public virtual DbSet<Lesson>    Lessons    { get; set; }
+        public virtual DbSet<ClassUnit> Classunits { get; set; }
+        public virtual DbSet<Folder>    Folders    { get; set; }
+        public virtual DbSet<Dossier>   Dossiers   { get; set; }
 
         public static ApplicationDbContext Create()
         {

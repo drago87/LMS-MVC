@@ -118,6 +118,10 @@
     <Compile Include="Migrations\201701051216479_classunit.Designer.cs">
       <DependentUpon>201701051216479_classunit.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201701051444433_folder-fileidFK.cs" />
+    <Compile Include="Migrations\201701051444433_folder-fileidFK.Designer.cs">
+      <DependentUpon>201701051444433_folder-fileidFK.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Persistence\Repositories\AuthorRepository.cs" />
     <Compile Include="Persistence\EntityConfigurations\CourseConfiguration.cs" />
@@ -144,6 +148,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201701051216479_classunit.resx">
       <DependentUpon>201701051216479_classunit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701051444433_folder-fileidFK.resx">
+      <DependentUpon>201701051444433_folder-fileidFK.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

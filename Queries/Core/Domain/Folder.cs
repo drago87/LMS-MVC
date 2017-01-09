@@ -16,8 +16,8 @@ namespace Queries.Core.Domain
         [DisplayName("Folder Name")]
         public string FolderName { get; set; }
 
-        [ForeignKey("Files")]
-        public int FileID { get; set; }
+        //[ForeignKey("Files")]
+        //public int FileID { get; set; }
 
         //public Files _Files { get; set; }
 
