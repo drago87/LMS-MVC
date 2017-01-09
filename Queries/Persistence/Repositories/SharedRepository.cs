@@ -2,25 +2,6 @@
 //    {
 //        //private ApplicationUserManager _userManager;
 
-//        #region Users
-//        public void UpdateUser(ApplicationUser user)
-//        {
-//            _ctx.Entry(user).State = EntityState.Modified;
-//            _ctx.SaveChanges();
-//        }
-//        #endregion
-
-//        #region Roles
-//        public void AddUserToRole(ApplicationUser user, IdentityRole role)
-//        {
-//            var userStore = new UserStore<ApplicationUser>(_ctx);
-//            var userManager = new UserManager<ApplicationUser>(userStore);
-
-//            userManager.AddToRole(user.Id, role.Name);
-//            _ctx.SaveChanges();
-//        }
-//        #endregion
-
 //        #region Classes
 //        public void AddUserToClass(ApplicationUser user, ClassUnit classunit)
 //        {
@@ -118,7 +99,6 @@
 //        public List<string> GetUserClassUnitsNameAsList(ApplicationUser applicationUser)
 //        {
 //            List<string> tempClassNames = new List<string>();
-
 
 //            if (applicationUser.ClassUnits != null && applicationUser.ClassUnits.Count > 0)
 //            {
