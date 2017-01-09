@@ -7,14 +7,24 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Queries.Core.Repositories;
+using Queries.Core.Domain;
+using Queries.Core;
 
 namespace bat_mvc.Controllers
 {
     public class UploadController : Controller
     {
 
+        public readonly IRepository<Dossier> _dossierRepo;
+        public readonly IUnitOfWork _uow;
 
-        [Authorize(Roles = "Teacher, Student")]
+        public UploadController(IRepository<Dossier> dossierRepository, IUnitOfWork uow)
+        {
+            _dossierRepo = dossierRepository;
+            _uow = uow;
+        }
+
+        //[Authorize(Roles = "Teacher, Student")]
         public ActionResult UploadDocument()
         {
             return View();
