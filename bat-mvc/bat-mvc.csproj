@@ -345,10 +345,9 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Views\Upload\UploadDocument.cshtml" />
-    <Content Include="Views\Home\Details.cshtml" />
-    <Content Include="Views\Home\Edit.cshtml" />
-    <Content Include="Views\Home\Register.cshtml" />
-    <Content Include="Views\Home\ShowAllUsers.cshtml" />
+    <Content Include="Views\Users\Details.cshtml" />
+    <Content Include="Views\Users\Edit.cshtml" />
+    <Content Include="Views\Users\Register.cshtml" />
     <None Include="Views\Users\Index.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -396,6 +395,7 @@
     <Content Include="Views\Folders\Index.cshtml" />
     <Content Include="Views\ClassUnits\Index.cshtml" />
     <Content Include="Views\Dossiers\Index.cshtml" />
+    <Content Include="Views\Users\Roles.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
