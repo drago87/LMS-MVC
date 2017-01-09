@@ -28,6 +28,28 @@ namespace Queries.Core.Repositories
             return Ctx.Users
                 .Where(u => u.UserName == username);
         }
+
+        public List<string> GetUserRolesNameAsList(ApplicationUser user)
+        {
+            //List<string> tempRoleNames = new List<string>();
+
+            //if (user.Roles != null && user.Roles.Count > 0)
+            //{
+            //    foreach (var role in user.Roles)
+            //    {
+            //        //tempRoleNames.Add(GetRoleById(role.RoleId).Name);
+            //        tempRoleNames.Add(role.RoleId.ToString());
+            //    }
+            //}
+            //else
+            //{
+            //    tempRoleNames.Add("Not assigned a Role yet!");
+            //}
+
+            //return tempRoleNames;
+            return user.Roles.Select(r => r.RoleId.ToString()).ToList();
+        }
+                
         #endregion
 
         #region Roles

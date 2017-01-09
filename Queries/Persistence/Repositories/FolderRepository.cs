@@ -49,6 +49,11 @@ namespace Queries.Core.Repositories
                 .Where(f => f.FolderName == folderName);
         }
 
+        public IEnumerable<Dossier> GetAllFilesInFolder(Folder folder)
+        {
+            return Ctx.Dossiers.Where(d => d.Folder == folder).ToList();
+        }
+
         public ApplicationDbContext Ctx
         {
             get { return Ctx as ApplicationDbContext; }

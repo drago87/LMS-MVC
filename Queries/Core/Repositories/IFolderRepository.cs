@@ -10,5 +10,6 @@ namespace Queries.Core.Repositories
         //IEnumerable<Folder> GetFoldersForClass(int ClassUnitID);
         IEnumerable<Folder> GetSomeFolders(int antal);
         IEnumerable<Folder> GetFoldersByName(string folderName);
+        IEnumerable<Dossier> GetAllFilesInFolder(Folder Fold);
     }
 }

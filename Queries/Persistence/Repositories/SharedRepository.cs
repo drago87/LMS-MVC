@@ -25,14 +25,6 @@
 //        }
 //        #endregion
 
-//        #region Files
-//        public ICollection<Dossier> GetAllFilesInFolder(Folder Fold)
-//        {
-//            return _ctx.MyFiles.Where(b => b.Folder == Fold).ToList();
-//        }
-//        #endregion
-
-
 //        public void edit(ApplicationUser user, string roleId, int classunitId)
 //        {
 //            var userStore = new UserStore<ApplicationUser>(_ctx);

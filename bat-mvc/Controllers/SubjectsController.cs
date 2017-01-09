@@ -27,7 +27,7 @@ namespace bat_mvc.Controllers
         // GET: Subjects
         public ActionResult Index()
         {
-            //var subjects = _uow.Subjects.GetAll();
+            // var subjects = _uow.Subjects.GetAll();
             var subjects = _subject.GetAll();
             return View(subjects);
         }
