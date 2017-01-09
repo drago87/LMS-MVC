@@ -2,6 +2,7 @@
 using Microsoft.AspNet.Identity.EntityFramework;
 using Queries.Core.Domain;
 using Queries.Core.Models;
+using Queries.Core.ViewModels;
 using Queries.Persistence.Repositories;
 using System;
 using System.Collections.Generic;
@@ -25,29 +26,27 @@ namespace Queries.Core.Repositories
 
         public IEnumerable<ApplicationUser> GetUsersByName(string username)
         {
+            //IdentityRole a = Ctx.Roles;
+            //Ctx.Roles.Where(r=> r.)
+
             return Ctx.Users
                 .Where(u => u.UserName == username);
         }
 
+        //public List<IdentityRole> GetUserRolesNameAsList(ApplicationUser user)
         public List<string> GetUserRolesNameAsList(ApplicationUser user)
+        //public RoleViewModel GetMyRoles(ApplicationUser user)
         {
-            //List<string> tempRoleNames = new List<string>();
+            List<string> rolenames = new List<string>();
+            var roles = new List<RoleViewModel>();
 
-            //if (user.Roles != null && user.Roles.Count > 0)
-            //{
-            //    foreach (var role in user.Roles)
-            //    {
-            //        //tempRoleNames.Add(GetRoleById(role.RoleId).Name);
-            //        tempRoleNames.Add(role.RoleId.ToString());
-            //    }
-            //}
-            //else
-            //{
-            //    tempRoleNames.Add("Not assigned a Role yet!");
-            //}
-
-            //return tempRoleNames;
-            return user.Roles.Select(r => r.RoleId.ToString()).ToList();
+            if (user != null && user.Roles.Any())
+            {
+                var role = new RoleViewModel();
+                user.Roles.Select(r => r.RoleId.ToString());
+                //role = 
+            }
+            return rolenames;
         }
                 
         #endregion

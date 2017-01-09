@@ -15,12 +15,12 @@ namespace bat_mvc.Controllers
 {
     public class UsersController : Controller
     {
-        public readonly IRepository<ApplicationUser> _userRepo;
+        public readonly IUserRepository _user;
         public readonly IUnitOfWork _uow;
 
-        public UsersController(IRepository<ApplicationUser> userRepository, IUnitOfWork uow)
+        public UsersController(IUserRepository userRepository, IUnitOfWork uow)
         {
-            _userRepo = userRepository;
+            _user = userRepository;
             _uow = uow;
         }
 
@@ -38,18 +38,22 @@ namespace bat_mvc.Controllers
             //{
             //    throw new NotImplementedException();
             //}
-
-            var users = _uow.Users.GetAll();
+            var users = _user.GetAll();
 
             return View(users);
         }
 
-        //public ActionResult ShowAllUsers()
-        //{
-        //    ViewBag.Message = "A Testpage for now";
+        public ActionResult Roles()
+        {
+            var context     = new ApplicationDbContext();
+            var userStore   = new UserStore<ApplicationUser>(context);
+            var userManager = new UserManager<ApplicationUser>(userStore);
+            ApplicationUser user = userManager.FindById(User.Identity.GetUserId());
 
-        //    return View(_repo.GetAllUsers());
-        //}
+            //IdentityRole a = Ctx.Roles;
+            var roles = _user.GetUserRolesNameAsList(user);
+            return View(roles);
+        }
 
         //public ActionResult Edit(string id)
         //{

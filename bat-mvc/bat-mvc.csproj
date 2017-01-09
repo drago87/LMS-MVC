@@ -396,6 +396,7 @@
     <Content Include="Views\Folders\Index.cshtml" />
     <Content Include="Views\ClassUnits\Index.cshtml" />
     <Content Include="Views\Dossiers\Index.cshtml" />
+    <Content Include="Views\Users\Roles.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
