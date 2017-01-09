@@ -104,6 +104,8 @@
     <Compile Include="Core\Models\AccountViewModels.cs" />
     <Compile Include="Core\Models\IdentityModels.cs" />
     <Compile Include="Core\Models\ManageViewModels.cs" />
+    <Compile Include="Persistence\Repositories\FolderRepository.cs" />
+    <Compile Include="Core\Repositories\SharedRepository.cs" />
     <Compile Include="Core\ViewModels\ClassUnitViewModel.cs" />
     <Compile Include="Core\ViewModels\UserViewModel.cs" />
     <Compile Include="Migrations\201701041212083_Initial.cs" />
@@ -125,7 +127,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Persistence\Repositories\AuthorRepository.cs" />
     <Compile Include="Persistence\EntityConfigurations\CourseConfiguration.cs" />
-    <Compile Include="Core\Repositories\IAuthorRepository.cs" />
+    <Compile Include="Core\Repositories\IFolderRepository.cs" />
     <Compile Include="Core\Repositories\IRepository.cs" />
     <Compile Include="Core\IUnitOfWork.cs" />
     <Compile Include="Program.cs">

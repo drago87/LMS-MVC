@@ -26,14 +26,12 @@ namespace bat_mvc.Controllers
 
         public ActionResult Index()
         {
-            var context = new ApplicationDbContext();
-            var userStore = new UserStore<ApplicationUser>(context);
-            var userManager = new UserManager<ApplicationUser>(userStore);
+            //var context = new ApplicationDbContext();
+            //var userStore = new UserStore<ApplicationUser>(context);
+            //var userManager = new UserManager<ApplicationUser>(userStore);
 
-            var user = userManager.FindById(User.Identity.GetUserId());
-
+            //var user = userManager.FindById(User.Identity.GetUserId());
             //ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
-
             //IdentityRole temp = db.Roles.Single(r => r.Name == "Teacher");
 
             //if (User.IsInRole("Teacher"))

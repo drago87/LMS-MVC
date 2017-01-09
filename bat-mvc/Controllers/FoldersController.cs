@@ -14,10 +14,12 @@ namespace bat_mvc.Controllers
 {
     public class FoldersController : Controller
     {
-        public readonly IRepository<Folder> _folderRepo;
+        //public readonly IRepository<Folder> _folderRepo;
+        public readonly IFolderRepository _folderRepo;
         public readonly IUnitOfWork _uow;
 
-        public FoldersController(IRepository<Folder> folderRepository, IUnitOfWork uow)
+        //public FoldersController(IRepository<Folder> folderRepository, IUnitOfWork uow)
+        public FoldersController(IFolderRepository folderRepository, IUnitOfWork uow)
         {
             _folderRepo = folderRepository;
             _uow = uow;
@@ -26,6 +28,7 @@ namespace bat_mvc.Controllers
         // GET: Folders
         public ActionResult Index()
         {
+            //_folderRepo.
             var folders = _uow.Folders.GetAll();  //.GetSomeFolders(3));
             return View(folders);
         }
