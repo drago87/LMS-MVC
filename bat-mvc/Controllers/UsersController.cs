@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Queries.Core;
+using Queries.Core.Models;
 using Queries.Core.Repositories;
 using System;
 using System.Collections.Generic;
@@ -14,24 +15,23 @@ namespace bat_mvc.Controllers
 {
     public class UsersController : Controller
     {
-        //public readonly IRepository<User> _subjectRepo;
-        //public readonly IUnitOfWork _uow;
+        public readonly IRepository<ApplicationUser> _userRepo;
+        public readonly IUnitOfWork _uow;
 
-        //public UsersController (IRepository<User> subjectRepository, IUnitOfWork uow)
-        //{
-        //    _userRepo = userRepository;
-        //    _uow = uow;
-        //}
+        public UsersController(IRepository<ApplicationUser> userRepository, IUnitOfWork uow)
+        {
+            _userRepo = userRepository;
+            _uow = uow;
+        }
 
         public ActionResult Index()
         {
-            //var userStore = new UserStore<ApplicationUser>(db);
+            //var context = new ApplicationDbContext();
+            //var userStore = new UserStore<ApplicationUser>(context);
             //var userManager = new UserManager<ApplicationUser>(userStore);
 
             //var user = userManager.FindById(User.Identity.GetUserId());
-
             //ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
-
             //IdentityRole temp = db.Roles.Single(r => r.Name == "Teacher");
 
             //if (User.IsInRole("Teacher"))
@@ -39,9 +39,9 @@ namespace bat_mvc.Controllers
             //    throw new NotImplementedException();
             //}
 
-            ViewBag.Message = "Your application description page.";
+            var users = _uow.Users.GetAll();
 
-            return View();
+            return View(users);
         }
 
         //public ActionResult ShowAllUsers()
