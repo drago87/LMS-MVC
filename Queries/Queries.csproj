@@ -105,7 +105,7 @@
     <Compile Include="Core\Models\IdentityModels.cs" />
     <Compile Include="Core\Models\ManageViewModels.cs" />
     <Compile Include="Persistence\Repositories\FolderRepository.cs" />
-    <Compile Include="Core\Repositories\SharedRepository.cs" />
+    <Compile Include="Persistence\Repositories\SharedRepository.cs" />
     <Compile Include="Core\ViewModels\ClassUnitViewModel.cs" />
     <Compile Include="Core\ViewModels\UserViewModel.cs" />
     <Compile Include="Migrations\201701041212083_Initial.cs" />

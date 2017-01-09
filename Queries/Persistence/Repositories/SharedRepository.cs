@@ -15,27 +15,7 @@
 
 //        public SharedRepository()
 //        {
-
 //            //_ctx = new ApplicationDbContext();
-//        }
-
-//        public void AddFileToClassUnitShared(ApplicationUser user, Dossier file, ClassUnit _class = null)
-//        {
-
-//            if (_class == null)
-//            {
-//                var folder = _ctx.MyFolders.Find(user.ClassUnits.FirstOrDefault().Shared.FolderID);
-//                file.Folder = folder;
-//                folder.Files.Add(file);
-//            }
-//            else
-//            {
-//                var folder = _ctx.MyFolders.Find(_ctx.MyClassUnit.Find(_class.ClassUnitID).Shared.FolderID);
-//                file.Folder = folder;
-//                folder.Files.Add(file);
-//            }
-//            _ctx.SaveChanges();
-
 //        }
 
 //        #region Users
