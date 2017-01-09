@@ -1,55 +1,16 @@
-﻿//using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//using System.Web;
-//using Microsoft.AspNet.Identity;
-//using Microsoft.AspNet.Identity.EntityFramework;
-//using System.Data.Entity;
-
-//namespace LMS_MVC.Repositorys
-//{
-//    public class SharedRepository
+﻿//    public class SharedRepository
 //    {
-//        //private ApplicationDbContext _ctx;
 //        //private ApplicationUserManager _userManager;
 
-//        public SharedRepository()
-//        {
-//            //_ctx = new ApplicationDbContext();
-//        }
-
 //        #region Users
-//        public ICollection<ApplicationUser> GetAllUsers()
-//        {
-//            return _ctx.Users.ToList();
-//        }
-
-//        public ApplicationUser GetUserById(string id)
-//        {
-
-//            return _ctx.Users.FirstOrDefault(b => b.Id == id);
-//        }
-
 //        public void UpdateUser(ApplicationUser user)
 //        {
 //            _ctx.Entry(user).State = EntityState.Modified;
-
 //            _ctx.SaveChanges();
 //        }
-
 //        #endregion
 
 //        #region Roles
-//        public ICollection<IdentityRole> GetAllRoles()
-//        {
-//            return _ctx.Roles.ToList();
-//        }
-
-//        public IdentityRole GetRoleById(string id)
-//        {
-//            return _ctx.Roles.FirstOrDefault(b => b.Id == id);
-//        }
-
 //        public void AddUserToRole(ApplicationUser user, IdentityRole role)
 //        {
 //            var userStore = new UserStore<ApplicationUser>(_ctx);
@@ -58,29 +19,15 @@
 //            userManager.AddToRole(user.Id, role.Name);
 //            _ctx.SaveChanges();
 //        }
-
 //        #endregion
 
 //        #region Classes
-//        public ICollection<ClassUnit> GetAllClasses()
-//        {
-//            return _ctx.MyClassUnit.ToList();
-//        }
-
-//        public ClassUnit GetClassUnitByID(int ClassId)
-//        {
-//            return _ctx.MyClassUnit.FirstOrDefault(b => b.ClassUnitID == ClassId);
-//        }
-
 //        public void AddUserToClass(ApplicationUser user, ClassUnit classunit)
 //        {
-
 //            var temp = _ctx.MyClassUnit.Single(b => b.ClassUnitID == classunit.ClassUnitID);//.Participants.Add(user);
 //            var temp2 = _ctx.Users.Single(b => b.Id == user.Id);
 
 //            temp.Participants.Add(temp2);
-
-
 //        }
 
 //        public void UpdateClassUnit(ClassUnit classunit)
@@ -88,70 +35,20 @@
 //            _ctx.Entry(classunit).State = EntityState.Modified;
 //            _ctx.SaveChanges();
 //        }
-
-//        public ClassUnit RemoveClassUnit(int id)
-//        {
-//            ClassUnit classunit = _ctx.MyClassUnit.Find(id);
-//            if (classunit == null)
-//            {
-//                //return NotFound();
-//                return null;
-//            }
-
-//            _ctx.MyClassUnit.Remove(classunit);
-//            _ctx.SaveChanges();
-//            return classunit;
-
-//        }
-
-//        internal object AddClassUnit(ClassUnit classunit)
-//        {
-//            ClassUnit newClassunit = _ctx.MyClassUnit.Add(classunit);
-//            _ctx.SaveChanges();
-//            return newClassunit.ClassUnitID;
-//        }
 //        #endregion
 
 //        #region Subject
-//        public ICollection<Subject> GetAllSubjects()
-//        {
-//            return _ctx.MySubjects.ToList();
-//        }
-
 //        public Subject GetSubjectByName(string Name)
 //        {
 //            return _ctx.MySubjects.FirstOrDefault(b => b.SubjectName == Name);
 //        }
-
-
-//        #endregion
-
-//        #region Folders
-//        public ICollection<Folder> GetAllFolders()
-//        {
-//            return _ctx.MyFolders.ToList();
-//        }
-
-//        public Folder GetFolderByID(int ID)
-//        {
-//            return _ctx.MyFolders.FirstOrDefault(b => b.FolderID == ID);
-//        }
-
 //        #endregion
 
 //        #region Files
-
-//        public ICollection<Dossier> GetAllFiles()
-//        {
-//            return _ctx.MyFiles.ToList();
-//        }
-
 //        public ICollection<Dossier> GetAllFilesInFolder(Folder Fold)
 //        {
-
 //            return _ctx.MyFiles.Where(b => b.Folder == Fold).ToList();
 //        }
-
 //        #endregion
 
 
@@ -179,7 +76,6 @@
 //            {
 //                ClassUnit classunit = _ctx.MyClassUnit.SingleOrDefault(b => b.ClassUnitID == classunitId);
 
-
 //                //AddRemoveFromClassUnit
 //                if (theUser.ClassUnits.Contains(classunit))
 //                {
@@ -196,12 +92,7 @@
 //            theUser.Email = user.Email;
 //            theUser.UserName = user.UserName;
 //            theUser.PhoneNumber = user.PhoneNumber;
-
-
 //            _ctx.Entry(theUser).State = EntityState.Modified;
-
-
-
 //            _ctx.SaveChanges();
 //        }
 

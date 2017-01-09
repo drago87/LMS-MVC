@@ -61,7 +61,7 @@ namespace bat_mvc.App_Start
             container.RegisterType<IRepository<ApplicationUser>,   Repository<ApplicationUser>>(new PerRequestLifetimeManager());
 
             container.RegisterType<IFolderRepository, FolderRepository>(new PerRequestLifetimeManager());
-            //container.RegisterType<IFolderService, FolderService>(new PerRequestLifetimeManager());
+            container.RegisterType<IUserRepository, UserRepository>(new PerRequestLifetimeManager());
         }
 
         // for WEBAPI
@@ -81,6 +81,7 @@ namespace bat_mvc.App_Start
             container.RegisterType<IRepository<ApplicationUser>,   Repository<ApplicationUser>>(new PerRequestLifetimeManager());
 
             container.RegisterType<IFolderRepository, FolderRepository>(new PerRequestLifetimeManager());
+            //container.RegisterType<IUserRepository, UserRepository>(new PerRequestLifetimeManager());
 
             GlobalConfiguration.Configuration.DependencyResolver = new UnityDependencyResolver(container);
         }
