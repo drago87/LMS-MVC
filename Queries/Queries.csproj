@@ -104,6 +104,8 @@
     <Compile Include="Core\Models\AccountViewModels.cs" />
     <Compile Include="Core\Models\IdentityModels.cs" />
     <Compile Include="Core\Models\ManageViewModels.cs" />
+    <Compile Include="Core\Repositories\IUserRepository.cs" />
+    <Compile Include="Persistence\Repositories\UserRepository.cs" />
     <Compile Include="Persistence\Repositories\FolderRepository.cs" />
     <Compile Include="Persistence\Repositories\SharedRepository.cs" />
     <Compile Include="Core\ViewModels\ClassUnitViewModel.cs" />
@@ -113,7 +115,6 @@
       <DependentUpon>201701090932020_First.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Persistence\Repositories\AuthorRepository.cs" />
     <Compile Include="Persistence\EntityConfigurations\CourseConfiguration.cs" />
     <Compile Include="Core\Repositories\IFolderRepository.cs" />
     <Compile Include="Core\Repositories\IRepository.cs" />

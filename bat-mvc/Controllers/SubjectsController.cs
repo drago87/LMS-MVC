@@ -9,28 +9,32 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-//using Awesome.Model;
-//using Awesome.Models;
-//using Awesome.Data.Contracts;
-//using Awesome.Data;
+
 
 namespace bat_mvc.Controllers
 {
     public class SubjectsController : Controller
     {
-        public readonly IRepository<Subject> _subjectRepo;
-        public readonly IUnitOfWork _uow;
+        public readonly IRepository<Subject> _subject;
+        public readonly IUnitOfWork _uow; // behövs inte
 
         public SubjectsController(IRepository<Subject> subjectRepository, IUnitOfWork uow)
         {
-            _subjectRepo = subjectRepository;
-            _uow = uow;
+            _subject = subjectRepository;
+            _uow = uow; // behövs inte
         }
 
         // GET: Subjects
         public ActionResult Index()
         {
-            var subjects = _uow.Subjects.GetAll();
+            // var subjects = _uow.Subjects.GetAll();
+            var subjects = _subject.GetAll();
+            return View(subjects);
+        }
+
+        public ActionResult Hitta(string name)
+        {
+            var subjects = _subject.Find(s => s.SubjectName == name);
             return View(subjects);
         }
 
