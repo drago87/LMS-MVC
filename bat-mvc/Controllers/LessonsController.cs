@@ -9,118 +9,122 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+//using Awesome.Model;
+//using Awesome.Models;
+//using Awesome.Data.Contracts;
+//using Awesome.Data;
 
 namespace bat_mvc.Controllers
 {
-    public class FoldersController : Controller
+    public class LessonsController : Controller
     {
-        public readonly IRepository<Folder> _folderRepo;
+        public readonly IRepository<Lesson> _lessonRepo;
         public readonly IUnitOfWork _uow;
 
-        public FoldersController(IRepository<Folder> folderRepository, IUnitOfWork uow)
+        public LessonsController(IRepository<Lesson> lessonRepository, IUnitOfWork uow)
         {
-            _folderRepo = folderRepository;
+            _lessonRepo = lessonRepository;
             _uow = uow;
         }
 
-        // GET: Folders
+        // GET: Lessons
         public ActionResult Index()
         {
-            var folders = _uow.Folders.GetAll();  //.GetSomeFolders(3));
-            return View(folders);
+            var lessons = _uow.Lessons.GetAll();
+            return View(lessons);
         }
 
-        // GET: Folders/Details/5
+        // GET: Lessons/Details/5
         //public ActionResult Details(int? id)
         //{
         //    if (id == null)
         //    {
         //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
         //    }
-        //    //Folder Folder = db.Folders.Find(id);
-        //    if (Folder == null)
+        //    //Lesson lesson = db.Lessons.Find(id);
+        //    if (lesson == null)
         //    {
         //        return HttpNotFound();
         //    }
-        //    return View(Folder);
+        //    return View(lesson);
         //}
 
-        // GET: Folders/Create
+        // GET: Lessons/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Folders/Create
+        // POST: Lessons/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         //[HttpPost]
         //[ValidateAntiForgeryToken]
-        //public ActionResult Create([Bind(Include = "FolderID,FolderName")] Folder Folder)
+        //public ActionResult Create([Bind(Include = "LessonID,LessonName")] Lesson lesson)
         //{
         //    if (ModelState.IsValid)
         //    {
-        //        db.Folders.Add(Folder);
+        //        db.Lessons.Add(lesson);
         //        db.SaveChanges();
         //        return RedirectToAction("Index");
         //    }
 
-        //    return View(Folder);
+        //    return View(lesson);
         //}
 
-        // GET: Folders/Edit/5
+        // GET: Lessons/Edit/5
         //public ActionResult Edit(int? id)
         //{
         //    if (id == null)
         //    {
         //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
         //    }
-        //    Folder Folder = db.Folders.Find(id);
-        //    if (Folder == null)
+        //    Lesson lesson = db.Lessons.Find(id);
+        //    if (lesson == null)
         //    {
         //        return HttpNotFound();
         //    }
-        //    return View(Folder);
+        //    return View(lesson);
         //}
 
-        // POST: Folders/Edit/5
+        // POST: Lessons/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         //[HttpPost]
         //[ValidateAntiForgeryToken]
-        //public ActionResult Edit([Bind(Include = "FolderID,FolderName")] Folder Folder)
+        //public ActionResult Edit([Bind(Include = "LessonID,LessonName")] Lesson lesson)
         //{
         //    if (ModelState.IsValid)
         //    {
-        //        db.Entry(Folder).State = EntityState.Modified;
+        //        db.Entry(lesson).State = EntityState.Modified;
         //        db.SaveChanges();
         //        return RedirectToAction("Index");
         //    }
-        //    return View(Folder);
+        //    return View(lesson);
         //}
 
-        // GET: Folders/Delete/5
+        // GET: Lessons/Delete/5
         //public ActionResult Delete(int? id)
         //{
         //    if (id == null)
         //    {
         //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
         //    }
-        //    Folder Folder = db.Folders.Find(id);
-        //    if (Folder == null)
+        //    Lesson lesson = db.Lessons.Find(id);
+        //    if (lesson == null)
         //    {
         //        return HttpNotFound();
         //    }
-        //    return View(Folder);
+        //    return View(lesson);
         //}
 
-        // POST: Folders/Delete/5
+        // POST: Lessons/Delete/5
         //[HttpPost, ActionName("Delete")]
         //[ValidateAntiForgeryToken]
         //public ActionResult DeleteConfirmed(int id)
         //{
-        //    Folder Folder = db.Folders.Find(id);
-        //    db.Folders.Remove(Folder);
+        //    Lesson lesson = db.Lessons.Find(id);
+        //    db.Lessons.Remove(lesson);
         //    db.SaveChanges();
         //    return RedirectToAction("Index");
         //}

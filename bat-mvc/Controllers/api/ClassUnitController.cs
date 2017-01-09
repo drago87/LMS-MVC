@@ -35,22 +35,23 @@ namespace bat_mvc.Controllers.api
             return classunits;
         }
 
-        //// GET api/classunits/5
-        //public ClassUnit Get(int id)
-        //{
-        //    var classunit = Uow.Classunits.GetById(id);
-        //    if (classunit != null) return classunit;
-        //    throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
-        //}
+        // GET api/classunits/5
+        public ClassUnit Get(int id)
+        {
+            var classunit = _uow.Classunits.Get(id);
+            if (classunit != null) return classunit;
+            throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
+        }
 
-        //// Update an existing classunit
-        //// PUT /api/classunits/
-        //public HttpResponseMessage Put([FromBody] ClassUnit classunit)
-        //{
-        //    Uow.Classunits.Update(classunit);
-        //    Uow.Commit();
-        //    return new HttpResponseMessage(HttpStatusCode.NoContent);
-        //}
+        // Update an existing classunit
+        // PUT /api/classunits/
+        public HttpResponseMessage Put([FromBody] ClassUnit classunit)
+        {
+            //Uow.Classunits.Update(classunit);
+            var cu = _uow.Classunits.Get(classunit.ClassUnitID);
+            _uow.Complete();
+            return new HttpResponseMessage(HttpStatusCode.NoContent);
+        }
 
         //// Create a new classunit
         //// POST /api/classunits

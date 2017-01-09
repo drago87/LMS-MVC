@@ -55,8 +55,8 @@ angular.module("app.data", ["ngResource"])
                 sessionStorage.setItem('accessToken',  data.access_token);
                 sessionStorage.setItem('refreshToken', data.refresh_token);
                 this.setUserName(data.userName);
-                $state.reload();
-                $state.go('students');
+                //$state.reload();
+                //$state.go('students');
             },
             setUserName: function(n) {
                 this.userName = n;

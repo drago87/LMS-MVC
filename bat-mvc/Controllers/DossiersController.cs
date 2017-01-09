@@ -12,115 +12,115 @@ using System.Web.Mvc;
 
 namespace bat_mvc.Controllers
 {
-    public class FoldersController : Controller
+    public class DossiersController : Controller
     {
-        public readonly IRepository<Folder> _folderRepo;
+        public readonly IRepository<Dossier> _dossierRepo;
         public readonly IUnitOfWork _uow;
 
-        public FoldersController(IRepository<Folder> folderRepository, IUnitOfWork uow)
+        public DossiersController(IRepository<Dossier> dossierRepository, IUnitOfWork uow)
         {
-            _folderRepo = folderRepository;
+            _dossierRepo = dossierRepository;
             _uow = uow;
         }
 
-        // GET: Folders
+        // GET: Dossiers
         public ActionResult Index()
         {
-            var folders = _uow.Folders.GetAll();  //.GetSomeFolders(3));
-            return View(folders);
+            var dossiers = _uow.Dossiers.GetAll();  //.GetSomeDossiers(3));
+            return View(dossiers);
         }
 
-        // GET: Folders/Details/5
+        // GET: Dossiers/Details/5
         //public ActionResult Details(int? id)
         //{
         //    if (id == null)
         //    {
         //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
         //    }
-        //    //Folder Folder = db.Folders.Find(id);
-        //    if (Folder == null)
+        //    //Dossier Dossier = db.Dossiers.Find(id);
+        //    if (Dossier == null)
         //    {
         //        return HttpNotFound();
         //    }
-        //    return View(Folder);
+        //    return View(Dossier);
         //}
 
-        // GET: Folders/Create
+        // GET: Dossiers/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Folders/Create
+        // POST: Dossiers/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         //[HttpPost]
         //[ValidateAntiForgeryToken]
-        //public ActionResult Create([Bind(Include = "FolderID,FolderName")] Folder Folder)
+        //public ActionResult Create([Bind(Include = "DossierID,DossierName")] Dossier Dossier)
         //{
         //    if (ModelState.IsValid)
         //    {
-        //        db.Folders.Add(Folder);
+        //        db.Dossiers.Add(Dossier);
         //        db.SaveChanges();
         //        return RedirectToAction("Index");
         //    }
 
-        //    return View(Folder);
+        //    return View(Dossier);
         //}
 
-        // GET: Folders/Edit/5
+        // GET: Dossiers/Edit/5
         //public ActionResult Edit(int? id)
         //{
         //    if (id == null)
         //    {
         //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
         //    }
-        //    Folder Folder = db.Folders.Find(id);
-        //    if (Folder == null)
+        //    Dossier Dossier = db.Dossiers.Find(id);
+        //    if (Dossier == null)
         //    {
         //        return HttpNotFound();
         //    }
-        //    return View(Folder);
+        //    return View(Dossier);
         //}
 
-        // POST: Folders/Edit/5
+        // POST: Dossiers/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         //[HttpPost]
         //[ValidateAntiForgeryToken]
-        //public ActionResult Edit([Bind(Include = "FolderID,FolderName")] Folder Folder)
+        //public ActionResult Edit([Bind(Include = "DossierID,DossierName")] Dossier Dossier)
         //{
         //    if (ModelState.IsValid)
         //    {
-        //        db.Entry(Folder).State = EntityState.Modified;
+        //        db.Entry(Dossier).State = EntityState.Modified;
         //        db.SaveChanges();
         //        return RedirectToAction("Index");
         //    }
-        //    return View(Folder);
+        //    return View(Dossier);
         //}
 
-        // GET: Folders/Delete/5
+        // GET: Dossiers/Delete/5
         //public ActionResult Delete(int? id)
         //{
         //    if (id == null)
         //    {
         //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
         //    }
-        //    Folder Folder = db.Folders.Find(id);
-        //    if (Folder == null)
+        //    Dossier Dossier = db.Dossiers.Find(id);
+        //    if (Dossier == null)
         //    {
         //        return HttpNotFound();
         //    }
-        //    return View(Folder);
+        //    return View(Dossier);
         //}
 
-        // POST: Folders/Delete/5
+        // POST: Dossiers/Delete/5
         //[HttpPost, ActionName("Delete")]
         //[ValidateAntiForgeryToken]
         //public ActionResult DeleteConfirmed(int id)
         //{
-        //    Folder Folder = db.Folders.Find(id);
-        //    db.Folders.Remove(Folder);
+        //    Dossier Dossier = db.Dossiers.Find(id);
+        //    db.Dossiers.Remove(Dossier);
         //    db.SaveChanges();
         //    return RedirectToAction("Index");
         //}
