@@ -21,14 +21,14 @@ namespace bat_mvc.Controllers
     public class UsersController : Controller
     {
         public readonly IUserRepository _user;
-        //public readonly IUnitOfWork _uow;
+        public readonly IUnitOfWork _uow;
 
         private ApplicationUserManager _userManager;
 
         public UsersController(IUserRepository userRepository, IUnitOfWork uow)
         {
             _user = userRepository;
-            //_uow = uow;
+            _uow = uow;
         }
 
         public ActionResult Index()
@@ -79,13 +79,13 @@ namespace bat_mvc.Controllers
 
             List<ClassUnit> classunitsList = new List<ClassUnit>();
             classunitsList.Add(new ClassUnit { ClassName = "---ClassUnits---", ClassUnitID = -1 });
-            //classunitsList.AddRange(_repo.GetAllClasses());
+            classunitsList.AddRange(_uow.Classunits.GetAll());
 
             List<IdentityRole> rolesList = new List<IdentityRole>();
             rolesList.Add(new IdentityRole { Name = "---Roles---", Id = "-1" });
-            //rolesList.AddRange(_repo.GetAllRoles());
+            rolesList.AddRange(_user.GetAllRoles());
 
-            ViewBag.ClassUnit = classunitsList;
+            ViewBag.ClassUnits = classunitsList;
             ViewBag.Roles = rolesList;
             return View(applicationUser);
         }
@@ -119,10 +119,10 @@ namespace bat_mvc.Controllers
 
             //List<string> classunits = _repo.GetUserClassUnitsNameAsList(applicationUser);
             var classunits = _user.GetClassUnitsFor(applicationUser);
-            //var cu = classunits.Select(c => c.ClassName).ToList().ToString();
-            ViewBag.ClassUnits = classunits;
+            var cu = classunits.Select(c => c.ClassName).ToList().ToString();
+            ViewBag.ClassUnits = cu;
 
-            List<string> roles = _repo.GetUserRolesNameAsList(applicationUser);
+            //List<string> roles = _repo.GetUserRolesNameAsList(applicationUser);
             ViewBag.Roles = ""; //roles;
 
             return View(applicationUser);

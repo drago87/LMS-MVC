@@ -13,6 +13,7 @@ namespace Queries.Core.Repositories
         List<string> GetUserRolesNameAsList(ApplicationUser user);
         IEnumerable<ClassUnit> GetClassUnitsFor(ApplicationUser user);
         ApplicationUser GetUserById(string id);
+        ICollection<IdentityRole> GetAllRoles();
 
         void AddUserToRole(ApplicationUser user, IdentityRole role);
     }
