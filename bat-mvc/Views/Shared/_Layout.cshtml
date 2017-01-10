@@ -31,6 +31,14 @@
                             <li>@Html.ActionLink("Users","Index","Users")</li>
                             <li>@Html.ActionLink("Register New User", "Register", "Users")</li>
                         </ul>
+                        
+                        <select onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
+                            <option value="">Select...</option>
+                            <option value="Home/Index">Home</option>
+                            <option value="User/Index">Users</option>
+                        </select>
+
+                        
                         @Html.Partial("_LoginPartial")
                     </div>
                 </div>
