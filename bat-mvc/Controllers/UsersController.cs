@@ -62,7 +62,7 @@ namespace bat_mvc.Controllers
         //    return View(roles);
         //}
 
-        [Authorize(Roles="Teacher")]
+        [Authorize(Roles = "Teacher")]
         public ActionResult Edit(string id)
         {
             if (id == null)
@@ -120,15 +120,15 @@ namespace bat_mvc.Controllers
             //List<string> classunits = _repo.GetUserClassUnitsNameAsList(applicationUser);
             var classunits = _user.GetClassUnitsFor(applicationUser);
             //var cu = classunits.Select(c => c.ClassName).ToList().ToString();
-            ViewBag.ClassUnits = classunits.Count().ToString();
+            ViewBag.ClassUnits = classunits;
 
-            //List<string> roles = _repo.GetUserRolesNameAsList(applicationUser);
+            List<string> roles = _repo.GetUserRolesNameAsList(applicationUser);
             ViewBag.Roles = ""; //roles;
 
             return View(applicationUser);
         }
 
-        [Authorize(Roles="Teacher")]
+        [Authorize(Roles = "Teacher")]
         //[AllowAnonymous]
         public ActionResult Register()
         {
