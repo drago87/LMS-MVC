@@ -7,6 +7,7 @@ namespace Queries.Core.Repositories
 {
     public interface IUserRepository : IRepository<ApplicationUser>
     {
+        void edit(ApplicationUser user, string roleId, int classunitId);
         void UpdateUser(ApplicationUser user);
         IEnumerable<ApplicationUser> GetUsersByName(string username);
         List<string> GetUserRolesNameAsList(ApplicationUser user);

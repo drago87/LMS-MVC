@@ -49,7 +49,6 @@ namespace Queries.Core.Repositories
             {
                 var role = new RoleViewModel();
                 user.Roles.Select(r => r.RoleId.ToString());
-                //role = 
             }
             return rolenames;
         }
@@ -60,6 +59,55 @@ namespace Queries.Core.Repositories
             return thisuser.ClassUnits.ToList();
         }
 
+        public void edit(ApplicationUser user, string roleId, int classunitId)
+        {
+            var userStore   = new UserStore<ApplicationUser>(Ctx);
+            var userManager = new UserManager<ApplicationUser>(userStore);
+            var theUser = Ctx.Users
+                .SingleOrDefault(b => b.Id == user.Id);
+
+            if (roleId != "-1")
+            {
+                IdentityRole role = Ctx.Roles.SingleOrDefault(b => b.Id == roleId);
+                
+                if (GetUserRolesNameAsList(theUser).Contains("Teacher"))
+                {
+                    userManager.RemoveFromRole(theUser.Id, "Teacher");
+                }
+                else if (GetUserRolesNameAsList(theUser).Contains("Student"))
+                {
+                    userManager.RemoveFromRole(theUser.Id, "Student");
+                }
+                userManager.AddToRole(theUser.Id, role.Name);
+            }
+
+            if (classunitId != -1)
+            {
+                var classunit = Ctx.Classunits.SingleOrDefault(b => b.ClassUnitID == classunitId);
+
+                //AddRemoveFromClassUnit
+                if (theUser.ClassUnits.Contains(classunit))
+                {
+                    //theUser.ClassUnits.Remove(classunit);
+                    classunit.Participants.Remove(theUser);
+                }
+                else
+                {
+                    //theUser.ClassUnits.Add(classunit);
+                    classunit.Participants.Add(theUser);
+                }
+
+                Ctx.Entry(classunit).State = EntityState.Modified;
+                Ctx.SaveChanges();
+            }
+            theUser.Email = user.Email;
+            theUser.UserName = user.UserName;
+            theUser.PhoneNumber = user.PhoneNumber;
+
+            Ctx.Entry(theUser).State = EntityState.Modified;
+
+            Ctx.SaveChanges();
+        }
         #endregion
 
         #region Roles
