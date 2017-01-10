@@ -10,6 +10,8 @@ namespace Queries.Core.Repositories
         void UpdateUser(ApplicationUser user);
         IEnumerable<ApplicationUser> GetUsersByName(string username);
         List<string> GetUserRolesNameAsList(ApplicationUser user);
+        IEnumerable<ClassUnit> GetClassUnitsFor(ApplicationUser user);
+        ApplicationUser GetUserById(string id);
 
         void AddUserToRole(ApplicationUser user, IdentityRole role);
     }

@@ -33,6 +33,11 @@ namespace Queries.Core.Repositories
                 .Where(u => u.UserName == username);
         }
 
+        public ApplicationUser GetUserById(string id)
+        {
+            return Ctx.Users.Single(u => u.Id == id);
+        }
+
         //public List<IdentityRole> GetUserRolesNameAsList(ApplicationUser user)
         public List<string> GetUserRolesNameAsList(ApplicationUser user)
         //public RoleViewModel GetMyRoles(ApplicationUser user)
@@ -48,7 +53,13 @@ namespace Queries.Core.Repositories
             }
             return rolenames;
         }
-                
+
+        public IEnumerable<ClassUnit> GetClassUnitsFor(ApplicationUser user)
+        {
+            var  thisuser = Ctx.Users.Include("ClassUnits").Single(u => u.Id == user.Id);
+            return thisuser.ClassUnits.ToList();
+        }
+
         #endregion
 
         #region Roles
