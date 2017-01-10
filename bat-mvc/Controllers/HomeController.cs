@@ -1,5 +1,4 @@
-﻿using LMS_MVC.Repositorys;
-using Microsoft.AspNet.Identity;
+﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Queries.Core.Domain;
 using Queries.Core.Models;
@@ -11,7 +10,6 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.Owin.Security;
-using Microsoft.AspNet.Identity.Owin;
 
 namespace bat_mvc.Controllers
 {
