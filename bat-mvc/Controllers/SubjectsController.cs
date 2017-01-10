@@ -13,6 +13,7 @@ using System.Web.Mvc;
 
 namespace bat_mvc.Controllers
 {
+    [Authorize]
     public class SubjectsController : Controller
     {
         public readonly IRepository<Subject> _subject;

@@ -167,14 +167,16 @@ namespace LMS_MVC.Repositorys
             {
                 IdentityRole role = _ctx.Roles.SingleOrDefault(b => b.Id == roleId);
                 //AddRemoveFromRole
-                if (GetUserRolesNameAsList(theUser).Contains(role.Name))
+                
+                if (GetUserRolesNameAsList(theUser).Contains("Teacher"))
                 {
-                    userManager.RemoveFromRole(theUser.Id, role.Name);
+                    userManager.RemoveFromRole(theUser.Id, "Teacher");
                 }
-                else
+                else if (GetUserRolesNameAsList(theUser).Contains("Student"))
                 {
-                    userManager.AddToRole(theUser.Id, role.Name);
+                    userManager.RemoveFromRole(theUser.Id, "Student");
                 }
+                userManager.AddToRole(theUser.Id, role.Name);
             }
 
             if (classunitId != -1)

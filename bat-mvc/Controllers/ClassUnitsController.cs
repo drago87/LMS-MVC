@@ -12,6 +12,7 @@ using System.Web.Mvc;
 
 namespace bat_mvc.Controllers
 {
+    [Authorize]
     public class ClassUnitsController : Controller
     {
         public readonly IRepository<Subject> _classunitRepo;

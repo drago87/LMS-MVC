@@ -12,6 +12,7 @@ using System.Web.Mvc;
 
 namespace bat_mvc.Controllers
 {
+    [Authorize]
     public class FoldersController : Controller
     {
         //public readonly IRepository<Folder> _folderRepo;

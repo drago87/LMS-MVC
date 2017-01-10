@@ -18,6 +18,7 @@ using Microsoft.AspNet.Identity.Owin;
 
 namespace bat_mvc.Controllers
 {
+    [Authorize]
     public class UsersController : Controller
     {
         public readonly IUserRepository _user;

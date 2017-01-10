@@ -12,6 +12,7 @@ using System.Web.Mvc;
 
 namespace bat_mvc.Controllers
 {
+    [Authorize]
     public class DossiersController : Controller
     {
         public readonly IRepository<Dossier> _dossierRepo;
