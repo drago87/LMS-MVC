@@ -1,5 +1,4 @@
-﻿using LMS_MVC.Repositorys;
-using Microsoft.AspNet.Identity;
+﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Queries.Core;
 using Queries.Core.Domain;
@@ -23,7 +22,7 @@ namespace bat_mvc.Controllers
         public readonly IUserRepository _user;
         public readonly IUnitOfWork _uow;
 
-        SharedRepository _repo = new SharedRepository();
+        //SharedRepository _repo = new SharedRepository();
         private ApplicationUserManager _userManager;
 
         public UsersController(IUserRepository userRepository, IUnitOfWork uow)
@@ -69,7 +68,10 @@ namespace bat_mvc.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ApplicationUser applicationUser = _repo.GetUserById(id);
+
+            //ApplicationUser applicationUser = _repo.GetUserById(id);
+            ApplicationUser applicationUser = _user.GetUserById(id);
+
             if (applicationUser == null)
             {
                 return HttpNotFound();
@@ -77,11 +79,11 @@ namespace bat_mvc.Controllers
 
             List<ClassUnit> classunitsList = new List<ClassUnit>();
             classunitsList.Add(new ClassUnit { ClassName = "---ClassUnits---", ClassUnitID = -1 });
-            classunitsList.AddRange(_repo.GetAllClasses());
+            //classunitsList.AddRange(_repo.GetAllClasses());
 
             List<IdentityRole> rolesList = new List<IdentityRole>();
             rolesList.Add(new IdentityRole { Name = "---Roles---", Id = "-1" });
-            rolesList.AddRange(_repo.GetAllRoles());
+            //rolesList.AddRange(_repo.GetAllRoles());
 
             ViewBag.ClssUnit = classunitsList;
             ViewBag.Roles = rolesList;
@@ -92,13 +94,11 @@ namespace bat_mvc.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Exclude = "ClassUnitID,RolesId")] ApplicationUser applicationUser, int ClassUnitID, string RolesId)
         {
-
             if (ModelState.IsValid)
             {
-                _repo.edit(applicationUser, RolesId, ClassUnitID);
-                return RedirectToAction("ShowAllUsers");
+                //_repo.edit(applicationUser, RolesId, ClassUnitID);
+                return RedirectToAction("Index");
             }
-            //not done
             return View(applicationUser);
         }
 
@@ -109,16 +109,21 @@ namespace bat_mvc.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            ApplicationUser applicationUser = _repo.GetUserById(id);
+            //ApplicationUser applicationUser = _repo.GetUserById(id);
+            ApplicationUser applicationUser = _user.GetUserById(id);
 
             if (applicationUser == null)
             {
                 return HttpNotFound();
             }
 
-            ViewBag.ClassUnits = _repo.GetUserClassUnitsNameAsList(applicationUser);
-            List<string> roles = _repo.GetUserRolesNameAsList(applicationUser);
-            ViewBag.Roles = roles;
+            //List<string> classunits = _repo.GetUserClassUnitsNameAsList(applicationUser);
+            var classunits = _user.GetClassUnitsFor(applicationUser);
+            //var cu = classunits.Select(c => c.ClassName).ToList().ToString();
+            ViewBag.ClassUnits = classunits.Count().ToString();
+
+            //List<string> roles = _repo.GetUserRolesNameAsList(applicationUser);
+            ViewBag.Roles = ""; //roles;
 
             return View(applicationUser);
         }
@@ -151,7 +156,7 @@ namespace bat_mvc.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Users");
                 }
                 AddErrors(result);
             }
