@@ -61,7 +61,7 @@ namespace bat_mvc.Controllers
             var roles = _user.GetUserRolesNameAsList(user);
             return View(roles);
         }
-
+        [Authorize(Roles="Teacher")]
         public ActionResult Edit(string id)
         {
             if (id == null)
@@ -96,7 +96,7 @@ namespace bat_mvc.Controllers
         {
             if (ModelState.IsValid)
             {
-                //_repo.edit(applicationUser, RolesId, ClassUnitID);
+                _repo.edit(applicationUser, RolesId, ClassUnitID);
                 return RedirectToAction("Index");
             }
             return View(applicationUser);
@@ -128,8 +128,8 @@ namespace bat_mvc.Controllers
             return View(applicationUser);
         }
 
-        //[Authorize(Roles="Teacher")]
-        [AllowAnonymous]
+        [Authorize(Roles="Teacher")]
+        //[AllowAnonymous]
         public ActionResult Register()
         {
             return View();
@@ -138,7 +138,7 @@ namespace bat_mvc.Controllers
         //
         // POST: /Account/Register
         [HttpPost]
-        [AllowAnonymous]
+        //[AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {

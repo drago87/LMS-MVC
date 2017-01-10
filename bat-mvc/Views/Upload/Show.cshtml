@@ -1,0 +1,25 @@
+﻿@model IEnumerable<bat_mvc.ViewModels.FileViewModel>
+<h2>Show</h2>
+
+
+@foreach (var item in Model)
+{
+    <tr>
+
+        <td>
+
+            @Html.ActionLink(
+            " ",
+            "Index",
+            "Home",
+            null,
+              new { style = "background: url('" + Url.Content(item.IconImg) + "') no-repeat center right; background-size: cover; display:block; height:72px; width:72px;" }
+            )
+        </td>
+        <td>
+           @Html.DisplayFor(modelItem => item.File.Name)
+
+        </td>
+        
+    </tr>
+}

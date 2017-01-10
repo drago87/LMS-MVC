@@ -212,6 +212,8 @@ namespace LMS_MVC.Repositorys
         {
             List<string> tempRoleNames = new List<string>();
 
+            var temp = _ctx.Users.Where(x => x.Id == applicationUser.Id).Include(z => z.Roles).First();
+
             if (applicationUser.Roles.Any())
             {
                 foreach (var item in applicationUser.Roles)
@@ -230,8 +232,11 @@ namespace LMS_MVC.Repositorys
         public List<string> GetUserClassUnitsNameAsList(ApplicationUser applicationUser)
         {
             List<string> tempClassNames = new List<string>();
+            //Needed dont ask my why
+            var temp = _ctx.Users.Where(x => x.Id == applicationUser.Id).Include(z => z.ClassUnits).First();
 
 
+            
             if (applicationUser.ClassUnits != null && applicationUser.ClassUnits.Count > 0)
             {
                 foreach (var item in applicationUser.ClassUnits)
@@ -243,6 +248,8 @@ namespace LMS_MVC.Repositorys
             {
                 tempClassNames.Add("Not assigned a Class unit yet!");
             }
+            
+            
 
             return tempClassNames;
         }
