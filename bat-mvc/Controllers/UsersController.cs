@@ -23,7 +23,6 @@ namespace bat_mvc.Controllers
         public readonly IUserRepository _user;
         public readonly IUnitOfWork _uow;
 
-        //SharedRepository _repo = new SharedRepository();
         private ApplicationUserManager _userManager;
 
         public UsersController(IUserRepository userRepository, IUnitOfWork uow)
@@ -70,7 +69,6 @@ namespace bat_mvc.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            //ApplicationUser applicationUser = _repo.GetUserById(id);
             ApplicationUser applicationUser = _user.GetUserById(id);
 
             if (applicationUser == null)
@@ -97,7 +95,7 @@ namespace bat_mvc.Controllers
         {
             if (ModelState.IsValid)
             {
-                _repo.edit(applicationUser, RolesId, ClassUnitID);
+                _user.edit(applicationUser, RolesId, ClassUnitID);
                 return RedirectToAction("Index");
             }
             return View(applicationUser);

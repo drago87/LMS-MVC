@@ -105,6 +105,7 @@
     <Compile Include="Core\Models\IdentityModels.cs" />
     <Compile Include="Core\Models\ManageViewModels.cs" />
     <Compile Include="Core\Repositories\IUserRepository.cs" />
+    <Compile Include="Core\ViewModels\FileViewModel.cs" />
     <Compile Include="Core\ViewModels\RoleViewModel.cs" />
     <Compile Include="Persistence\Repositories\UserRepository.cs" />
     <Compile Include="Persistence\Repositories\FolderRepository.cs" />
