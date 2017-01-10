@@ -124,6 +124,11 @@ namespace Queries.Core.Repositories
             userManager.AddToRole(user.Id, role.Name);
             Ctx.SaveChanges();
         }
+
+        public ICollection<IdentityRole> GetAllRoles()
+        {
+            return Ctx.Roles.ToList();
+        }
         #endregion
 
         //public ApplicationDbContext Ctx
