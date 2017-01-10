@@ -11,8 +11,12 @@ namespace Queries.Core.Repositories
 {
     public class FolderRepository : Repository<Folder>, IFolderRepository
     {
+        private readonly ApplicationDbContext Ctx;
+
         public FolderRepository(ApplicationDbContext context) : base(context)
-        { }
+        {
+            Ctx = context;
+        }
 
         public void AddFileToClassUnitShared(ApplicationUser user, Dossier file, ClassUnit _class = null)
         {
@@ -54,9 +58,9 @@ namespace Queries.Core.Repositories
             return Ctx.Dossiers.Where(d => d.Folder == folder).ToList();
         }
 
-        public ApplicationDbContext Ctx
-        {
-            get { return Ctx as ApplicationDbContext; }
-        }
+        //public ApplicationDbContext Ctx
+        //{
+        //    get { return Ctx as ApplicationDbContext; }
+        //}
     }
 }

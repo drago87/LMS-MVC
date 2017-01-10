@@ -21,14 +21,14 @@ namespace bat_mvc.Controllers
     public class UsersController : Controller
     {
         public readonly IUserRepository _user;
-        public readonly IUnitOfWork _uow;
+        //public readonly IUnitOfWork _uow;
 
         private ApplicationUserManager _userManager;
 
         public UsersController(IUserRepository userRepository, IUnitOfWork uow)
         {
             _user = userRepository;
-            _uow = uow;
+            //_uow = uow;
         }
 
         public ActionResult Index()
@@ -50,17 +50,18 @@ namespace bat_mvc.Controllers
             return View(users);
         }
 
-        public ActionResult Roles()
-        {
-            var context     = new ApplicationDbContext();
-            var userStore   = new UserStore<ApplicationUser>(context);
-            var userManager = new UserManager<ApplicationUser>(userStore);
-            ApplicationUser user = userManager.FindById(User.Identity.GetUserId());
+        //public ActionResult Roles()
+        //{
+        //    var context     = new ApplicationDbContext();
+        //    var userStore   = new UserStore<ApplicationUser>(context);
+        //    var userManager = new UserManager<ApplicationUser>(userStore);
+        //    ApplicationUser user = userManager.FindById(User.Identity.GetUserId());
 
-            //IdentityRole a = Ctx.Roles;
-            var roles = _user.GetUserRolesNameAsList(user);
-            return View(roles);
-        }
+        //    //IdentityRole a = Ctx.Roles;
+        //    var roles = _user.GetUserRolesNameAsList(user);
+        //    return View(roles);
+        //}
+
         [Authorize(Roles="Teacher")]
         public ActionResult Edit(string id)
         {
@@ -84,7 +85,7 @@ namespace bat_mvc.Controllers
             rolesList.Add(new IdentityRole { Name = "---Roles---", Id = "-1" });
             //rolesList.AddRange(_repo.GetAllRoles());
 
-            ViewBag.ClssUnit = classunitsList;
+            ViewBag.ClassUnit = classunitsList;
             ViewBag.Roles = rolesList;
             return View(applicationUser);
         }

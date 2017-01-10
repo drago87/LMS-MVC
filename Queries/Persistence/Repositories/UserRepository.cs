@@ -15,7 +15,13 @@ namespace Queries.Core.Repositories
 {
     public class UserRepository : Repository<ApplicationUser>, IUserRepository
     {
-        public UserRepository(ApplicationDbContext context) : base(context) { }
+        private readonly ApplicationDbContext Ctx;
+
+        //public UserRepository(ApplicationDbContext context) : base(context)
+        public UserRepository(ApplicationDbContext context) : base(context)
+        {
+            Ctx = context;
+        }
 
         #region Users
         public void UpdateUser(ApplicationUser user)
@@ -121,9 +127,9 @@ namespace Queries.Core.Repositories
         }
         #endregion
 
-        public ApplicationDbContext Ctx
-        {
-            get { return Ctx as ApplicationDbContext; }
-        }
+        //public ApplicationDbContext Ctx
+        //{
+        //    get { return Ctx as ApplicationDbContext; }
+        //}
     }
 }
