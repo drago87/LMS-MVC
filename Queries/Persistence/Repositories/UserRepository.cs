@@ -17,7 +17,6 @@ namespace Queries.Core.Repositories
     {
         private readonly ApplicationDbContext Ctx;
 
-        //public UserRepository(ApplicationDbContext context) : base(context)
         public UserRepository(ApplicationDbContext context) : base(context)
         {
             Ctx = context;
@@ -45,17 +44,17 @@ namespace Queries.Core.Repositories
         }
 
         //public List<IdentityRole> GetUserRolesNameAsList(ApplicationUser user)
-        public List<string> GetUserRolesNameAsList(ApplicationUser user)
         //public RoleViewModel GetMyRoles(ApplicationUser user)
+        public List<string> GetUserRolesNameAsList(ApplicationUser user)
         {
             List<string> rolenames = new List<string>();
             var roles = new List<RoleViewModel>();
 
-            if (user != null && user.Roles.Any())
-            {
-                var role = new RoleViewModel();
-                user.Roles.Select(r => r.RoleId.ToString());
-            }
+            //if (user != null && user.Roles.Any())
+            //{
+            //    var role = new RoleViewModel();
+            //    user.Roles.Select(r => r.RoleId.ToString());
+            //}
             return rolenames;
         }
 

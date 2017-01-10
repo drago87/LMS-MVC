@@ -109,7 +109,6 @@ namespace bat_mvc.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            //ApplicationUser applicationUser = _repo.GetUserById(id);
             ApplicationUser applicationUser = _user.GetUserById(id);
 
             if (applicationUser == null)
@@ -117,15 +116,25 @@ namespace bat_mvc.Controllers
                 return HttpNotFound();
             }
 
-            //List<string> classunits = _repo.GetUserClassUnitsNameAsList(applicationUser);
-            var classunits = _user.GetClassUnitsFor(applicationUser);
-            //var cu = classunits.Select(c => c.ClassName).ToList().ToString();
-            ViewBag.ClassUnits = classunits;
-
-            List<string> roles = _repo.GetUserRolesNameAsList(applicationUser);
-            ViewBag.Roles = ""; //roles;
+            ViewBag.Classnames = GetMyClassNamesAsString(applicationUser);
+            string[] roles = GetMyRolesAsString(applicationUser);
+            ViewBag.Roles = roles;
 
             return View(applicationUser);
+        }
+
+        private string[] GetMyRolesAsString(ApplicationUser applicationUser)
+        {
+            var roles = _user.GetRolesFor(applicationUser);
+            var rolenames = roles.Select(r => r.).ToArray();
+            return String.Join(",", rolenames);
+        }
+
+        private dynamic GetMyClassNamesAsString(ApplicationUser applicationUser)
+        {
+            var classunits = _user.GetClassUnitsFor(applicationUser);
+            var classnames = classunits.Select(c => c.ClassName).ToArray();
+            return String.Join(",", classnames);
         }
 
         [Authorize(Roles = "Teacher")]
