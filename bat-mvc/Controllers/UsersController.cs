@@ -117,7 +117,7 @@ namespace bat_mvc.Controllers
             }
 
             ViewBag.Classnames = GetMyClassNamesAsString(applicationUser);
-            string[] roles = GetMyRolesAsString(applicationUser);
+            string roles = GetMyRolesAsString(applicationUser);
             ViewBag.Roles = roles;
 
             return View(applicationUser);
@@ -235,7 +235,7 @@ namespace bat_mvc.Controllers
         private string GetMyRolesAsString(ApplicationUser applicationUser)
         {
             var roles = _user.GetRolesFor(applicationUser);
-            var rolenames = roles.Select(r => r.).ToArray();
+            var rolenames = roles.Select(r => r.Name).ToArray();
             return String.Join(",", rolenames);
         }
 
