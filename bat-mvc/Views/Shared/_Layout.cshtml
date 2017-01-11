@@ -32,14 +32,13 @@
                             <li>@Html.ActionLink("Register New User", "Register", "Users")</li>
                         </ul>
                         
-                        <select onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
+                        <select class="col-md-offset-3" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
                             <option value="">Select...</option>
-                            <option value="Home/Index">Home</option>
-                            <option value="User/Index">Users</option>
-                            <!--Need to change the localhost:40000 to Root-->
-                            <option value="http://localhost:40000/Home/Index">Home</option>
-                            <option value="http://localhost:40000/Users/Index">Users</option>
-                            <option value="http://localhost:40000/Users/Register">Register new User</option>
+                            <option value="~/Home/Index">Home</option>
+                            <option value="~/Users/Index">Users</option>
+                            <option value="~/Users/Register">Register new User</option>
+                            <option value="~/Upload/Show">Show Files</option>
+                            <option value="~/Upload/UploadDocument">Upload</option>
                         </select>
 
                         
@@ -62,7 +61,7 @@
             </footer>
         </div>
     </div>
-    </div>
+    
 
     @*@Scripts.Render("~/bundles/angular")*@
     @*@Scripts.Render("~/bundles/app")*@
