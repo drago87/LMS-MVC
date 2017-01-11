@@ -20,86 +20,119 @@ namespace bat_mvc.Controllers
         ApplicationDbContext Database = new ApplicationDbContext();
 
         //[Authorize(Roles = "Teacher, Student")]
-        public ActionResult UploadDocument()
+        public ActionResult UploadDocument(string uploadMessage = "Choose file.")
         {
             return View();
         }
+
+
+
+        public ActionResult UploadDocumentTest(string uploadMessage = "Choose file.")
+        {
+            ViewBag.Message = uploadMessage;
+            return View();
+        }
+
+
 
         [HttpPost]
         //[ValidateAntiForgeryToken]
         public ActionResult Upload()
         {
             //var folder = Database.Folders.SingleOrDefault(x => x.FolderID == _folder.FolderID);
-            //string message = "The file was uploaded";
+            string message = "The file was not uploaded";
+            var files = Request.Files;
 
-            if (Request.Files.Count > 0)
+            if (files.Count > 0)
             {
-                var file = Request.Files[0];
+                
 
-                if (file != null && file.ContentLength > 0)
+                for (int i = 0; i < files.Count; i++)
                 {
-                    var fileName = Path.GetFileName(file.FileName);
-                    //if (folder.Files.SingleOrDefault(x => x.FileName == fileName) == null)
-                    //{
+                    if (files[i] != null && files[i].ContentLength > 0)
+                    {
+                        var fileName = Path.GetFileName(files[i].FileName);
+
+                        //if (folder.Files.SingleOrDefault(x => x.FileName == fileName) == null)
+                        //{
 
 
-                    var path = System.Web.Hosting.HostingEnvironment.MapPath("~/Files/") + fileName;
-                    file.SaveAs(path);
+                            var path = System.Web.Hosting.HostingEnvironment.MapPath("~/Files/") + fileName;
+                            files[i].SaveAs(path);
 
-                    //Database.Folders.SingleOrDefault(x => x.FolderID == _folder.FolderID)
-                    //.Files.Add(new Dossier { FileName = file.FileName, FilePath = path });
+                            //Database.Folders.SingleOrDefault(x => x.FolderID == _folder.FolderID)
+                            //.Files.Add(new Dossier { FileName = files[i].FileName, FilePath = path });
 
-                    //}
-                    //else
-                    //    message = "Filename allredy taken.";
+                            Database.SaveChanges();
+                            message = "The file was uploaded";
+
+                        //}
+                        //else
+                        //{
+                        //    message = "Filename allredy taken.";
+                        //}
+                    }
                 }
             }
 
-            return RedirectToAction("UploadDocument");
+            return RedirectToAction("UploadDocumentTest", new { uploadMessage = message });
         }
+
+
+
+        public ActionResult SaveDocument(string filePath)
+        {
+            string contentType = "application/octet-stream";  //<---- This is the magic
+            FileInfo file = new FileInfo(filePath);
+
+            return File(filePath, contentType, file.Name);
+        }
+
 
         public ActionResult Show()
         {
+            List<FileInfo> files = new List<FileInfo>();
+
             DirectoryInfo directory = new DirectoryInfo(Server.MapPath(@"~\Files"));
-            var files = directory.GetFiles().ToList();
+            files = directory.GetFiles().ToList();
+
+            //Folder folder = new Folder();
+            //foreach (var file in folder.Files.ToList())
+            //{
+            //    files.Add(new FileInfo(file.FilePath));
+            //}
+
+
             List<FileViewModel> fileViews = new List<FileViewModel>();
             foreach (var item in files)
             {
                 byte[] byteArr;
                 try
                 {
-                    //Bitmap iconImage = (Bitmap)Image.FromFile(item.FullName);
-                    //iconImage.SetResolution(72,72);
-
                     Image image = Image.FromFile(item.FullName);
-                    Image newImage = image.GetThumbnailImage(50, 50, null, new IntPtr());
-
-
                     ImageConverter converter = new ImageConverter();
-                    byteArr = (byte[])converter.ConvertTo(newImage, typeof(byte[]));
+                    byteArr = (byte[])converter.ConvertTo(image, typeof(byte[]));
                 }
                 catch (Exception)
                 {
                     Icon icon = Icon.ExtractAssociatedIcon(item.FullName);
 
-                    using (MemoryStream ms = new MemoryStream())
-                    {
-                        icon.Save(ms);
-                        byteArr = ms.ToArray();
-                    }
+                    Image image = new Icon(icon, 32, 32).ToBitmap();
 
+                    ImageConverter converter = new ImageConverter();
+                    byteArr = (byte[])converter.ConvertTo(image, typeof(byte[]));
 
+                    //using (MemoryStream ms = new MemoryStream())
+                    //{
+                    //    icon.Save(ms);
+                    //    byteArr = ms.ToArray();
+                    //}
                 }
 
                 var base64 = Convert.ToBase64String(byteArr);
                 var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
                 fileViews.Add(new FileViewModel() { IconImg = imgSrc, File = item });
             }
-            //var img = Image.FromFile(System.Web.Hosting.HostingEnvironment.MapPath("~/Files/") + "Jellyfish.jpg");
-
-
-
-            //ViewBag.fileViews = fileViews;
 
             return View(fileViews);
         }
