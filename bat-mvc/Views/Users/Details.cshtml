@@ -48,8 +48,11 @@
         <dt>
             @Html.DisplayNameFor(model => model.ClassUnits)
         </dt>
-
-        <dd>@classnames</dd>
+        @foreach (var item in ViewBag.Classnames)
+        {
+            <span>@item, </span>
+        }
+        <!--<dd>Classnames</dd>-->
 
     </dl>
 </div>
