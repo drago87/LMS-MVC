@@ -15,9 +15,10 @@ using bat_mvc.ViewModels;
 
 namespace bat_mvc.Controllers
 {
+    [Authorize]
     public class UploadController : Controller
     {
-        ApplicationDbContext Database = new ApplicationDbContext();
+        //ApplicationDbContext Database = new ApplicationDbContext();
 
         //[Authorize(Roles = "Teacher, Student")]
         public ActionResult UploadDocument(string uploadMessage = "Choose file.")

@@ -39,26 +39,18 @@
         </dt>
 
         <dd>
-           @foreach (var item in ViewBag.Roles)
-           {
-            <span>@item, </span>
-           }
+            <span>@ViewBag.MyRoles</span>
         </dd>
 
         <dt>
             @Html.DisplayNameFor(model => model.ClassUnits)
         </dt>
 
-        <dd>
-            @foreach (var item in ViewBag.ClassUnits)
-            {
-                <span>@item, </span>
-            }
-        </dd>
+        <dd>@ViewBag.MyClasses</dd>
 
     </dl>
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "ShowAllUsers")
+    @Html.ActionLink("Back to List", "Index")
 </p>

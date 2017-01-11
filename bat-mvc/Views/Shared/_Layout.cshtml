@@ -32,6 +32,17 @@
                             <li>@Html.ActionLink("Users","Index","Users")</li>
                             <li>@Html.ActionLink("Register New User", "Register", "Users")</li>
                         </ul>
+                        
+                        <select class="col-md-offset-3" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
+                            <option value="">Select...</option>
+                            <option value="~/Home/Index">Home</option>
+                            <option value="~/Users/Index">Users</option>
+                            <option value="~/Users/Register">Register new User</option>
+                            <option value="~/Upload/Show">Show Files</option>
+                            <option value="~/Upload/UploadDocument">Upload</option>
+                        </select>
+
+                        
                         @Html.Partial("_LoginPartial")
                     </div>
                 </div>
@@ -50,7 +61,7 @@
             </footer>
         </div>
     </div>
-    </div>
+    
 
     @*@Scripts.Render("~/bundles/angular")*@
     @*@Scripts.Render("~/bundles/app")*@

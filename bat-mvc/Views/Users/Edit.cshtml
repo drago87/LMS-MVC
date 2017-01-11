@@ -50,7 +50,7 @@
         @Html.CheckBox("ClassUnitID")
         <span> @item.ClassName</span>
     } *@
-                @Html.DropDownList("ClassUnitID", new SelectList(ViewBag.ClssUnit, "ClassUnitID", "ClassName"))
+                @Html.DropDownList("ClassUnitID", new SelectList(ViewBag.ClassUnits, "ClassUnitID", "ClassName"))
                 @Html.ValidationMessageFor(model => model.ClassUnits, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -77,7 +77,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "ShowAllUsers")
+    @Html.ActionLink("Back to List", "Index")
 </div>
 
 @section Scripts {

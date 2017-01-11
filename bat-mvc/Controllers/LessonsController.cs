@@ -16,6 +16,7 @@ using System.Web.Mvc;
 
 namespace bat_mvc.Controllers
 {
+    [Authorize]
     public class LessonsController : Controller
     {
         public readonly IRepository<Lesson> _lessonRepo;

@@ -67,5 +67,6 @@ namespace Queries.Core.Models
             Database.SetInitializer(new DatabaseInitializer());
             return new ApplicationDbContext();
         }
+
     }
 }
