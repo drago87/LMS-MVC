@@ -50,6 +50,7 @@ namespace Queries.Core.Repositories
         {
             var iroles = new List<IdentityRole>();
             var uroles = UserWithRoles(user).Roles.ToList();
+
             uroles.ForEach(ur =>
             {
                 IdentityRole irole = Ctx.Roles.SingleOrDefault(r => r.Id == ur.RoleId);
@@ -61,44 +62,13 @@ namespace Queries.Core.Repositories
 
         public void edit(ApplicationUser user, string roleId, int classunitId)
         {
-            var userStore   = new UserStore<ApplicationUser>(Ctx);
+            var userStore = new UserStore<ApplicationUser>(Ctx);
             var userManager = new UserManager<ApplicationUser>(userStore);
-            var theUser = Ctx.Users.SingleOrDefault(b => b.Id == user.Id);
+            var theUser = Ctx.Users.SingleOrDefault(u => u.Id == user.Id);
 
-            if (roleId != "-1")
-            {
-                var role = GetRoleById(roleId);
+            editRole(user, roleId, userManager);
+            editClassunit(user, classunitId);
 
-                if (HasRole(user, "Teacher"))
-                {
-                    userManager.RemoveFromRole(theUser.Id, "Teacher");
-                }
-                if (HasRole(user, "Student"))
-                {
-                    userManager.RemoveFromRole(theUser.Id, "Student");
-                }
-                userManager.AddToRole(theUser.Id, role.Name);
-            }
-
-            if (classunitId != -1)
-            {
-                var classunit = Ctx.Classunits.SingleOrDefault(c => c.ClassUnitID == classunitId);
-
-                //AddRemoveFromClassUnit
-                if (theUser.ClassUnits.Contains(classunit))
-                {
-                    //theUser.ClassUnits.Remove(classunit);
-                    classunit.Participants.Remove(theUser);
-                }
-                else
-                {
-                    //theUser.ClassUnits.Add(classunit);
-                    classunit.Participants.Add(theUser);
-                }
-
-                Ctx.Entry(classunit).State = EntityState.Modified;
-                Ctx.SaveChanges();
-            }
             theUser.Email = user.Email;
             theUser.UserName = user.UserName;
             theUser.PhoneNumber = user.PhoneNumber;
@@ -106,6 +76,43 @@ namespace Queries.Core.Repositories
             Ctx.Entry(theUser).State = EntityState.Modified;
 
             Ctx.SaveChanges();
+        }
+
+        public void editRole(ApplicationUser user, string roleId, UserManager<ApplicationUser> userManager)
+        {
+            // if (roleId != "-1") {
+            //var role = GetRoleById(roleId);
+            var role = Ctx.Roles.Find(roleId);
+
+            if (HasRole(user, "Teacher"))
+            {
+                userManager.RemoveFromRole(user.Id, "Teacher");
+            }
+
+            if (HasRole(user, "Student"))
+            {
+                userManager.RemoveFromRole(user.Id, "Student");
+            }
+
+            userManager.AddToRole(user.Id, role.Name);
+            //}
+        }
+
+        public void editClassunit(ApplicationUser user, int classunitId)
+        {
+            //if (classunitId != -1) {
+                //var classunit = Ctx.Classunits.SingleOrDefault(c => c.ClassUnitID == classunitId);
+                var classunit = Ctx.Classunits.Find(classunitId);
+
+                if (user.ClassUnits.Contains(classunit))
+                {
+                    classunit.Participants.Remove(user);
+                }
+                else
+                {
+                    classunit.Participants.Add(user);
+                }
+            //}
         }
 
         private IdentityRole GetRoleById(string roleId)
