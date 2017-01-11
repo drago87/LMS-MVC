@@ -61,7 +61,7 @@ namespace bat_mvc.App_Start
             container.RegisterType<IRepository<ApplicationUser>,   Repository<ApplicationUser>>(new PerRequestLifetimeManager());
 
             container.RegisterType<IFolderRepository, FolderRepository>(new PerRequestLifetimeManager());
-            container.RegisterType<IUserRepository, UserRepository>(new PerRequestLifetimeManager());
+            //container.RegisterType<IUserRepository, UserRepository>(new PerRequestLifetimeManager());
         }
 
         // for WEBAPI

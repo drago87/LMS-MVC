@@ -117,8 +117,8 @@ namespace bat_mvc.Controllers
             }
 
             ViewBag.Classnames = GetMyClassNamesAsString(applicationUser);
-            string roles = GetMyRolesAsString(applicationUser);
-            ViewBag.Roles = roles;
+            //string roles = GetMyRolesAsString(applicationUser);
+            ViewBag.Roles = "";//roles;
 
             return View(applicationUser);
         }
@@ -232,12 +232,12 @@ namespace bat_mvc.Controllers
         //    return View(applicationUser);
         //}
 
-        private string GetMyRolesAsString(ApplicationUser applicationUser)
-        {
-            var roles = _user.GetRolesFor(applicationUser);
-            var rolenames = roles.Select(r => r.Name).ToArray();
-            return String.Join(",", rolenames);
-        }
+        //private string GetMyRolesAsString(ApplicationUser applicationUser)
+        //{
+        //    var roles = _user.GetRolesFor(applicationUser);
+        //    var rolenames = roles.Select(r => r.Name).ToArray();
+        //    return String.Join(",", rolenames);
+        //}
 
         private string GetMyClassNamesAsString(ApplicationUser applicationUser)
         {

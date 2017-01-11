@@ -12,7 +12,7 @@ namespace Queries.Core.Repositories
         IEnumerable<ApplicationUser> GetUsersByName(string username);
         List<string> GetUserRolesNameAsList(ApplicationUser user);
         IEnumerable<ClassUnit> GetClassUnitsFor(ApplicationUser user);
-        ICollection<IdentityRole> GetRolesFor(ApplicationUser user);
+        //ICollection<IdentityRole> GetRolesFor(ApplicationUser user);
         ApplicationUser GetUserById(string id);
         ICollection<IdentityRole> GetAllRoles();
 
