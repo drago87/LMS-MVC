@@ -243,7 +243,20 @@ namespace bat_mvc.Controllers
         {
             var classunits = _user.GetClassUnitsFor(applicationUser);
             var classnames = classunits.Select(c => c.ClassName).ToArray();
-            return String.Join(",", classnames);
+            string clas = "";
+
+            foreach (var item in classnames)
+            {
+                if (clas == "")
+                {
+                    clas = item;
+                }
+                else
+                {
+                    clas = clas +", " + item;
+                }
+            }
+            return clas;
         }
 
     }
