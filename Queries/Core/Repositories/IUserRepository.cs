@@ -10,11 +10,10 @@ namespace Queries.Core.Repositories
         void edit(ApplicationUser user, string roleId, int classunitId);
         void UpdateUser(ApplicationUser user);
         IEnumerable<ApplicationUser> GetUsersByName(string username);
-        List<string> GetUserRolesNameAsList(ApplicationUser user);
         IEnumerable<ClassUnit> GetClassUnitsFor(ApplicationUser user);
-        ICollection<IdentityRole> GetRolesFor(ApplicationUser user);
+        IEnumerable<IdentityRole> GetRolesFor(ApplicationUser user);
+        IEnumerable<IdentityRole> GetAllRoles();
         ApplicationUser GetUserById(string id);
-        ICollection<IdentityRole> GetAllRoles();
 
         void AddUserToRole(ApplicationUser user, IdentityRole role);
     }

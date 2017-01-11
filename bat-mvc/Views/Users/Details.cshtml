@@ -39,17 +39,14 @@
         </dt>
 
         <dd>
-           @foreach (var item in ViewBag.Roles)
-           {
-            <span>@item, </span>
-           }
+            <span>@ViewBag.MyRoles</span>
         </dd>
 
         <dt>
             @Html.DisplayNameFor(model => model.ClassUnits)
         </dt>
 
-        <dd>@classnames</dd>
+        <dd>@ViewBag.MyClasses</dd>
 
     </dl>
 </div>

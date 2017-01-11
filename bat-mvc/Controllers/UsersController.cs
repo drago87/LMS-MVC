@@ -116,9 +116,8 @@ namespace bat_mvc.Controllers
                 return HttpNotFound();
             }
 
-            ViewBag.Classnames = GetMyClassNamesAsString(applicationUser);
-            string roles = GetMyRolesAsString(applicationUser);
-            ViewBag.Roles = roles;
+            ViewBag.MyClasses = GetMyClassNamesAsString(applicationUser);
+            ViewBag.MyRoles   = GetMyRolesAsString(applicationUser);
 
             return View(applicationUser);
         }

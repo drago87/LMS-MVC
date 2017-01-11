@@ -31,9 +31,6 @@ namespace Queries.Core.Repositories
 
         public IEnumerable<ApplicationUser> GetUsersByName(string username)
         {
-            //IdentityRole a = Ctx.Roles;
-            //Ctx.Roles.Where(r=> r.)
-
             return Ctx.Users
                 .Where(u => u.UserName == username);
         }
@@ -43,43 +40,40 @@ namespace Queries.Core.Repositories
             return Ctx.Users.Single(u => u.Id == id);
         }
 
-        //public List<IdentityRole> GetUserRolesNameAsList(ApplicationUser user)
-        //public RoleViewModel GetMyRoles(ApplicationUser user)
-        public List<string> GetUserRolesNameAsList(ApplicationUser user)
-        {
-            List<string> rolenames = new List<string>();
-            var roles = new List<RoleViewModel>();
-
-            //if (user != null && user.Roles.Any())
-            //{
-            //    var role = new RoleViewModel();
-            //    user.Roles.Select(r => r.RoleId.ToString());
-            //}
-            return rolenames;
-        }
-
         public IEnumerable<ClassUnit> GetClassUnitsFor(ApplicationUser user)
         {
             var  thisuser = Ctx.Users.Include("ClassUnits").Single(u => u.Id == user.Id);
             return thisuser.ClassUnits.ToList();
         }
 
+        public IEnumerable<IdentityRole> GetRolesFor(ApplicationUser user)
+        {
+            var iroles = new List<IdentityRole>();
+            var uroles = UserWithRoles(user).Roles.ToList();
+            uroles.ForEach(ur =>
+            {
+                IdentityRole irole = Ctx.Roles.SingleOrDefault(r => r.Id == ur.RoleId);
+                iroles.Add(irole);
+            });
+
+            return iroles;
+        }
+
         public void edit(ApplicationUser user, string roleId, int classunitId)
         {
             var userStore   = new UserStore<ApplicationUser>(Ctx);
             var userManager = new UserManager<ApplicationUser>(userStore);
-            var theUser = Ctx.Users
-                .SingleOrDefault(b => b.Id == user.Id);
+            var theUser = Ctx.Users.SingleOrDefault(b => b.Id == user.Id);
 
             if (roleId != "-1")
             {
-                IdentityRole role = Ctx.Roles.SingleOrDefault(b => b.Id == roleId);
-                
-                if (GetUserRolesNameAsList(theUser).Contains("Teacher"))
+                var role = GetRoleById(roleId);
+
+                if (HasRole(user, "Teacher"))
                 {
                     userManager.RemoveFromRole(theUser.Id, "Teacher");
                 }
-                else if (GetUserRolesNameAsList(theUser).Contains("Student"))
+                if (HasRole(user, "Student"))
                 {
                     userManager.RemoveFromRole(theUser.Id, "Student");
                 }
@@ -88,7 +82,7 @@ namespace Queries.Core.Repositories
 
             if (classunitId != -1)
             {
-                var classunit = Ctx.Classunits.SingleOrDefault(b => b.ClassUnitID == classunitId);
+                var classunit = Ctx.Classunits.SingleOrDefault(c => c.ClassUnitID == classunitId);
 
                 //AddRemoveFromClassUnit
                 if (theUser.ClassUnits.Contains(classunit))
@@ -113,6 +107,11 @@ namespace Queries.Core.Repositories
 
             Ctx.SaveChanges();
         }
+
+        private IdentityRole GetRoleById(string roleId)
+        {
+            return Ctx.Roles.SingleOrDefault(r => r.Id == roleId);
+        }
         #endregion
 
         #region Roles
@@ -125,12 +124,23 @@ namespace Queries.Core.Repositories
             Ctx.SaveChanges();
         }
 
-        public ICollection<IdentityRole> GetAllRoles()
+        public IEnumerable<IdentityRole> GetAllRoles()
         {
             return Ctx.Roles.ToList();
         }
         #endregion
 
+        private ApplicationUser UserWithRoles(ApplicationUser user)
+        {
+            return Ctx.Users.Include("Roles").Single(u => u.Id == user.Id);
+        }
+
+        private bool HasRole(ApplicationUser me, string rolename)
+        {
+            List<IdentityRole> roles = GetRolesFor(me).ToList();
+            return roles.Any(r => r.Name == rolename);
+        }
+        
         //public ApplicationDbContext Ctx
         //{
         //    get { return Ctx as ApplicationDbContext; }
