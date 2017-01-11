@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 
-namespace bat_mvc.ViewModels
+namespace Queries.Core.ViewModels
 {
     public class FileViewModel
     {

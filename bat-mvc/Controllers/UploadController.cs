@@ -11,14 +11,14 @@ using Queries.Core.Repositories;
 using Queries.Core.Domain;
 using Queries.Core;
 using Queries.Core.Models;
-using bat_mvc.ViewModels;
+using Queries.Core.ViewModels;
 
 namespace bat_mvc.Controllers
 {
     [Authorize]
     public class UploadController : Controller
     {
-        //ApplicationDbContext Database = new ApplicationDbContext();
+        ApplicationDbContext Database = new ApplicationDbContext();
 
         //[Authorize(Roles = "Teacher, Student")]
         public ActionResult UploadDocument(string uploadMessage = "Choose file.")
@@ -102,7 +102,6 @@ namespace bat_mvc.Controllers
             //{
             //    files.Add(new FileInfo(file.FilePath));
             //}
-
 
             List<FileViewModel> fileViews = new List<FileViewModel>();
             foreach (var item in files)
