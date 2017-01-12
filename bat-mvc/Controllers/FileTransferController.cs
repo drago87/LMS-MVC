@@ -16,19 +16,13 @@ using Queries.Core.ViewModels;
 namespace bat_mvc.Controllers
 {
     [Authorize]
-    public class UploadController : Controller
+    public class FileTransferController : Controller
     {
         ApplicationDbContext Database = new ApplicationDbContext();
 
-        //[Authorize(Roles = "Teacher, Student")]
+
+
         public ActionResult UploadDocument(string uploadMessage = "Choose file.")
-        {
-            return View();
-        }
-
-
-
-        public ActionResult UploadDocumentTest(string uploadMessage = "Choose file.")
         {
             ViewBag.Message = uploadMessage;
             return View();
@@ -76,7 +70,7 @@ namespace bat_mvc.Controllers
                 }
             }
 
-            return RedirectToAction("UploadDocumentTest", new { uploadMessage = message });
+            return RedirectToAction("UploadDocument", new { uploadMessage = message });
         }
 
 
