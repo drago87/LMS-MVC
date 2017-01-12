@@ -22,11 +22,11 @@ namespace Queries.Migrations
                     {
                         FolderID = c.Int(nullable: false, identity: true),
                         FolderName = c.String(),
-                        ClassUnit_ClassUnitID = c.Int(),
+                        Clas_ClassUnitID = c.Int(),
                     })
                 .PrimaryKey(t => t.FolderID)
-                .ForeignKey("dbo.ClassUnits", t => t.ClassUnit_ClassUnitID)
-                .Index(t => t.ClassUnit_ClassUnitID);
+                .ForeignKey("dbo.ClassUnits", t => t.Clas_ClassUnitID)
+                .Index(t => t.Clas_ClassUnitID);
             
             CreateTable(
                 "dbo.Dossiers",
@@ -159,8 +159,8 @@ namespace Queries.Migrations
             DropForeignKey("dbo.ApplicationUserClassUnits", "ClassUnit_ClassUnitID", "dbo.ClassUnits");
             DropForeignKey("dbo.ApplicationUserClassUnits", "ApplicationUser_Id", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
-            DropForeignKey("dbo.Folders", "ClassUnit_ClassUnitID", "dbo.ClassUnits");
             DropForeignKey("dbo.Dossiers", "Folder_FolderID", "dbo.Folders");
+            DropForeignKey("dbo.Folders", "Clas_ClassUnitID", "dbo.ClassUnits");
             DropIndex("dbo.ApplicationUserClassUnits", new[] { "ClassUnit_ClassUnitID" });
             DropIndex("dbo.ApplicationUserClassUnits", new[] { "ApplicationUser_Id" });
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
@@ -172,7 +172,7 @@ namespace Queries.Migrations
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
             DropIndex("dbo.Dossiers", new[] { "Folder_FolderID" });
-            DropIndex("dbo.Folders", new[] { "ClassUnit_ClassUnitID" });
+            DropIndex("dbo.Folders", new[] { "Clas_ClassUnitID" });
             DropTable("dbo.ApplicationUserClassUnits");
             DropTable("dbo.AspNetRoles");
             DropTable("dbo.Subjects");

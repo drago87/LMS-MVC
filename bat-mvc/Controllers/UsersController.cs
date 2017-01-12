@@ -160,6 +160,8 @@ namespace bat_mvc.Controllers
             return View(model);
         }
 
+        
+
 
         #region Helpers
         private void AddErrors(IdentityResult result)

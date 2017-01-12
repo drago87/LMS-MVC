@@ -18,7 +18,7 @@ namespace Queries.Core.Domain
 
         public virtual ICollection<ApplicationUser> Participants { get; set; }
 
-        public List<Folder> Folders { get; set; }
+        public virtual List<Folder> Folders { get; set; }
         //public Folder Shared { get; set; }
 
         //public Folder Submission { get; set; }
@@ -29,6 +29,7 @@ namespace Queries.Core.Domain
         {
             Schema = new List<Lesson>();
             Participants = new List<ApplicationUser>();
+            Folders = new List<Folder>();
         }
 
         public List<Lesson> GetSchema(DateTime _from, DateTime _to)

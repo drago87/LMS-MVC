@@ -5,6 +5,7 @@ namespace Queries.Migrations
     using Queries.Core.Domain;
     using Queries.Core.Models;
     using System;
+    using System.Collections.Generic;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Data.Entity.Validation;
@@ -20,7 +21,7 @@ namespace Queries.Migrations
 
         protected override void Seed(Queries.Core.Models.ApplicationDbContext context)
         {
-
+            
             # region Roles
             if (!context.Roles.Any(r => r.Name == "Teacher"))
             {
@@ -51,7 +52,7 @@ namespace Queries.Migrations
             userManager.Create(user1, "Test123!");
             userManager.Create(user2, "Test123!");
             #endregion
-
+            /*
             #region Klasser
             var grund1a = new ClassUnit { ClassName = "Grund1A" };
             var grund3a = new ClassUnit { ClassName = "Grund3A" };
@@ -61,7 +62,7 @@ namespace Queries.Migrations
                 c => c.ClassUnitID,
                 grund1a, grund3a, grund5b
             );
-
+            */
             ApplicationUser user1a = context.Users.FirstOrDefault(u => u.Email == "testTeacher@test.com");
             if (user1a != null)
             {
@@ -73,8 +74,8 @@ namespace Queries.Migrations
             {
                 userManager.AddToRole(user2a.Id, "Student");
             }
-            #endregion
-
+            //#endregion
+            /*
             #region Subjects
             var matte = new Subject { SubjectName = "Matte" };
             var engelska = new Subject { SubjectName = "Engelska" };
@@ -98,17 +99,29 @@ namespace Queries.Migrations
             );
             #endregion
 
- /*           #region Folders
-            context.Folders.AddOrUpdate(
-                f => f.FolderName,
-                new Folder { FolderName = "Ovrigt" },
-                new Folder { FolderName = "Mupp" },
-                new Folder { FolderName = "MegaMappen" }
-            );
-            #endregion
+            #region Folders
+            List<Folder> ClassFolders = new List<Folder>();
+            foreach (var item in context.Classunits)
+            {
+                ClassFolders = new List<Folder>();
 
-            SaveChanges(context);
+                context.Folders.Add( new Folder { FolderName = "Shared" });
+                context.Folders.Add( new Folder { FolderName = "Submission" });
+                
 
+                ClassFolders.Add(context.Folders.Single(x => x.FolderName == item.ClassName + "Shared"));
+                ClassFolders.Add(context.Folders.Single(x => x.FolderName == item.ClassName + "Submission"));
+
+                item.Folders = ClassFolders;
+
+                context.SaveChanges();
+            }
+            */
+            
+            //#endregion
+
+            //SaveChanges(context);
+            /*
             #region Dossier
             var ovrigtmapp = context.Folders.FirstOrDefault(f => f.FolderName == "Ovrigt");
             var megamapp   = context.Folders.FirstOrDefault(f => f.FolderName == "MegaMappen");
@@ -120,7 +133,7 @@ namespace Queries.Migrations
             );
             #endregion*/
 
-            SaveChanges(context);
+            //SaveChanges(context);
         }
 
         /// <summary>

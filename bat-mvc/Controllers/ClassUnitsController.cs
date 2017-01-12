@@ -14,7 +14,7 @@ using System.Data.Entity.Migrations;
 
 namespace bat_mvc.Controllers
 {
-    [Authorize]
+    [Authorize(Roles="Teacher")]
     public class ClassUnitsController : Controller
     {
         public readonly IRepository<ClassUnit> _class;
@@ -129,7 +129,7 @@ namespace bat_mvc.Controllers
             //{
             //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             //}
-            ClassUnit classunit = _uow.Classunits.Get(id);
+            ClassUnit classunit = _ctx.Classunits.SingleOrDefault(c => c.ClassUnitID == id);//_uow.Classunits.Get(id);
             if (classunit == null)
             {
                 return HttpNotFound();
@@ -142,8 +142,22 @@ namespace bat_mvc.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            ClassUnit classunit = _uow.Classunits.Get(id);
-            _uow.Classunits.Remove(classunit);
+            ClassUnit classunit = _ctx.Classunits.Where(c => c.ClassUnitID == id).Include(x => x.Folders).First();
+            
+            //var temp = _ctx.Folders.Where(x => x.)
+            //_uow.Classunits.Remove(classunit);
+
+            //List<Folder> temp = new List<Folder>();
+            var temp2 = classunit.Folders[0];
+            var temp3 = classunit.Folders[1];
+
+            _ctx.Folders.Remove(temp2);
+            _ctx.Folders.Remove(temp3);
+            
+            
+            
+            _ctx.Classunits.Remove(classunit);
+            _ctx.SaveChanges();
             return RedirectToAction("Index");
         }
 
