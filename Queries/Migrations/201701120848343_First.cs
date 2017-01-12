@@ -17,6 +17,31 @@ namespace Queries.Migrations
                 .PrimaryKey(t => t.ClassUnitID);
             
             CreateTable(
+                "dbo.Folders",
+                c => new
+                    {
+                        FolderID = c.Int(nullable: false, identity: true),
+                        FolderName = c.String(),
+                        ClassUnit_ClassUnitID = c.Int(),
+                    })
+                .PrimaryKey(t => t.FolderID)
+                .ForeignKey("dbo.ClassUnits", t => t.ClassUnit_ClassUnitID)
+                .Index(t => t.ClassUnit_ClassUnitID);
+            
+            CreateTable(
+                "dbo.Dossiers",
+                c => new
+                    {
+                        FileID = c.Int(nullable: false, identity: true),
+                        FileName = c.String(),
+                        FilePath = c.String(),
+                        Folder_FolderID = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.FileID)
+                .ForeignKey("dbo.Folders", t => t.Folder_FolderID, cascadeDelete: true)
+                .Index(t => t.Folder_FolderID);
+            
+            CreateTable(
                 "dbo.AspNetUsers",
                 c => new
                     {
@@ -100,30 +125,6 @@ namespace Queries.Migrations
                 .PrimaryKey(t => t.SubjectID);
             
             CreateTable(
-                "dbo.Folders",
-                c => new
-                    {
-                        FolderID = c.Int(nullable: false),
-                        FolderName = c.String(),
-                    })
-                .PrimaryKey(t => t.FolderID)
-                .ForeignKey("dbo.ClassUnits", t => t.FolderID)
-                .Index(t => t.FolderID);
-            
-            CreateTable(
-                "dbo.Dossiers",
-                c => new
-                    {
-                        FileID = c.Int(nullable: false, identity: true),
-                        FileName = c.String(),
-                        FilePath = c.String(),
-                        Folder_FolderID = c.Int(nullable: false),
-                    })
-                .PrimaryKey(t => t.FileID)
-                .ForeignKey("dbo.Folders", t => t.Folder_FolderID, cascadeDelete: true)
-                .Index(t => t.Folder_FolderID);
-            
-            CreateTable(
                 "dbo.AspNetRoles",
                 c => new
                     {
@@ -151,8 +152,6 @@ namespace Queries.Migrations
         public override void Down()
         {
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
-            DropForeignKey("dbo.Folders", "FolderID", "dbo.ClassUnits");
-            DropForeignKey("dbo.Dossiers", "Folder_FolderID", "dbo.Folders");
             DropForeignKey("dbo.Lessons", "SubjectID", "dbo.Subjects");
             DropForeignKey("dbo.Lessons", "ClassUnitID", "dbo.ClassUnits");
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
@@ -160,11 +159,11 @@ namespace Queries.Migrations
             DropForeignKey("dbo.ApplicationUserClassUnits", "ClassUnit_ClassUnitID", "dbo.ClassUnits");
             DropForeignKey("dbo.ApplicationUserClassUnits", "ApplicationUser_Id", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.Folders", "ClassUnit_ClassUnitID", "dbo.ClassUnits");
+            DropForeignKey("dbo.Dossiers", "Folder_FolderID", "dbo.Folders");
             DropIndex("dbo.ApplicationUserClassUnits", new[] { "ClassUnit_ClassUnitID" });
             DropIndex("dbo.ApplicationUserClassUnits", new[] { "ApplicationUser_Id" });
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
-            DropIndex("dbo.Dossiers", new[] { "Folder_FolderID" });
-            DropIndex("dbo.Folders", new[] { "FolderID" });
             DropIndex("dbo.Lessons", new[] { "ClassUnitID" });
             DropIndex("dbo.Lessons", new[] { "SubjectID" });
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
@@ -172,16 +171,18 @@ namespace Queries.Migrations
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
+            DropIndex("dbo.Dossiers", new[] { "Folder_FolderID" });
+            DropIndex("dbo.Folders", new[] { "ClassUnit_ClassUnitID" });
             DropTable("dbo.ApplicationUserClassUnits");
             DropTable("dbo.AspNetRoles");
-            DropTable("dbo.Dossiers");
-            DropTable("dbo.Folders");
             DropTable("dbo.Subjects");
             DropTable("dbo.Lessons");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");
             DropTable("dbo.AspNetUsers");
+            DropTable("dbo.Dossiers");
+            DropTable("dbo.Folders");
             DropTable("dbo.ClassUnits");
         }
     }

@@ -48,9 +48,9 @@ namespace Queries.Core.Models
         public virtual DbSet<Folder>    Folders    { get; set; }
         public virtual DbSet<Dossier>   Dossiers   { get; set; }
 
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        /*protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
+            /*base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<ClassUnit>().
                 HasRequired(f => f.Shared)
                 .WithRequiredPrincipal()
@@ -59,8 +59,8 @@ namespace Queries.Core.Models
             modelBuilder.Entity<ClassUnit>().
                 HasRequired(f => f.Submission)
                 .WithRequiredPrincipal()
-                    .WillCascadeOnDelete(false);
-        }
+                    .WillCascadeOnDelete(false);*/
+        //}
 
         public static ApplicationDbContext Create()
         {

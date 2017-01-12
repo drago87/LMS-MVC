@@ -18,9 +18,10 @@ namespace Queries.Core.Domain
 
         public virtual ICollection<ApplicationUser> Participants { get; set; }
 
-        public Folder Shared { get; set; }
+        public List<Folder> Folders { get; set; }
+        //public Folder Shared { get; set; }
 
-        public Folder Submission { get; set; }
+        //public Folder Submission { get; set; }
 
         public List<Lesson> Schema { get; set; }
 

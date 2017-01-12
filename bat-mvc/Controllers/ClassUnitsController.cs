@@ -1,5 +1,6 @@
 ﻿using Queries.Core;
 using Queries.Core.Domain;
+using Queries.Core.Models;
 using Queries.Core.Repositories;
 using System;
 using System.Collections.Generic;
@@ -9,25 +10,30 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Data.Entity.Migrations;
 
 namespace bat_mvc.Controllers
 {
     [Authorize]
     public class ClassUnitsController : Controller
     {
-        public readonly IRepository<Subject> _classunitRepo;
+        public readonly IRepository<ClassUnit> _class;
         public readonly IUnitOfWork _uow;
 
-        public ClassUnitsController(IRepository<Subject> classunitRepository, IUnitOfWork uow)
+        public ApplicationDbContext _ctx = new ApplicationDbContext();
+
+        public ClassUnitsController(IRepository<ClassUnit> classunitRepository, IUnitOfWork uow)
         {
-            _classunitRepo = classunitRepository;
+            _class = classunitRepository;
             _uow = uow;
         }
 
         // GET: ClassUnits
         public ActionResult Index()
         {
-            var classunits = _uow.Classunits.GetAll();
+            //var classunits = _uow.Classunits.GetAll();
+            var classunits = _ctx.Classunits.ToList();
+            ViewBag.Folder1Message = "temp1";
             return View(classunits);
         }
 
@@ -57,7 +63,25 @@ namespace bat_mvc.Controllers
         {
             if (ModelState.IsValid)
             {
-                _uow.Classunits.Add(classunit);
+
+                addFolder(classunit.ClassName + "Shared");
+                
+                addFolder(classunit.ClassName + "Submission");
+                
+                List<Folder> ClassFolders = new List<Folder>();
+                ClassFolders.Add(_ctx.Folders.Single(x => x.FolderName == classunit.ClassName + "Shared"));
+                ClassFolders.Add(_ctx.Folders.Single(x => x.FolderName == classunit.ClassName + "Submission"));
+
+
+                _ctx.Classunits.Add(
+
+                    new ClassUnit()
+                    {
+                        ClassName = classunit.ClassName,
+                        Folders = ClassFolders
+                    });
+
+                _ctx.SaveChanges();
 
                 return RedirectToAction("Index");
             }
@@ -130,6 +154,14 @@ namespace bat_mvc.Controllers
                 _uow.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public void addFolder(string name)
+        {
+            _ctx.Folders.Add(new Folder { FolderName = name });
+            
+            _ctx.SaveChanges();
+           
         }
     }
 }
