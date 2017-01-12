@@ -11,8 +11,24 @@ namespace bat_mvc.Controllers
     {
         public ActionResult Index()
         {
+            if (User.IsInRole("Teacher"))
+                return RedirectToAction("TeacherIndex");
+            else
+                return RedirectToAction("StudentIndex");
+        }
+
+        [Authorize(Roles="Teacher")]
+       // [ValidateAntiForgeryToken]
+        public ActionResult TeacherIndex()
+        {
             return View();
         }
+
+        public ActionResult StudentIndex()
+        {
+            return View();
+        }
+
 
         public ActionResult App()
         {

@@ -1,0 +1,23 @@
+﻿
+@{
+    ViewBag.Title = "TeacherIndex";
+}
+<link href="~/Content/Styles.css" rel="stylesheet" />
+<h2>TeacherIndex</h2>
+
+
+<a href='@Url.Action("UploadDocument", "FileTransfer")' style="text-decoration:none;" class=" button-wrap" role="button">Upload to Shared</a>
+
+
+
+<br />
+<a href='@Url.Action("Index", "Users")'>Manage users</a>
+
+
+<br />
+<a href='@Url.Action("index", "Users")'>Manage classes</a>
+
+
+<br />
+@Html.ActionLink("Files avalible for download", "Show", "FileTransfer")
+
