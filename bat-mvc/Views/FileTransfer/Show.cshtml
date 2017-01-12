@@ -1,0 +1,19 @@
+﻿@model IEnumerable<Queries.Core.ViewModels.FileViewModel>
+
+<h2>Show</h2>
+
+@foreach (var item in Model)
+{
+    <div class="col-xs-2 height" title="Download">
+        <a href='@Url.Action("SaveDocument", "Upload", new { filePath = item.File.FullName })' class="hover-bg">
+            <div class="image-wrap col-xs-8 col-xs-offset-2">
+                <img src="@Url.Content(item.IconImg)" class="image">
+                <div class="overlay"></div>
+            </div>
+
+            <div class="text-wrap col-xs-10 col-xs-offset-1">
+                <p>@Html.DisplayFor(modelItem => item.File.Name)</p>
+            </div>
+        </a>
+    </div>
+}

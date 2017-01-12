@@ -3,12 +3,13 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>My ASP.NET Application</title>
     @*@Styles.Render("~/Content/css")*@
     @*@Scripts.Render("~/bundles/modernizr")*@
     <link rel="stylesheet" href="/Content/bootstrap-slate.min.css">
     @*<link rel="stylesheet" href="/Content/font-awesome.min.css">*@
     <link rel="stylesheet" href="/Content/site.css">
+    <link href="~/Content/Files.css" rel="stylesheet" />
 </head>
 <body ng-app="app">
 
@@ -49,13 +50,12 @@
         </menu-bar>
 
         <div class="container body-content">
-
+            @* Här rederas allt innehåll in till dokumentet *@
             @RenderBody()
-            <ui-view>
-            </ui-view>
+
+            <ui-view></ui-view>
 
             <br />
-
             <footer>
                 <p>&copy; 2017 - Studygroup</p>
             </footer>
