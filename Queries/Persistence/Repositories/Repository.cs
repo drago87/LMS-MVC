@@ -36,7 +36,8 @@ namespace Queries.Persistence.Repositories
             // 
             // I didn't change it because I wanted the code to look like the videos. But feel free to change
             // this on your own.
-            return Context.Set<TEntity>().ToList();
+            var test = Context.Set<TEntity>().ToList();
+            return test;
         }
 
         public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate)

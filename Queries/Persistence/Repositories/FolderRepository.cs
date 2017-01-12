@@ -22,9 +22,9 @@ namespace Queries.Core.Repositories
         {
             if (_class == null)
             {
-                var folder = Ctx.Folders.Find(user.ClassUnits.FirstOrDefault().Shared.FolderID);
+                /*var folder = Ctx.Folders.Find(user.ClassUnits.FirstOrDefault().Shared.FolderID);
                 file.Folder = folder;
-                folder.Files.Add(file);
+                folder.Files.Add(file);*/
             }
             else
             {

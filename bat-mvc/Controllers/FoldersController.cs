@@ -1,5 +1,6 @@
 ﻿using Queries.Core;
 using Queries.Core.Domain;
+using Queries.Core.Models;
 using Queries.Core.Repositories;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,7 @@ namespace bat_mvc.Controllers
         public readonly IFolderRepository _folderRepo;
         public readonly IUnitOfWork _uow;
 
+        public ApplicationDbContext _ctx = new ApplicationDbContext();
         //public FoldersController(IRepository<Folder> folderRepository, IUnitOfWork uow)
         public FoldersController(IFolderRepository folderRepository, IUnitOfWork uow)
         {
@@ -30,7 +32,8 @@ namespace bat_mvc.Controllers
         public ActionResult Index()
         {
             //_folderRepo.
-            var folders = _uow.Folders.GetAll();  //.GetSomeFolders(3));
+            //var folders = _uow.Folders.GetAll();  //.GetSomeFolders(3));
+            var folders = _ctx.Folders.ToList();
             return View(folders);
         }
 
@@ -55,22 +58,22 @@ namespace bat_mvc.Controllers
             return View();
         }
 
-        // POST: Folders/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Create([Bind(Include = "FolderID,FolderName")] Folder Folder)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        db.Folders.Add(Folder);
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
+         //POST: Folders/Create
+         //To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+         //more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "FolderID,FolderName")] Folder Folder)
+        {
+            if (ModelState.IsValid)
+            {
+                _uow.Folders.Add(Folder);
+                //_uow.();
+                return RedirectToAction("Index");
+            }
 
-        //    return View(Folder);
-        //}
+            return View(Folder);
+        }
 
         // GET: Folders/Edit/5
         //public ActionResult Edit(int? id)
