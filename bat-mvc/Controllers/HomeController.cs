@@ -1,15 +1,15 @@
-﻿using System;
+﻿using Queries.Core;
+using Queries.Core.Domain;
+using Queries.Core.Models;
+using Queries.Core.Repositories;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
+using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using Microsoft.Owin.Security;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
-using Queries.Core.Models;
-using Queries.Core.ViewModels;
-using Queries.Core.Domain;
-using System.Linq;
-using System.Collections.Generic;
 using System.Data.Entity.Migrations;
 
 namespace bat_mvc.Controllers
@@ -17,7 +17,7 @@ namespace bat_mvc.Controllers
     [Authorize]
     public class HomeController : Controller
     {
-        ApplicationDbContext database = new ApplicationDbContext();
+        ApplicationDbContext _ctx = new ApplicationDbContext();
 
         public ActionResult Index()
         {
@@ -31,18 +31,14 @@ namespace bat_mvc.Controllers
        // [ValidateAntiForgeryToken]
         public ActionResult TeacherIndex()
         {
-            ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
-
-
-            List<ClassUnit> classunits = database.Users.SingleOrDefault(x => x.Id == user.Id).ClassUnits.ToList();
-
-            ViewBag.classes = classunits;
-
-            return View(new MyViewModel() { ClassUnits = classunits});
+            int id = 3;
+            //ClassUnit classunit = _ctx.Classunits.Where(c => c.ClassUnitID == id).Include(x => x.Folders).First();
+            return View();
         }
 
         public ActionResult StudentIndex()
         {
+            
             return View();
         }
 

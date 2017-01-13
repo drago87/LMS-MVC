@@ -13,7 +13,7 @@ namespace Queries.Core.Domain
         
         [Key]
         public int ClassUnitID { get; set; }
-
+        [Required]
         public string ClassName { get; set; }
 
         public virtual ICollection<ApplicationUser> Participants { get; set; }

@@ -12,7 +12,7 @@ namespace Queries.Core.Domain
         [Key]
         public int SubjectID { get; set; }
 
-        [DisplayName("Subject")]
+        [DisplayName("Subject"), Required]
         public string SubjectName { get; set; }
     }
 }

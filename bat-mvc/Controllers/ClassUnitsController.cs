@@ -34,7 +34,7 @@ namespace bat_mvc.Controllers
             //var classunits = _uow.Classunits.GetAll();
             var classunits = _ctx.Classunits.ToList();
             ViewBag.Folder1Message = "temp1";
-            return View(classunits);
+            return View(classunits.OrderBy(x => x.ClassName));
         }
 
         // GET: ClassUnits/Details/5
