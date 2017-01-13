@@ -45,7 +45,7 @@ namespace bat_mvc.Controllers
 
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public ActionResult Upload(int uploadTo)
+        public ActionResult Upload(int uploadTo,int classunit)
         {
             //var folder = Database.Folders.SingleOrDefault(x => x.FolderID == _folder.FolderID);
             string message = "The file was not uploaded";
@@ -71,6 +71,23 @@ namespace bat_mvc.Controllers
 
 
                         var path = System.Web.Hosting.HostingEnvironment.MapPath("~/Files/") + fileName;
+
+                        Dossier newFile = new Dossier();
+                        newFile.FileName = fileName;
+                        newFile.FilePath = path;
+                        List<ClassUnit> tempList = Database.Classunits.Include(x => x.Participants).ToList();
+                        ClassUnit temp = Database.Classunits.SingleOrDefault(x => x.ClassUnitID == classunit);
+
+                        List<Folder> folders = temp.Folders;
+                        Folder ChangedFolder = new Folder();
+                        if (folders.Count > 0)
+                        {
+                            ChangedFolder = folders[uploadTo];
+                        }
+
+                        newFile.Folder = ChangedFolder;
+
+                        Database.Dossiers.Add(newFile);
                         files[i].SaveAs(path);
 
                         //Database.Folders.SingleOrDefault(x => x.FolderID == _folder.FolderID)
