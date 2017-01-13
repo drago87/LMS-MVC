@@ -23,6 +23,8 @@ namespace bat_mvc.Controllers
         public readonly IUserRepository _user;
         public readonly IUnitOfWork _uow;
 
+        public ApplicationDbContext _ctx = new ApplicationDbContext();
+
         private ApplicationUserManager _userManager;
 
         public UsersController(IUserRepository userRepository, IUnitOfWork uow)
@@ -45,9 +47,9 @@ namespace bat_mvc.Controllers
             //{
             //    throw new NotImplementedException();
             //}
-            var users = _user.GetAll();
+            var users = _ctx.Users.ToList();
 
-            return View(users);
+            return View(users.OrderBy(x => x.Email));
         }
 
         //public ActionResult Roles()

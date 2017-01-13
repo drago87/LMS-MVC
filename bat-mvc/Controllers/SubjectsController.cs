@@ -32,8 +32,8 @@ namespace bat_mvc.Controllers
         public ActionResult Index()
         {
             // var subjects = _uow.Subjects.GetAll();
-            var subjects = _subject.GetAll();
-            return View(subjects);
+            var subjects = _ctx.Subjects.ToList();
+            return View(subjects.OrderBy(x => x.SubjectName));
         }
 
         public ActionResult Hitta(string name)
