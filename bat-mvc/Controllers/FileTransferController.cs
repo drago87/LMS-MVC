@@ -38,7 +38,7 @@ namespace bat_mvc.Controllers
 
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public ActionResult Upload(Folder folder)
+        public ActionResult Upload(int folderType)
         {
             //var folder = Database.Folders.SingleOrDefault(x => x.FolderID == _folder.FolderID);
             string message = "The file was not uploaded";
@@ -63,23 +63,67 @@ namespace bat_mvc.Controllers
                         //{
                         
 
-                            var path = System.Web.Hosting.HostingEnvironment.MapPath("~/Files/") + fileName;
+                        var path = System.Web.Hosting.HostingEnvironment.MapPath("~/Files/") + fileName;
 
                             
-                            Dossier newFile = new Dossier();
-                            newFile.FileName = fileName;
-                            newFile.FilePath = path;
-                            newFile.Folder = folder;
+                        Dossier newFile = new Dossier();
+                        newFile.FileName = fileName;
+                        newFile.FilePath = path;
 
-                            Database.Dossiers.Add(newFile);
+                        ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
 
-                            files[i].SaveAs(path);
+                        List<ClassUnit> temp = Database.Classunits.Include(x => x.Participants).ToList();
+                        List<string> clssunit = new List<string>();
+                        foreach (var item in temp)
+                        {
+                            if (item.Participants.Count > 0)
+                            {
+                                var temp2 = item.Participants.SingleOrDefault(x => x.UserName == user.UserName);
+                                if (temp2.UserName == user.UserName)
+                                {
+                                    clssunit.Add(item.ClassName);
+                                }
+                            }
 
-                            //Database.Folders.SingleOrDefault(x => x.FolderID == _folder.FolderID)
-                            //.Files.Add(new Dossier { FileName = files[i].FileName, FilePath = path });
 
-                            Database.SaveChanges();
-                            message = "The file was uploaded";
+
+                        }
+
+
+                        Folder Folders = new Folder();
+                        
+
+                        if (folderType == 1 && clssunit.Count > 0)
+                        {
+
+
+                            foreach (var item in clssunit)
+                            {
+
+                                Folders = Database.Folders.SingleOrDefault(x => x.FolderName == item + "Submission");
+                            }
+
+                        }
+                        else if (folderType == 0 && clssunit.Count > 0)
+                        {
+
+                            foreach (var item in clssunit)
+                            {
+                                Folders = Database.Folders.SingleOrDefault(x => x.FolderName == item + "Shared");
+                            }
+                        }
+
+                        newFile.Folder = Database.Folders.SingleOrDefault(x => x.FolderID == Folders.FolderID);
+
+                        Database.Dossiers.Add(newFile);
+
+                        files[i].SaveAs(path);
+
+                        //Database.Folders.SingleOrDefault(x => x.FolderID == _folder.FolderID)
+                        //.Files.Add(new Dossier { FileName = files[i].FileName, FilePath = path });
+
+                        Database.SaveChanges();
+                        message = "The file was uploaded";
 
                         //}
                         //else
