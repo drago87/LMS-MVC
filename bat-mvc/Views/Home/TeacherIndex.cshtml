@@ -1,23 +1,33 @@
-﻿
-@{
-    ViewBag.Title = "TeacherIndex";
-}
+﻿@model Queries.Core.ViewModels.MyViewModel
+
+
+
+
+
+@Html.DropDownList("ClassUnitID", new SelectList(Model.ClassUnits, "ClassUnitID", "ClassName"))
+
 <link href="~/Content/Styles.css" rel="stylesheet" />
 <h2>TeacherIndex</h2>
 
 
 <a href='@Url.Action("UploadDocument", "FileTransfer")' style="text-decoration:none;" class=" button-wrap" role="button">Upload to Shared</a>
 
+<br />
 
+
+
+@Html.ActionLink("Files avalible for download", "Show", "FileTransfer")
 
 <br />
 <a href='@Url.Action("Index", "Users")'>Manage users</a>
+
+
 
 
 <br />
 <a href='@Url.Action("Index", "ClassUnits")'>Manage classes</a>
 
 
-<br />
-@Html.ActionLink("Files avalible for download", "Show", "FileTransfer")
+
+
 
