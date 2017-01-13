@@ -45,9 +45,6 @@ namespace bat_mvc.Controllers
             //List<ClassUnit> classunits = database.Users.SingleOrDefault(x => x.Id == user.Id).ClassUnits.ToList();
 
 
-
-
-
             //ViewBag.classes = classunits;
 
             return View(new MyViewModel() { ClassUnits = database.Classunits.ToList() });

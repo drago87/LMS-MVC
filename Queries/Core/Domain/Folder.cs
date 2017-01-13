@@ -22,5 +22,11 @@ namespace Queries.Core.Domain
         public ClassUnit ClassUnit { get; set; }
 
         public virtual List<Dossier> Files { get; set; }
+
+
+        public Folder()
+        {
+            Files = new List<Dossier>();
+        }
     }
 }

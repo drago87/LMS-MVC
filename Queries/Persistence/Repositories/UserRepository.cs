@@ -38,7 +38,7 @@ namespace Queries.Core.Repositories
 
         public ApplicationUser GetUserById(string id)
         {
-            return Ctx.Users.Single(u => u.Id == id);
+            return _ctx.Users.Single(u => u.Id == id);
         }
 
         public IEnumerable<ClassUnit> GetClassUnitsFor(ApplicationUser user)

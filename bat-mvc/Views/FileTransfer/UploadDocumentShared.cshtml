@@ -1,0 +1,11 @@
+﻿
+@{
+    ViewBag.Title = "UploadDocumentShared";
+}
+
+<h2>UploadDocumentShared</h2>
+
+@using (Html.BeginForm("Upload", "FileTransfer", FormMethod.Post, new { enctype = "multipart/form-data", uploadTo = 0}))
+{ 
+    @Html.Partial("UploadDocuments")
+}

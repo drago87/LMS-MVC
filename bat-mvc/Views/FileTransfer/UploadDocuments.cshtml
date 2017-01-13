@@ -32,10 +32,6 @@
     });
 </script>
 
-
-
-@using (Html.BeginForm("Upload", "FileTransfer", FormMethod.Post, new { enctype = "multipart/form-data" }))
-{
     <div class="container" style="margin-top: 20px;">
         <div class="row">
 
@@ -53,8 +49,6 @@
                     Try selecting one or more files and watch the feedback
                 </span>
             </div>
-
         </div>
     </div>
     <input type="submit" class="submit" name="Submit" id="Submit" value="Upload" />
-}

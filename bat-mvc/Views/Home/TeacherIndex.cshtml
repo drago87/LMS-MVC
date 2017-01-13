@@ -4,13 +4,18 @@
 
 
 
-@Html.DropDownList("ClassUnitID", new SelectList(Model.ClassUnits, "ClassUnitID", "ClassName"))
+
 
 <link href="~/Content/Styles.css" rel="stylesheet" />
 <h2>TeacherIndex</h2>
 
+@Html.DropDownList("ClassUnitID", new SelectList(Model.ClassUnits, "ClassUnitID", "ClassName"))
 
-<a href='@Url.Action("UploadDocument", "FileTransfer")' style="text-decoration:none;" class=" button-wrap" role="button">Upload to Shared</a>
+<a href='@Url.Action("UploadDocumentShared", "FileTransfer")' style="text-decoration:none;" class=" button-wrap" role="button">Upload to Shared</a>
+
+<br />
+
+<a href='@Url.Action("UploadDocumentSubmission", "FileTransfer")' style="text-decoration:none;" class=" button-wrap" role="button">Upload to Submission</a>
 
 <br />
 

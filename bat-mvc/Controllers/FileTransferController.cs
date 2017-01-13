@@ -28,17 +28,22 @@ namespace bat_mvc.Controllers
 
 
 
-        public ActionResult UploadDocument(string uploadMessage = "Choose file.")
+        public ActionResult UploadDocumentShared(string uploadMessage = "Choose file.")
+        {
+            ViewBag.Message = uploadMessage;
+            return View();
+        }
+
+        public ActionResult UploadDocumentSubmission(string uploadMessage = "Choose file.")
         {
             ViewBag.Message = uploadMessage;
             return View();
         }
 
 
-
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public ActionResult Upload()
+        public ActionResult Upload(int uploadTo)
         {
             //var folder = Database.Folders.SingleOrDefault(x => x.FolderID == _folder.FolderID);
             string message = "The file was not uploaded";
@@ -47,7 +52,7 @@ namespace bat_mvc.Controllers
 
             if (files.Count > 0)
             {
-                
+
 
                 for (int i = 0; i < files.Count; i++)
                 {
@@ -55,22 +60,22 @@ namespace bat_mvc.Controllers
                     {
 
 
-                        
+
 
 
                         var fileName = Path.GetFileName(files[i].FileName);
                         //if (folder.Files.SingleOrDefault(x => x.FileName == fileName) == null)
                         //{
-                        
 
-                            var path = System.Web.Hosting.HostingEnvironment.MapPath("~/Files/") + fileName;
-                            files[i].SaveAs(path);
 
-                            //Database.Folders.SingleOrDefault(x => x.FolderID == _folder.FolderID)
-                            //.Files.Add(new Dossier { FileName = files[i].FileName, FilePath = path });
+                        var path = System.Web.Hosting.HostingEnvironment.MapPath("~/Files/") + fileName;
+                        files[i].SaveAs(path);
 
-                            Database.SaveChanges();
-                            message = "The file was uploaded";
+                        //Database.Folders.SingleOrDefault(x => x.FolderID == _folder.FolderID)
+                        //.Files.Add(new Dossier { FileName = files[i].FileName, FilePath = path });
+
+                        Database.SaveChanges();
+                        message = "The file was uploaded";
 
                         //}
                         //else
@@ -101,7 +106,7 @@ namespace bat_mvc.Controllers
 
             DirectoryInfo directory = new DirectoryInfo(Server.MapPath(@"~\Files"));
             ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
-            
+
             List<ClassUnit> temp = Database.Classunits.Include(x => x.Participants).ToList();
             List<string> clssunit = new List<string>();
             foreach (var item in temp)
@@ -116,27 +121,27 @@ namespace bat_mvc.Controllers
                 }
 
 
-                
+
             }
-            
-            
+
+
             List<Folder> SharedFolders = new List<Folder>();
             List<Folder> SubmissionFolders = new List<Folder>();
 
             if (this.User.IsInRole("Teacher") && clssunit.Count > 0)
             {
-                
-                
+
+
                 foreach (var item in clssunit)
-	            {
+                {
                     SharedFolders.Add(Database.Folders.SingleOrDefault(x => x.FolderName == item + "Shared"));
                     SubmissionFolders.Add(Database.Folders.SingleOrDefault(x => x.FolderName == item + "Submission"));
-	            }
+                }
 
             }
             else if (this.User.IsInRole("Student") && clssunit.Count > 0)
             {
-                
+
                 foreach (var item in clssunit)
                 {
                     SharedFolders.Add(Database.Folders.SingleOrDefault(x => x.FolderName == item + "Shared"));
@@ -144,16 +149,22 @@ namespace bat_mvc.Controllers
             }
 
 
+            var tem6p = Database.Folders.Include(x => x.Files).ToList();
+            //files = directory.GetFiles().ToList();
 
-            files = directory.GetFiles().ToList();
 
-            //Folder folder = new Folder();
-            //foreach (var file in folder.Files.ToList())
-            //{
-            //    files.Add(new FileInfo(file.FilePath));
-            //}
+            foreach (var folder in SharedFolders)
+            {
+                foreach (var file in folder.Files)
+                {
+                    files.Add(new FileInfo(file.FilePath));
+                }
+            }
+
 
             List<FileViewModel> fileViews = new List<FileViewModel>();
+
+
             foreach (var item in files)
             {
                 byte[] byteArr;
