@@ -64,7 +64,7 @@ namespace bat_mvc.Controllers
         //    return View(roles);
         //}
 
-        [Authorize(Roles = "Teacher")]
+        //[Authorize(Roles = "Teacher")]
         public ActionResult Edit(string id)
         {
             if (id == null)
@@ -72,7 +72,8 @@ namespace bat_mvc.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            ApplicationUser applicationUser = _user.GetUserById(id);
+            //ApplicationUser applicationUser = _user.GetUserById(id);
+            ApplicationUser applicationUser = _ctx.Users.SingleOrDefault(x => x.Id == id);
 
             if (applicationUser == null)
             {
@@ -103,7 +104,7 @@ namespace bat_mvc.Controllers
             }
             return View(applicationUser);
         }
-
+        [Authorize(Roles = "Teacher")]
         public ActionResult Details(string id)
         {
             if (id == null)
@@ -111,7 +112,8 @@ namespace bat_mvc.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            ApplicationUser applicationUser = _user.GetUserById(id);
+            //ApplicationUser applicationUser = _user.GetUserById(id);
+            ApplicationUser applicationUser = _ctx.Users.SingleOrDefault(x => x.Id == id);
 
             if (applicationUser == null)
             {
