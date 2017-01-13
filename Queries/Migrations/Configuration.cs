@@ -17,6 +17,7 @@ namespace Queries.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
+            AutomaticMigrationDataLossAllowed = false;
         }
 
         protected override void Seed(Queries.Core.Models.ApplicationDbContext context)

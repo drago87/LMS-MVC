@@ -32,12 +32,13 @@ namespace bat_mvc.Controllers
         public ActionResult TeacherIndex()
         {
             int id = 3;
-            ClassUnit classunit = _ctx.Classunits.Where(c => c.ClassUnitID == id).Include(x => x.Folders).First();
+            //ClassUnit classunit = _ctx.Classunits.Where(c => c.ClassUnitID == id).Include(x => x.Folders).First();
             return View();
         }
 
         public ActionResult StudentIndex()
         {
+            
             return View();
         }
 

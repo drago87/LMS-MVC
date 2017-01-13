@@ -1,5 +1,6 @@
 ﻿using Queries.Core;
 using Queries.Core.Domain;
+using Queries.Core.Models;
 using Queries.Core.Repositories;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,8 @@ namespace bat_mvc.Controllers
     {
         public readonly IRepository<Subject> _subject;
         public readonly IUnitOfWork _uow; // behövs inte
+
+        ApplicationDbContext _ctx = new ApplicationDbContext();
 
         public SubjectsController(IRepository<Subject> subjectRepository, IUnitOfWork uow)
         {
@@ -60,22 +63,23 @@ namespace bat_mvc.Controllers
             return View();
         }
 
-        // POST: Subjects/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Create([Bind(Include = "SubjectID,SubjectName")] Subject subject)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        db.Subjects.Add(subject);
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
+         //POST: Subjects/Create
+         //To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+         //more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "SubjectID,SubjectName")] Subject subject)
+        {
+            if (ModelState.IsValid)
+            {
+                _ctx.Subjects.Add(subject);
+                _ctx.SaveChanges();
+                
+                return RedirectToAction("Index");
+            }
 
-        //    return View(subject);
-        //}
+            return View(subject);
+        }
 
         // GET: Subjects/Edit/5
         //public ActionResult Edit(int? id)
@@ -109,30 +113,30 @@ namespace bat_mvc.Controllers
         //}
 
         // GET: Subjects/Delete/5
-        //public ActionResult Delete(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    Subject subject = db.Subjects.Find(id);
-        //    if (subject == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(subject);
-        //}
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Subject subject = _ctx.Subjects.Find(id);
+            if (subject == null)
+            {
+                return HttpNotFound();
+            }
+            return View(subject);
+        }
 
         // POST: Subjects/Delete/5
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult DeleteConfirmed(int id)
-        //{
-        //    Subject subject = db.Subjects.Find(id);
-        //    db.Subjects.Remove(subject);
-        //    db.SaveChanges();
-        //    return RedirectToAction("Index");
-        //}
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            Subject subject = _ctx.Subjects.Find(id);
+            _ctx.Subjects.Remove(subject);
+            _ctx.SaveChanges();
+            return RedirectToAction("Index");
+        }
 
         //protected override void Dispose(bool disposing)
         //{
