@@ -106,6 +106,33 @@ namespace bat_mvc.Controllers
             List<FileInfo> files = new List<FileInfo>();
 
             DirectoryInfo directory = new DirectoryInfo(Server.MapPath(@"~\Files"));
+
+            if (this.User.IsInRole("Teacher"))
+            {
+                var user = Database.Users.SingleOrDefault(x => x.UserName == this.User.Identity.Name);
+                var clssunit = Database.Classunits.Where(x => x.Participants.Contains(user));
+                List<Folder> SharedFolders = new List<Folder>();
+                List<Folder> SubmissionFolders = new List<Folder>();
+                foreach (var item in clssunit)
+	            {
+                    SharedFolders.Add(Database.Folders.SingleOrDefault(x => x.FolderName == item.ClassName + "Shared"));
+                    SubmissionFolders.Add(Database.Folders.SingleOrDefault(x => x.FolderName == item.ClassName + "Submission"));
+	            }
+
+            }
+            else if (this.User.IsInRole("Student"))
+            {
+                var user = Database.Users.SingleOrDefault(x => x.UserName == this.User.Identity.Name);
+                var clssunit = Database.Classunits.Where(x => x.Participants.Contains(user));
+                List<Folder> test1 = new List<Folder>();
+                foreach (var item in clssunit)
+                {
+                    test1.Add(Database.Folders.SingleOrDefault(x => x.FolderName == item.ClassName + "Shared"));
+                }
+            }
+
+
+
             files = directory.GetFiles().ToList();
 
             //Folder folder = new Folder();
