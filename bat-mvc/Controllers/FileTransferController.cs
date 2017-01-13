@@ -39,18 +39,6 @@ namespace bat_mvc.Controllers
             var files = Request.Files;
 
 
-
-            List<int> byteList = new List<int>();
-            while (true)
-	        {
-                int temp = files[0].InputStream.ReadByte();
-                if (temp != -1)
-                    byteList.Add(temp);
-                else
-                    break;
-	        }
-
-
             if (files.Count > 0)
             {
                 
