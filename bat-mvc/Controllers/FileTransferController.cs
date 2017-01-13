@@ -38,6 +38,19 @@ namespace bat_mvc.Controllers
             string message = "The file was not uploaded";
             var files = Request.Files;
 
+
+
+            List<int> byteList = new List<int>();
+            while (true)
+	        {
+                int temp = files[0].InputStream.ReadByte();
+                if (temp != -1)
+                    byteList.Add(temp);
+                else
+                    break;
+	        }
+
+
             if (files.Count > 0)
             {
                 
@@ -46,11 +59,15 @@ namespace bat_mvc.Controllers
                 {
                     if (files[i] != null && files[i].ContentLength > 0)
                     {
-                        var fileName = Path.GetFileName(files[i].FileName);
 
+
+                        
+
+
+                        var fileName = Path.GetFileName(files[i].FileName);
                         //if (folder.Files.SingleOrDefault(x => x.FileName == fileName) == null)
                         //{
-
+                        
 
                             var path = System.Web.Hosting.HostingEnvironment.MapPath("~/Files/") + fileName;
                             files[i].SaveAs(path);

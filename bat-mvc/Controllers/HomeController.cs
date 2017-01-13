@@ -11,13 +11,16 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity.Migrations;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.AspNet.Identity;
+using Queries.Core.ViewModels;
 
 namespace bat_mvc.Controllers
 {
     [Authorize]
     public class HomeController : Controller
     {
-        ApplicationDbContext _ctx = new ApplicationDbContext();
+        ApplicationDbContext database = new ApplicationDbContext();
 
         public ActionResult Index()
         {
@@ -31,9 +34,24 @@ namespace bat_mvc.Controllers
        // [ValidateAntiForgeryToken]
         public ActionResult TeacherIndex()
         {
-            int id = 3;
-            //ClassUnit classunit = _ctx.Classunits.Where(c => c.ClassUnitID == id).Include(x => x.Folders).First();
-            return View();
+            //int id = 3;
+            //ClassUnit classunit = database.Classunits.Where(c => c.ClassUnitID == id).Include(x => x.Folders).First();
+            
+
+
+            //ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
+
+
+            //List<ClassUnit> classunits = database.Users.SingleOrDefault(x => x.Id == user.Id).ClassUnits.ToList();
+
+
+
+
+
+            //ViewBag.classes = classunits;
+
+            return View(new MyViewModel() { ClassUnits = database.Classunits.ToList() });
+
         }
 
         public ActionResult StudentIndex()
