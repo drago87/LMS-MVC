@@ -5,7 +5,7 @@
 
 <h2>UploadDocumentSubmission</h2>
 
-@using (Html.BeginForm("Upload", "FileTransfer", FormMethod.Post, new { enctype = "multipart/form-data", uploadTo = 1 }))
+@using (Html.BeginForm("Upload", "FileTransfer", FormMethod.Post, new { enctype = "multipart/form-data", uploadTo = 1, classunit = @ViewBag.classUnit}))
 {
     
     

@@ -5,7 +5,7 @@
 
 <h2>UploadDocumentShared</h2>
 
-@using (Html.BeginForm("Upload", "FileTransfer", FormMethod.Post, new { enctype = "multipart/form-data", uploadTo = 0}))
+@using (Html.BeginForm("Upload", "FileTransfer", FormMethod.Post, new { enctype = "multipart/form-data", uploadTo = 0, classunit = @ViewBag.classUnit }))
 { 
     @Html.Partial("UploadDocuments")
 }
