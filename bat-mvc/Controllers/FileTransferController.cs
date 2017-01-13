@@ -12,6 +12,12 @@ using Queries.Core.Domain;
 using Queries.Core;
 using Queries.Core.Models;
 using Queries.Core.ViewModels;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Queries.Persistence.Repositories;
+using System.Data.Entity;
+using System.Text;
+using System.Threading.Tasks;
+
 
 namespace bat_mvc.Controllers
 {
@@ -94,28 +100,46 @@ namespace bat_mvc.Controllers
             List<FileInfo> files = new List<FileInfo>();
 
             DirectoryInfo directory = new DirectoryInfo(Server.MapPath(@"~\Files"));
-
-            if (this.User.IsInRole("Teacher"))
+            ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
+            
+            List<ClassUnit> temp = Database.Classunits.Include(x => x.Participants).ToList();
+            List<string> clssunit = new List<string>();
+            foreach (var item in temp)
             {
-                var user = Database.Users.SingleOrDefault(x => x.UserName == this.User.Identity.Name);
-                var clssunit = Database.Classunits.Where(x => x.Participants.Contains(user));
-                List<Folder> SharedFolders = new List<Folder>();
-                List<Folder> SubmissionFolders = new List<Folder>();
+                if (item.Participants.Count > 0)
+                {
+                    var temp2 = item.Participants.SingleOrDefault(x => x.UserName == user.UserName);
+                    if (temp2.UserName == user.UserName)
+                    {
+                        clssunit.Add(item.ClassName);
+                    }
+                }
+
+
+                
+            }
+            
+            
+            List<Folder> SharedFolders = new List<Folder>();
+            List<Folder> SubmissionFolders = new List<Folder>();
+
+            if (this.User.IsInRole("Teacher") && clssunit.Count > 0)
+            {
+                
+                
                 foreach (var item in clssunit)
 	            {
-                    SharedFolders.Add(Database.Folders.SingleOrDefault(x => x.FolderName == item.ClassName + "Shared"));
-                    SubmissionFolders.Add(Database.Folders.SingleOrDefault(x => x.FolderName == item.ClassName + "Submission"));
+                    SharedFolders.Add(Database.Folders.SingleOrDefault(x => x.FolderName == item + "Shared"));
+                    SubmissionFolders.Add(Database.Folders.SingleOrDefault(x => x.FolderName == item + "Submission"));
 	            }
 
             }
-            else if (this.User.IsInRole("Student"))
+            else if (this.User.IsInRole("Student") && clssunit.Count > 0)
             {
-                var user = Database.Users.SingleOrDefault(x => x.UserName == this.User.Identity.Name);
-                var clssunit = Database.Classunits.Where(x => x.Participants.Contains(user));
-                List<Folder> test1 = new List<Folder>();
+                
                 foreach (var item in clssunit)
                 {
-                    test1.Add(Database.Folders.SingleOrDefault(x => x.FolderName == item.ClassName + "Shared"));
+                    SharedFolders.Add(Database.Folders.SingleOrDefault(x => x.FolderName == item + "Shared"));
                 }
             }
 
