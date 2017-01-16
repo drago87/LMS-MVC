@@ -43,12 +43,11 @@ namespace bat_mvc.Controllers
 
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public ActionResult Upload(int uploadTo = -1,int classunit =-1)
+        public ActionResult Upload(string uploadTo,string classunit)
         {
             //var folder = Database.Folders.SingleOrDefault(x => x.FolderID == _folder.FolderID);
             string message = "The file was not uploaded";
             var files = Request.Files;
-
 
             if (files.Count > 0)
             {
@@ -66,32 +65,38 @@ namespace bat_mvc.Controllers
                         var fileName = Path.GetFileName(files[i].FileName);
                         //if (folder.Files.SingleOrDefault(x => x.FileName == fileName) == null)
                         //{
-
+                        int uploadTo1 = new int();
+                        int classunitID = int.Parse(classunit);
+                        if (uploadTo == "Shared")
+                        {
+                            uploadTo1 = 0;
+                        }
+                        else if (uploadTo == "Submission")
+                        {
+                            uploadTo1 = 1;
+                        }
 
                         var path = System.Web.Hosting.HostingEnvironment.MapPath("~/Files/") + fileName;
-                        if (uploadTo == -1 || classunit == -1)
+                        if (uploadTo != null && classunit != null)
                         {
-                            
-                        }
-                        else
-	                    {
                             Dossier newFile = new Dossier();
                             newFile.FileName = fileName;
                             newFile.FilePath = path;
-                            List<ClassUnit> tempList = Database.Classunits.Include(x => x.Participants).ToList();
-                            ClassUnit temp = Database.Classunits.SingleOrDefault(x => x.ClassUnitID == classunit);
+                            List<ClassUnit> tempList = Database.Classunits.Include(x => x.Participants).Include(x => x.Folders).ToList();
+                            ClassUnit temp = Database.Classunits.SingleOrDefault(x => x.ClassUnitID == classunitID);
 
                             List<Folder> folders = temp.Folders;
                             Folder ChangedFolder = new Folder();
                             if (folders.Count > 0)
                             {
-                                ChangedFolder = folders[uploadTo];
+                                ChangedFolder = folders[uploadTo1];
                             }
 
                             newFile.Folder = ChangedFolder;
 
                             Database.Dossiers.Add(newFile);
-	                    }
+                        }
+                        
                         
                         files[i].SaveAs(path);
 
