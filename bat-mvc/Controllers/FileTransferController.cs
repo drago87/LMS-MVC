@@ -104,11 +104,14 @@ namespace bat_mvc.Controllers
                             {
                                 ChangedFolder = folders[uploadTo1];
                             }
-
+                            else
+                            {
+                                break;
+                            }
                             newFile.Folder = ChangedFolder;
 
                             Database.Dossiers.Add(newFile);
-                        }
+                        
                         
                         
                         files[i].SaveAs(path);
@@ -118,7 +121,7 @@ namespace bat_mvc.Controllers
 
                         Database.SaveChanges();
                         message = "The file was uploaded";
-
+                        }
                         //}
                         //else
                         //{
