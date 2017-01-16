@@ -29,6 +29,11 @@ namespace bat_mvc.Controllers
             else
                 return RedirectToAction("StudentIndex");
         }
+        [HttpPost]
+        public ActionResult TeacherIndex(string upload)
+        {
+            return Content("yes");
+        }
 
         [Authorize(Roles="Teacher")]
        // [ValidateAntiForgeryToken]

@@ -8,32 +8,47 @@
 @using (Html.BeginForm())
 {
 
-<h2>TeacherIndex</h2>
+    <h2>TeacherIndex</h2>
+    <div class="dropdown-list-wrapper">
+        
+    </div>
+    
+    <select name="className"  style="color: black;">
+        @foreach (var item in Model.ClassUnits)
+        {
+            <option  value="@item.ClassUnitID">@item.ClassName</option>
+        }
+    </select>
+    <button name="upload" type="submit" value="Shared">Shared</button>
 
-@Html.DropDownList("ClassUnitID", new SelectList(Model.ClassUnits, "ClassUnitID", "ClassName"))
+    @*@Html.DropDownList("ClassUnitID", new SelectList(Model.ClassUnits, "ClassUnitID", "ClassName"))*@
+    
+    
+    <br />
+    
+    <a href='@Url.Action("UploadDocumentShared", "FileTransfer")' style="text-decoration:none;" class=" button-wrap" role="button">Upload to Shared</a>
 
-<a href='@Url.Action("UploadDocumentShared", "FileTransfer", new { ClassUnitID = value })' style="text-decoration:none;" class=" button-wrap" role="button">Upload to Shared</a>
+    <br />
 
-<br />
+    <a href='@Url.Action("UploadDocumentSubmission", "FileTransfer")' style="text-decoration:none;" class=" button-wrap" role="button">Upload to Submission</a>
 
-<a href='@Url.Action("UploadDocumentSubmission", "FileTransfer")' style="text-decoration:none;" class=" button-wrap" role="button">Upload to Submission</a>
-
-<br />
-
-
-
-@Html.ActionLink("Files avalible for download", "Show", "FileTransfer")
-
-<br />
-<a href='@Url.Action("Index", "Users")'>Manage users</a>
-
-
-
-
-<br />
-<a href='@Url.Action("Index", "ClassUnits")'>Manage classes</a>
-
-
-
+    <br />
+    
 }
+
+
+    @Html.ActionLink("Files avalible for download", "Show", "FileTransfer")
+
+    <br />
+    <a href='@Url.Action("Index", "Users")'>Manage users</a>
+
+
+
+
+    <br />
+    <a href='@Url.Action("Index", "ClassUnits")'>Manage classes</a>
+
+
+
+
 

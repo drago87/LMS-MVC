@@ -1,5 +1,6 @@
 ﻿body {
 }
+
 .button-wrap{
     color:#ffffff;
     background-color: #337ab7;
@@ -7,7 +8,13 @@
     text-decoration:none;
 }
 
+select{
+    color: black;
+}
 a{
     text-decoration: none;
 }
 
+.dropdown-list-wrapper{
+    color:black;
+}
