@@ -190,6 +190,14 @@ namespace bat_mvc.Controllers
                 }
             }
 
+            foreach (var folder in SubmissionFolders)
+            {
+                foreach (var file in folder.Files)
+                {
+                    files.Add(new FileInfo(file.FilePath));
+                }
+            }
+
 
             List<FileViewModel> fileViews = new List<FileViewModel>();
 
