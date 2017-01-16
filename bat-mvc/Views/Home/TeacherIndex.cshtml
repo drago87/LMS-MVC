@@ -1,94 +1,75 @@
 ﻿@model Queries.Core.ViewModels.MyViewModel
 
-
-
-<link href="~/Content/Styles.css" rel="stylesheet" />
-<h2>TeacherIndex</h2>
-@using (Html.BeginForm("UploadDocument","FileTransfer"))
-{ 
-    
-    <select id="ClassUnitID" name="ClassUnitID">
-        @foreach (var item in Model.ClassUnits)
-        {
-
-            <option value="@item.ClassUnitID">@item.ClassName</option>
-        }
-    </select>
-    
-    <button name="upload" type="submit" value="Shared" class="btn btn-default">Shared</button>
-    <button name="upload" type="submit" value="Submission" class="btn btn-default">Submission</button>
-    
+@{
+    var temp = Model.Shared;
 }
 
-@Html.ActionLink("Files avalible for download", "Show", "FileTransfer")
-
-<br />
-<a href='@Url.Action("Index", "Users")'>Manage users</a>
-
-
-
-
-<br />
-<a href='@Url.Action("Index", "ClassUnits")'>Manage classes</a>
-
-
-
-
-
-
-
-
-@*@model Queries.Core.ViewModels.MyViewModel
-
-
-
 <link href="~/Content/Styles.css" rel="stylesheet" />
 
+<div class="row">
+    <div class="col-xs-12 text-center">
+        <h2>TeacherIndex</h2>
+        @using (Html.BeginForm("UploadDocument", "FileTransfer"))
+        {
 
-@using (Html.BeginForm())
-{
+            <select id="ClassUnitID" name="ClassUnitID">
+                @foreach (var item in Model.ClassUnits)
+                {
 
-    <h2>TeacherIndex</h2>
-    <div class="dropdown-list-wrapper">
+                    <option value="@item.ClassUnitID">@item.ClassName</option>
+                }
+            </select>
+
+            <button name="upload" type="submit" value="Shared" class="btn btn-default">Shared</button>
+            <button name="upload" type="submit" value="Submission" class="btn btn-default">Submission</button>
+
+        }
+
+        <br />
+        <a href='@Url.Action("Index", "Users")'>Manage users</a>
+
+
+
+
+        <br />
+        <a href='@Url.Action("Index", "ClassUnits")'>Manage classes</a>
 
     </div>
+</div>
 
-    <select name="className" style="color: black;">
+
+
+@*@using (Html.BeginForm("StudentIndex", "Home"))
+{
+    
+    <select id="ClassUnitID" name="ClassUnitID" onchange="this.form.submit();">
+        <option value="null">Choose class....</option>
         @foreach (var item in Model.ClassUnits)
         {
             <option value="@item.ClassUnitID">@item.ClassName</option>
         }
     </select>
-    <button name="upload" type="submit" value="Shared">Shared</button>
-
-    @Html.DropDownList("ClassUnitID", new SelectList(Model.ClassUnits, "ClassUnitID", "ClassName"))
 
 
-    <br />
-
-    <a href='@Url.Action("UploadDocumentShared", "FileTransfer")' style="text-decoration:none;" class=" button-wrap" role="button">Upload to Shared</a>
-
-    <br />
-
-    <a href='@Url.Action("UploadDocumentSubmission", "FileTransfer")' style="text-decoration:none;" class=" button-wrap" role="button">Upload to Submission</a>
-
-    <br />
-
-}
-
-
-@Html.ActionLink("Files avalible for download", "Show", "FileTransfer")
-
-<br />
-<a href='@Url.Action("Index", "Users")'>Manage users</a>
+}*@
 
 
 
 
-<br />
-<a href='@Url.Action("Index", "ClassUnits")'>Manage classes</a>*@
 
+<div class="row">
+    <div class="col-xs-6 text-center">
+        <h3 class="col-xs-12">Shared Files</h3>
+        <div class="col-xs-12">
+            @Html.Partial("ShowFiles", Model.Shared)
+        </div>
+    </div>
 
-
-
+    <div class="col-xs-6 text-center">
+        <h3 class="col-xs-12">Submitted Files</h3>
+        <div class="col-xs-12">
+            @Html.Partial("ShowFiles", Model.Submission)
+        </div>
+    </div>
+</div>
 

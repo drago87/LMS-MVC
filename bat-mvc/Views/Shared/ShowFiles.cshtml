@@ -1,12 +1,9 @@
 ﻿@model IEnumerable<Queries.Core.ViewModels.FileViewModel>
 
-@*<h2>Show</h2>
-
-
 @foreach (var item in Model)
 {
-    <div class="col-xs-2 height" title="Download">
-        <a href='@Url.Action("SaveDocument", "Upload", new { filePath = item.File.FullName })' class="hover-bg">
+    <div class="col-xs-4 height" title="Download">
+        <a href='@Url.Action("SaveDocument", "FileTransfer", new { filePath = item.File.FullName })' class="hover-bg">
             <div class="image-wrap col-xs-8 col-xs-offset-2">
                 <img src="@Url.Content(item.IconImg)" class="image">
                 <div class="overlay"></div>
@@ -17,7 +14,4 @@
             </div>
         </a>
     </div>
-}*@
-
-
-@Html.Partial("ShowFiles")
+}

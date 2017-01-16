@@ -215,43 +215,42 @@ namespace bat_mvc.Controllers
             }
 
 
-            List<FileViewModel> fileViews = new List<FileViewModel>();
+            
 
 
-            foreach (var item in files)
+            Func<List<FileInfo>, List<FileViewModel>> FileInfoToFileViews = (fileInfo) => 
             {
-                byte[] byteArr;
-                try
+                List<FileViewModel> fileViews = new List<FileViewModel>();
+                foreach (var item in fileInfo)
                 {
-                    Image image = Image.FromFile(item.FullName);
-                    ImageConverter converter = new ImageConverter();
-                    byteArr = (byte[])converter.ConvertTo(image, typeof(byte[]));
+                    byte[] byteArr;
+                    try
+                    {
+                        Image image = Image.FromFile(item.FullName);
+                        ImageConverter converter = new ImageConverter();
+                        byteArr = (byte[])converter.ConvertTo(image, typeof(byte[]));
+                    }
+                    catch (Exception)
+                    {
+                        Icon icon = Icon.ExtractAssociatedIcon(item.FullName);
+
+                        Image image = new Icon(icon, 32, 32).ToBitmap();
+
+                        ImageConverter converter = new ImageConverter();
+                        byteArr = (byte[])converter.ConvertTo(image, typeof(byte[]));
+
+                    }
+
+                    var base64 = Convert.ToBase64String(byteArr);
+                    var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                    fileViews.Add(new FileViewModel() { IconImg = imgSrc, File = item });
                 }
-                catch (Exception)
-                {
-                    Icon icon = Icon.ExtractAssociatedIcon(item.FullName);
+                return fileViews;
+            };
 
-                    Image image = new Icon(icon, 32, 32).ToBitmap();
-
-                    ImageConverter converter = new ImageConverter();
-                    byteArr = (byte[])converter.ConvertTo(image, typeof(byte[]));
-
-                    //using (MemoryStream ms = new MemoryStream())
-                    //{
-                    //    icon.Save(ms);
-                    //    byteArr = ms.ToArray();
-                    //}
-                }
-
-                var base64 = Convert.ToBase64String(byteArr);
-                var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
-                fileViews.Add(new FileViewModel() { IconImg = imgSrc, File = item });
-            }
-
-            return View(fileViews);
+            
+            return View(FileInfoToFileViews(files));
         }
-
-
 
     }
 }
