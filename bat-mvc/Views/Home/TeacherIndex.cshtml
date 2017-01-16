@@ -4,19 +4,28 @@
 
 <link href="~/Content/Styles.css" rel="stylesheet" />
 <h2>TeacherIndex</h2>
-
+@using (Html.BeginForm("UploadDocumentShared","FileTransfer"))
+{ 
 @Html.DropDownList("ClassUnitID", new SelectList(Model.ClassUnits, "ClassUnitID", "ClassName"))
+<select id="ClassUnitIDs" name="ClassUnitIDs">
+    @foreach (var item in Model.ClassUnits)
+    {
 
-<a href='@Url.Action("UploadDocumentShared", "FileTransfer")' style="text-decoration:none;" class=" button-wrap" role="button">Upload to Shared</a>
+        <option value="@item.ClassUnitID">@item.ClassName</option>
+    }
+</select>
+
+    
+<!--<a href='Url.Action("UploadDocumentShared", "FileTransfer")' style="text-decoration:none;" class=" button-wrap" role="button">Upload to Shared</a>
 
 <br />
 
-<a href='@Url.Action("UploadDocumentSubmission", "FileTransfer")' style="text-decoration:none;" class=" button-wrap" role="button">Upload to Submission</a>
+<a href='Url.Action("UploadDocumentSubmission", "FileTransfer")' style="text-decoration:none;" class=" button-wrap" role="button">Upload to Submission</a>
 
-<br />
+<br />-->
 
-
-
+<input type="submit" value="Save" class="btn btn-default" />
+}
 @Html.ActionLink("Files avalible for download", "Show", "FileTransfer")
 
 <br />

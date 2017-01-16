@@ -33,7 +33,7 @@ namespace bat_mvc.Controllers
             ViewBag.Message = uploadMessage;
             if (ClassUnitID == null)
             {
-                ViewBag.classUnit = 1;
+                ViewBag.classUnit = -1;
             }
             else
             {
@@ -48,7 +48,7 @@ namespace bat_mvc.Controllers
             ViewBag.Message = uploadMessage;
             if (ClassUnitID == null)
             {
-                ViewBag.classUnit = 1;
+                ViewBag.classUnit = -1;
             }
             else
             {
