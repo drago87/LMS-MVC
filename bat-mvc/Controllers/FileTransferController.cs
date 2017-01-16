@@ -28,32 +28,15 @@ namespace bat_mvc.Controllers
 
 
 
-        public ActionResult UploadDocumentShared(int? ClassUnitID, string uploadMessage = "Choose file.")
+        public ActionResult UploadDocument(string upload, int? ClassUnitID, string uploadMessage = "Choose file.")
         {
             ViewBag.Message = uploadMessage;
-            if (ClassUnitID == null)
-            {
-                ViewBag.classUnit = -1;
-            }
-            else
-            {
-                ViewBag.classUnit = ClassUnitID;
-            }
-            
-            return View();
-        }
 
-        public ActionResult UploadDocumentSubmission(int? ClassUnitID, string uploadMessage = "Choose file.")
-        {
-            ViewBag.Message = uploadMessage;
-            if (ClassUnitID == null)
-            {
-                ViewBag.classUnit = -1;
-            }
-            else
-            {
-                ViewBag.classUnit = ClassUnitID;
-            }
+            ViewBag.classUnit = ClassUnitID;
+
+            ViewBag.upload = upload;
+
+
             return View();
         }
 
