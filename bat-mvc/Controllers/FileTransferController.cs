@@ -66,18 +66,31 @@ namespace bat_mvc.Controllers
                         //if (folder.Files.SingleOrDefault(x => x.FileName == fileName) == null)
                         //{
                         int uploadTo1 = new int();
-                        int classunitID = int.Parse(classunit);
-                        if (uploadTo == "Shared")
+                        int classunitID = new int();
+                        if (classunit != null)
                         {
-                            uploadTo1 = 0;
+                            classunitID = int.Parse(classunit);
                         }
-                        else if (uploadTo == "Submission")
+                        else
+                        {
+                            ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
+                            var tempclass = Database.Users.Where(x => x.UserName == user.UserName).Include(z => z.ClassUnits);
+                            classunitID = user.ClassUnits.First().ClassUnitID;
+
+                        }
+
+                        if (uploadTo == "Submission")
                         {
                             uploadTo1 = 1;
                         }
+                        else
+                        {
+                            uploadTo1 = 0;
+                        }
+                        
 
                         var path = System.Web.Hosting.HostingEnvironment.MapPath("~/Files/") + fileName;
-                        if (uploadTo != null && classunit != null)
+                        if (uploadTo1 != null && classunit != null)
                         {
                             Dossier newFile = new Dossier();
                             newFile.FileName = fileName;
