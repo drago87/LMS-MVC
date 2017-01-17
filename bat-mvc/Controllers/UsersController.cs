@@ -17,7 +17,7 @@ using Microsoft.AspNet.Identity.Owin;
 
 namespace bat_mvc.Controllers
 {
-    [Authorize]
+    [Authorize(Roles="Teacher")]
     public class UsersController : Controller
     {
         public readonly IUserRepository _user;

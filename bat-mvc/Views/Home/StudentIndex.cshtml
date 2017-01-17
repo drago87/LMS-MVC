@@ -1,7 +1,31 @@
-﻿
+﻿@model Queries.Core.ViewModels.MyViewModel
+
 @{
-    ViewBag.Title = "StudentIndex";
+    var temp = Model.Shared;
 }
 
-<h2>StudentIndex</h2>
+<link href="~/Content/Styles.css" rel="stylesheet" />
+
+<div class="row">
+    <div class="col-xs-12 text-center">
+        <h2>@ViewBag.Message</h2>
+        @using (Html.BeginForm("UploadDocument", "FileTransfer"))
+        {
+            <span> Upload Files:  </span>
+            <button name="upload" type="submit" value="Shared" class="btn btn-default">Shared</button> 
+            <button name="upload" type="submit" value="Submission" class="btn btn-default">Submission</button>
+        }
+
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-xs-12 text-center">
+        <h3 class="col-xs-12">Shared Files</h3>
+        <div class="col-xs-6">
+            @Html.Partial("ShowFiles", Model.Shared)
+        </div>
+    </div>
+</div>
 
