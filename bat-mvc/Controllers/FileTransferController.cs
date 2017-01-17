@@ -7,17 +7,10 @@ using System.Web.Mvc;
 using System.Drawing;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
-using Queries.Core.Repositories;
 using Queries.Core.Domain;
-using Queries.Core;
 using Queries.Core.Models;
 using Queries.Core.ViewModels;
-using Microsoft.AspNet.Identity.EntityFramework;
-using Queries.Persistence.Repositories;
 using System.Data.Entity;
-using System.Text;
-using System.Threading.Tasks;
-
 
 namespace bat_mvc.Controllers
 {
@@ -25,21 +18,15 @@ namespace bat_mvc.Controllers
     public class FileTransferController : Controller
     {
         ApplicationDbContext database = new ApplicationDbContext();
-        
-
 
         public ActionResult UploadDocument(string upload, int? ClassUnitID, string uploadMessage = "Choose file.")
         {
             ViewBag.Message = uploadMessage;
-
             ViewBag.classUnit = ClassUnitID;
-
             ViewBag.upload = upload;
-
 
             return View();
         }
-
 
         [HttpPost]
         //[ValidateAntiForgeryToken]
@@ -55,7 +42,6 @@ namespace bat_mvc.Controllers
                 {
                     if (files[i] != null && files[i].ContentLength > 0)
                     {
-
                         var fileName = Path.GetFileName(files[i].FileName);
                         //if (folder.Files.SingleOrDefault(x => x.FileName == fileName) == null)
                         //{
@@ -71,7 +57,6 @@ namespace bat_mvc.Controllers
                             var tempUser = database.Users.Include(p => p.ClassUnits).SingleOrDefault(x => x.UserName == user.UserName);
                             ClassUnit tempClass = tempUser.ClassUnits.FirstOrDefault();
                             classunitID = tempClass.ClassUnitID;
-
                         }
 
                         if (uploadTo == "Submission")
@@ -82,7 +67,6 @@ namespace bat_mvc.Controllers
                         {
                             uploadTo1 = 0;
                         }
-
 
                         var path = System.Web.Hosting.HostingEnvironment.MapPath("~/Files/") + fileName;
                         if (classunit != null)
@@ -104,7 +88,6 @@ namespace bat_mvc.Controllers
 
                             database.Dossiers.Add(newFile);
                         }
-
 
                         files[i].SaveAs(path);
 
@@ -130,8 +113,6 @@ namespace bat_mvc.Controllers
             return RedirectToAction("UploadDocument", new { uploadMessage = message });
         }
 
-
-
         public ActionResult SaveDocument(string filePath)
         {
             string contentType = "application/octet-stream";  //<---- This is the magic
@@ -140,16 +121,15 @@ namespace bat_mvc.Controllers
             return File(filePath, contentType, file.Name);
         }
 
-
         public ActionResult Show()
         {
             List<FileInfo> files = new List<FileInfo>();
-
             DirectoryInfo directory = new DirectoryInfo(Server.MapPath(@"~\Files"));
             ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
 
             List<ClassUnit> temp = database.Classunits.Include(x => x.Participants).ToList();
             List<string> clssunit = new List<string>();
+
             foreach (var item in temp)
             {
                 if (item.Participants.Count > 0)
@@ -160,39 +140,29 @@ namespace bat_mvc.Controllers
                         clssunit.Add(item.ClassName);
                     }
                 }
-
-
-
             }
-
 
             List<Folder> SharedFolders = new List<Folder>();
             List<Folder> SubmissionFolders = new List<Folder>();
 
             if (this.User.IsInRole("Teacher") && clssunit.Count > 0)
             {
-
-
                 foreach (var item in clssunit)
                 {
                     SharedFolders.Add(database.Folders.SingleOrDefault(x => x.FolderName == item + "Shared"));
                     SubmissionFolders.Add(database.Folders.SingleOrDefault(x => x.FolderName == item + "Submission"));
                 }
-
             }
             else if (this.User.IsInRole("Student") && clssunit.Count > 0)
             {
-
                 foreach (var item in clssunit)
                 {
                     SharedFolders.Add(database.Folders.SingleOrDefault(x => x.FolderName == item + "Shared"));
                 }
             }
 
-
             var tem6p = database.Folders.Include(x => x.Files).ToList();
             //files = directory.GetFiles().ToList();
-
 
             foreach (var folder in SharedFolders)
             {
@@ -210,10 +180,6 @@ namespace bat_mvc.Controllers
                 }
             }
 
-
-
-
-
             Func<List<FileInfo>, List<FileViewModel>> FileInfoToFileViews = (fileInfo) =>
             {
                 List<FileViewModel> fileViews = new List<FileViewModel>();
@@ -229,12 +195,9 @@ namespace bat_mvc.Controllers
                     catch (Exception)
                     {
                         Icon icon = Icon.ExtractAssociatedIcon(item.FullName);
-
                         Image image = new Icon(icon, 32, 32).ToBitmap();
-
                         ImageConverter converter = new ImageConverter();
                         byteArr = (byte[])converter.ConvertTo(image, typeof(byte[]));
-
                     }
 
                     var base64 = Convert.ToBase64String(byteArr);
@@ -244,9 +207,7 @@ namespace bat_mvc.Controllers
                 return fileViews;
             };
 
-
             return View(FileInfoToFileViews(files));
         }
-
     }
 }

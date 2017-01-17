@@ -133,7 +133,6 @@ namespace bat_mvc.Controllers
             return View();
         }
 
-        //
         // POST: /Account/Register
         [HttpPost]
         //[AllowAnonymous]
@@ -163,9 +162,6 @@ namespace bat_mvc.Controllers
             ViewBag.Wrong = "Something when wrong. Did you write the same password twice?";
             return View(model);
         }
-
-        
-
 
         #region Helpers
         private void AddErrors(IdentityResult result)
@@ -251,6 +247,5 @@ namespace bat_mvc.Controllers
             var classnames = classunits.Select(c => c.ClassName).ToArray();
             return String.Join(",", classnames);
         }
-
     }
 }

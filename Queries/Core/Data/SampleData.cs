@@ -1,10 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Data.Entity.Migrations;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Linq;
-using System;
 using Queries.Core.Models;
 using Queries.Core.Domain;
 
@@ -19,7 +17,6 @@ namespace Queries.Data.SampleData
             //{
             //    var roleStore = new RoleStore<IdentityRole>(context);
             //    var roleManager = new RoleManager<IdentityRole>(roleStore);
-
             //    var role = new IdentityRole { Name = "Teacher" };
 
             //    roleManager.Create(role);
@@ -29,7 +26,6 @@ namespace Queries.Data.SampleData
             //{
             //    var roleStore = new RoleStore<IdentityRole>(context);
             //    var roleManager = new RoleManager<IdentityRole>(roleStore);
-
             //    var role = new IdentityRole { Name = "Student" };
 
             //    roleManager.Create(role);
@@ -79,7 +75,6 @@ namespace Queries.Data.SampleData
                 historia, biologi, matte, engelska);
             #endregion
 
-
             #region Lessons
             //var nu = DateTime.Now;
             //context.Lessons.AddOrUpdate(
@@ -101,7 +96,6 @@ namespace Queries.Data.SampleData
             {
                 var roleStore = new RoleStore<IdentityRole>(context);
                 var roleManager = new RoleManager<IdentityRole>(roleStore);
-
                 var role = new IdentityRole { Name = "Teacher" };
 
                 roleManager.Create(role);
@@ -111,7 +105,6 @@ namespace Queries.Data.SampleData
             {
                 var roleStore = new RoleStore<IdentityRole>(context);
                 var roleManager = new RoleManager<IdentityRole>(roleStore);
-
                 var role = new IdentityRole { Name = "Student" };
 
                 roleManager.Create(role);
@@ -181,7 +174,6 @@ namespace Queries.Data.SampleData
 
                 context.Folders.Add( new Folder { FolderName = "Shared" });
                 context.Folders.Add( new Folder { FolderName = "Submission" });
-                
 
                 ClassFolders.Add(context.Folders.Single(x => x.FolderName == item.ClassName + "Shared"));
                 ClassFolders.Add(context.Folders.Single(x => x.FolderName == item.ClassName + "Submission"));
@@ -208,9 +200,6 @@ namespace Queries.Data.SampleData
             #endregion*/
 
             //SaveChanges(context);
-
-
-
         }
     }
 }

@@ -42,6 +42,16 @@
             url: '/register',
             component: 'registerIndex',
         }
+        var subjectState = {
+            name: 'subjects',
+            url: '/subjects',
+            component: 'subjectIndex',
+            resolve: {
+                subjects: function(Subject) {
+                    return Subject.query();
+                }
+            }
+        }
         var studentState = {
             name: 'students',
             url: '/students',
@@ -86,6 +96,7 @@
 
     $stateProvider.state(studentState);
     $stateProvider.state(classUnitState);
+    $stateProvider.state(subjectState);
     $stateProvider.state(schemaState);
     $urlRouterProvider.otherwise('/');
     }); 
