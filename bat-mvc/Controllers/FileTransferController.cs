@@ -90,7 +90,7 @@ namespace bat_mvc.Controllers
                         
 
                         var path = System.Web.Hosting.HostingEnvironment.MapPath("~/Files/") + fileName;
-                        if (uploadTo1 != null && classunit != null)
+                        if (classunit != null)
                         {
                             Dossier newFile = new Dossier();
                             newFile.FileName = fileName;
