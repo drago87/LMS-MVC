@@ -14,10 +14,15 @@ namespace Queries.Core.Domain
         public int LessonID { get; set; }
 
         [DisplayName("Lesson Start")]
+        [DataType(DataType.DateTime)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime StartTime { get; set; }
 
         [DisplayName("Lesson Done")]
+        [DataType(DataType.DateTime)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime StopTime { get; set; }
+
 
         [ForeignKey("Subject")]
         public int SubjectID { get; set; }

@@ -1,6 +1,7 @@
 ﻿using Queries.Core.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -14,6 +15,7 @@ namespace Queries.Core.Domain
         [Key]
         public int ClassUnitID { get; set; }
         [Required]
+        [DisplayName("Class Name")]
         public string ClassName { get; set; }
 
         public virtual ICollection<ApplicationUser> Participants { get; set; }

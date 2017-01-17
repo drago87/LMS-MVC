@@ -1,5 +1,6 @@
 ﻿using Queries.Core;
 using Queries.Core.Domain;
+using Queries.Core.Models;
 using Queries.Core.Repositories;
 using System;
 using System.Collections.Generic;
@@ -22,6 +23,8 @@ namespace bat_mvc.Controllers
         public readonly IRepository<Lesson> _lessonRepo;
         public readonly IUnitOfWork _uow;
 
+
+        public ApplicationDbContext _ctx = new ApplicationDbContext();
         public LessonsController(IRepository<Lesson> lessonRepository, IUnitOfWork uow)
         {
             _lessonRepo = lessonRepository;
@@ -31,7 +34,8 @@ namespace bat_mvc.Controllers
         // GET: Lessons
         public ActionResult Index()
         {
-            var lessons = _uow.Lessons.GetAll();
+            var lessons = _ctx.Lessons.Include(x => x.ClassUnit).Include(z => z.Subject);
+
             return View(lessons);
         }
 
@@ -53,25 +57,35 @@ namespace bat_mvc.Controllers
         // GET: Lessons/Create
         public ActionResult Create()
         {
+            
+            ViewBag.Subjects = _ctx.Subjects;
+            ViewBag.Classunit = _ctx.Classunits;
+
+
             return View();
         }
 
         // POST: Lessons/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Create([Bind(Include = "LessonID,LessonName")] Lesson lesson)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        db.Lessons.Add(lesson);
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "LessonID,LessonName")] Lesson lesson, int SubjectID, int ClassUnitID, DateTime StartTime,DateTime StopTime)
+        {
+            if (ModelState.IsValid)
+            {
+                lesson.StartTime = StartTime;
+                lesson.StopTime = StopTime;
+                lesson.Subject = _ctx.Subjects.SingleOrDefault(x => x.SubjectID == SubjectID);
+                lesson.ClassUnit = _ctx.Classunits.SingleOrDefault(x => x.ClassUnitID == ClassUnitID);
+                
+                _ctx.Lessons.Add(lesson);
+                _ctx.SaveChanges();
+                return RedirectToAction("Index");
+            }
 
-        //    return View(lesson);
-        //}
+            return View(lesson);
+        }
 
         // GET: Lessons/Edit/5
         //public ActionResult Edit(int? id)
