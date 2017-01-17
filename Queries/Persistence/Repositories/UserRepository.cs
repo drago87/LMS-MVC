@@ -32,7 +32,7 @@ namespace Queries.Core.Repositories
 
         public IEnumerable<ApplicationUser> GetUsersByName(string username)
         {
-            return Ctx.Users
+            return _ctx.Users
                 .Where(u => u.UserName == username);
         }
 
@@ -43,7 +43,7 @@ namespace Queries.Core.Repositories
 
         public IEnumerable<ClassUnit> GetClassUnitsFor(ApplicationUser user)
         {
-            var  thisuser = Ctx.Users.Include("ClassUnits").Single(u => u.Id == user.Id);
+            var thisuser = _ctx.Users.Include("ClassUnits").Single(u => u.Id == user.Id);
             return thisuser.ClassUnits.ToList();
         }
 
@@ -54,7 +54,7 @@ namespace Queries.Core.Repositories
 
             uroles.ForEach(ur =>
             {
-                IdentityRole irole = Ctx.Roles.SingleOrDefault(r => r.Id == ur.RoleId);
+                IdentityRole irole = _ctx.Roles.SingleOrDefault(r => r.Id == ur.RoleId);
                 iroles.Add(irole);
             });
 
