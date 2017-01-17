@@ -1,10 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Data.Entity.Migrations;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Linq;
-using System;
 using Queries.Core.Models;
 using Queries.Core.Domain;
 
@@ -15,38 +13,47 @@ namespace Queries.Data.SampleData
         protected override void Seed(ApplicationDbContext context)
         {
             # region Roles
-            //if (!context.Roles.Any(r => r.Name == "Teacher"))
-            //{
-            //    var roleStore = new RoleStore<IdentityRole>(context);
-            //    var roleManager = new RoleManager<IdentityRole>(roleStore);
+            if (!context.Roles.Any(r => r.Name == "Teacher"))
+            {
+                var roleStore = new RoleStore<IdentityRole>(context);
+                var roleManager = new RoleManager<IdentityRole>(roleStore);
+                var role = new IdentityRole { Name = "Teacher" };
 
-            //    var role = new IdentityRole { Name = "Teacher" };
+                roleManager.Create(role);
+            }
 
-            //    roleManager.Create(role);
-            //AwesomeDbContext//}
+            if (!context.Roles.Any(r => r.Name == "Student"))
+            {
+                var roleStore = new RoleStore<IdentityRole>(context);
+                var roleManager = new RoleManager<IdentityRole>(roleStore);
+                var role = new IdentityRole { Name = "Student" };
 
-            //if (!context.Roles.Any(r => r.Name == "Student"))
-            //{
-            //    var roleStore = new RoleStore<IdentityRole>(context);
-            //    var roleManager = new RoleManager<IdentityRole>(roleStore);
+                roleManager.Create(role);
+            }
 
-            //    var role = new IdentityRole { Name = "Student" };
+            var userStore = new UserStore<ApplicationUser>(context);
+            var userManager = new UserManager<ApplicationUser>(userStore);
 
-            //    roleManager.Create(role);
-            //}
+            var user1 = new ApplicationUser { UserName = "testTeacher@test.com", Email = "testTeacher@test.com" };
+            var user2 = new ApplicationUser { UserName = "testStudent@test.com", Email = "testStudent@test.com" };
 
-            //var userStore = new UserStore<ApplicationUser>(context);
-            //var userManager = new UserManager<ApplicationUser>(userStore);
-
-            //var user1 = new ApplicationUser { UserName = "testTeacher@test.com", Email = "testTeacher@test.com" };
-            //var user2 = new ApplicationUser { UserName = "testStudent@test.com", Email = "testStudent@test.com" };
-
-            //userManager.Create(user1, "Test123!");
-            //userManager.Create(user2, "Test123!");
-
+            userManager.Create(user1, "Test123!");
+            userManager.Create(user2, "Test123!");
             #endregion
 
-            #region Klasser
+            #region Classunits
+            ApplicationUser user1a = context.Users.FirstOrDefault(u => u.Email == "testTeacher@test.com");
+            if (user1a != null)
+            {
+                userManager.AddToRole(user1a.Id, "Teacher");
+            }
+
+            ApplicationUser user2a = context.Users.FirstOrDefault(u => u.Email == "testStudent@test.com");
+            if (user2a != null)
+            {
+                userManager.AddToRole(user2a.Id, "Student");
+            }
+
             var grund1a = new ClassUnit { ClassName = "Grund1A" };
             var grund3a = new ClassUnit { ClassName = "Grund3A" };
             var grund5b = new ClassUnit { ClassName = "Grund5b" };
@@ -55,18 +62,6 @@ namespace Queries.Data.SampleData
                 c => c.ClassUnitID,
                 grund1a, grund3a, grund5b
             );
-
-            //ApplicationUser user1a = context.Users.FirstOrDefault(u => u.Email == "testTeacher@test.com");
-            //if (user1a != null)
-            //{
-            //    userManager.AddToRole(user1.Id, "Teacher");
-            //}
-
-            //ApplicationUser user2a = context.Users.FirstOrDefault(u => u.Email == "testStudent@test.com");
-            //if (user2a != null)
-            //{
-            //    userManager.AddToRole(user2.Id, "Student");
-            //}
             #endregion
 
             #region Subjects
@@ -78,7 +73,6 @@ namespace Queries.Data.SampleData
                 s => s.SubjectName,
                 historia, biologi, matte, engelska);
             #endregion
-
 
             #region Lessons
             //var nu = DateTime.Now;
@@ -93,6 +87,39 @@ namespace Queries.Data.SampleData
             //);
             //context.SaveChanges();
             #endregion
+
+            #region Folders
+            //List<Folder> ClassFolders = new List<Folder>();
+            //foreach (var item in context.Classunits)
+            //{
+            //    ClassFolders = new List<Folder>();
+
+            //    context.Folders.Add( new Folder { FolderName = "Shared" });
+            //    context.Folders.Add( new Folder { FolderName = "Submission" });
+
+            //    ClassFolders.Add(context.Folders.Single(x => x.FolderName == item.ClassName + "Shared"));
+            //    ClassFolders.Add(context.Folders.Single(x => x.FolderName == item.ClassName + "Submission"));
+
+            //    item.Folders = ClassFolders;
+
+            //    context.SaveChanges();
+            //}
+            #endregion
+
+            //SaveChanges(context);
+
+            #region Dossier
+            //var ovrigtmapp = context.Folders.FirstOrDefault(f => f.FolderName == "Ovrigt");
+            //var megamapp   = context.Folders.FirstOrDefault(f => f.FolderName == "MegaMappen");
+
+            //context.Dossiers.AddOrUpdate(
+            //    d => d.FileName,
+            //    new Dossier { FileName = "Eriks BiologiProv", FilePath = "erik-biologi.txt", Folder = ovrigtmapp },
+            //    new Dossier { FileName = "Nisses Mek",        FilePath = "nisse-mek.txt",    Folder = megamapp }
+            //);
+            #endregion
+
+            //SaveChanges(context);
         }
     }
 }

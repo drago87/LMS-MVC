@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Web;
 
 namespace Queries.Core.Domain
 {
@@ -22,7 +19,6 @@ namespace Queries.Core.Domain
         [DataType(DataType.DateTime)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime StopTime { get; set; }
-
 
         [ForeignKey("Subject")]
         public int SubjectID { get; set; }

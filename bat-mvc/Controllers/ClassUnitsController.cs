@@ -63,15 +63,12 @@ namespace bat_mvc.Controllers
         {
             if (ModelState.IsValid)
             {
-
                 addFolder(classunit.ClassName + "Shared");
-                
                 addFolder(classunit.ClassName + "Submission");
                 
                 List<Folder> ClassFolders = new List<Folder>();
                 ClassFolders.Add(_ctx.Folders.Single(x => x.FolderName == classunit.ClassName + "Shared"));
                 ClassFolders.Add(_ctx.Folders.Single(x => x.FolderName == classunit.ClassName + "Submission"));
-
 
                 _ctx.Classunits.Add(
 
@@ -153,10 +150,8 @@ namespace bat_mvc.Controllers
 
             _ctx.Folders.Remove(temp2);
             _ctx.Folders.Remove(temp3);
-            
-            
-            
             _ctx.Classunits.Remove(classunit);
+
             _ctx.SaveChanges();
             return RedirectToAction("Index");
         }
