@@ -1,16 +1,11 @@
-﻿using Queries.Core;
-using Queries.Core.Domain;
+﻿using Queries.Core.Domain;
 using Queries.Core.Models;
-using Queries.Core.Repositories;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
 using System.Linq;
-using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using System.Data.Entity.Migrations;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.AspNet.Identity;
 using Queries.Core.ViewModels;
@@ -32,12 +27,10 @@ namespace bat_mvc.Controllers
                 return RedirectToAction("StudentIndex");
         }
 
-
         [Authorize(Roles = "Teacher")]
         // [ValidateAntiForgeryToken]
         public ActionResult TeacherIndex(int? ClassUnitID)
         {
-
             Func<List<FileInfo>, List<FileViewModel>> FileInfoToFileViews = (fileInfo) =>
             {
                 List<FileViewModel> fileViews = new List<FileViewModel>();
@@ -68,17 +61,8 @@ namespace bat_mvc.Controllers
                 return fileViews;
             };
 
-
-
-
             DirectoryInfo directory = new DirectoryInfo(Server.MapPath(@"~\Files"));
             ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
-
-
-
-
-
-
             ClassUnit classUnit = database.Classunits.Include(z => z.Folders).SingleOrDefault(x => x.ClassUnitID == ClassUnitID);
             Folder SharedFolder = new Folder();
             Folder SubmissionFolder = new Folder();
@@ -89,13 +73,7 @@ namespace bat_mvc.Controllers
                 SubmissionFolder = classUnit.Folders.ToList()[1];
             }
 
-
-
             var tem6p = database.Folders.Include(x => x.Files).ToList();
-
-
-
-
 
             List<FileInfo> filesShared = new List<FileInfo>();
             foreach (var file in SharedFolder.Files)
@@ -103,19 +81,14 @@ namespace bat_mvc.Controllers
                 filesShared.Add(new FileInfo(file.FilePath));
             }
 
-
-
             List<FileInfo> filesSubmission = new List<FileInfo>();
             foreach (var file in SubmissionFolder.Files)
             {
                 filesSubmission.Add(new FileInfo(file.FilePath));
             }
 
-
             return View(new MyViewModel() { ClassUnits = database.Classunits.ToList(), Shared = FileInfoToFileViews(filesShared), Submission = FileInfoToFileViews(filesSubmission) });
-
         }
-
 
         [Authorize(Roles = "Student")]
         public ActionResult StudentIndex()
@@ -132,7 +105,6 @@ namespace bat_mvc.Controllers
             else
                 ViewBag.Message = "You are not part of a class yet.";
 
-
             Func<List<FileInfo>, List<FileViewModel>> FileInfoToFileViews = (fileInfo) =>
             {
                 List<FileViewModel> fileViews = new List<FileViewModel>();
@@ -173,13 +145,7 @@ namespace bat_mvc.Controllers
                 SubmissionFolder = classUnit.Folders.ToList()[1];
             }
 
-
-
             var tem6p = database.Folders.Include(x => x.Files).ToList();
-
-
-
-
 
             List<FileInfo> filesShared = new List<FileInfo>();
             foreach (var file in SharedFolder.Files)
@@ -187,18 +153,14 @@ namespace bat_mvc.Controllers
                 filesShared.Add(new FileInfo(file.FilePath));
             }
 
-
-
             List<FileInfo> filesSubmission = new List<FileInfo>();
             foreach (var file in SubmissionFolder.Files)
             {
                 filesSubmission.Add(new FileInfo(file.FilePath));
             }
 
-
             return View(new MyViewModel() { ClassUnits = database.Classunits.ToList(), Shared = FileInfoToFileViews(filesShared), Submission = FileInfoToFileViews(filesSubmission) });
         }
-
 
         public ActionResult App()
         {

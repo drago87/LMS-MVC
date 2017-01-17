@@ -3,17 +3,15 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
-using System.Text;
 
 namespace Queries.Core.Domain
 {
     public class ClassUnit
    {
-        
         [Key]
         public int ClassUnitID { get; set; }
+
         [Required]
         [DisplayName("Class Name")]
         public string ClassName { get; set; }
@@ -21,8 +19,8 @@ namespace Queries.Core.Domain
         public virtual ICollection<ApplicationUser> Participants { get; set; }
 
         public virtual List<Folder> Folders { get; set; }
-        //public Folder Shared { get; set; }
 
+        //public Folder Shared { get; set; }
         //public Folder Submission { get; set; }
 
         public List<Lesson> Schema { get; set; }

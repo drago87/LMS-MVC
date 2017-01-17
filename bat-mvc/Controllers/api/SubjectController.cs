@@ -1,11 +1,7 @@
 ﻿using Queries.Core;
 using Queries.Core.Domain;
 using Queries.Core.Repositories;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace bat_mvc.Controllers.api

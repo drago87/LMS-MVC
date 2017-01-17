@@ -13,6 +13,10 @@
 
             this.menus = [
                 {
+                    name:  "Ämnen",
+                    state: "subjects",
+                },
+                {
                     name:  "Studenter",
                     state: "students",
                     // guest: true

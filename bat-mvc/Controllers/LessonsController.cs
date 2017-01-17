@@ -3,17 +3,9 @@ using Queries.Core.Domain;
 using Queries.Core.Models;
 using Queries.Core.Repositories;
 using System;
-using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
 using System.Linq;
-using System.Net;
-using System.Web;
 using System.Web.Mvc;
-//using Awesome.Model;
-//using Awesome.Models;
-//using Awesome.Data.Contracts;
-//using Awesome.Data;
 
 namespace bat_mvc.Controllers
 {
@@ -22,7 +14,6 @@ namespace bat_mvc.Controllers
     {
         public readonly IRepository<Lesson> _lessonRepo;
         public readonly IUnitOfWork _uow;
-
 
         public ApplicationDbContext _ctx = new ApplicationDbContext();
         public LessonsController(IRepository<Lesson> lessonRepository, IUnitOfWork uow)
@@ -57,10 +48,8 @@ namespace bat_mvc.Controllers
         // GET: Lessons/Create
         public ActionResult Create()
         {
-            
             ViewBag.Subjects = _ctx.Subjects;
             ViewBag.Classunit = _ctx.Classunits;
-
 
             return View();
         }

@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
 
 namespace Queries.Core.Domain
 {
@@ -22,7 +18,6 @@ namespace Queries.Core.Domain
         public ClassUnit ClassUnit { get; set; }
 
         public virtual List<Dossier> Files { get; set; }
-
 
         public Folder()
         {
