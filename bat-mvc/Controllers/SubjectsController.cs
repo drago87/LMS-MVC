@@ -13,7 +13,7 @@ using System.Web.Mvc;
 
 namespace bat_mvc.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Teacher")]
     public class SubjectsController : Controller
     {
         public readonly IRepository<Subject> _subject;

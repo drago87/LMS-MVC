@@ -46,7 +46,7 @@ namespace bat_mvc.Controllers
             }
             return View(lesson);
         }
-
+        [Authorize(Roles = "Teacher")]
         // GET: Lessons/Create
         public ActionResult Create()
         {
