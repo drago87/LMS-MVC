@@ -24,8 +24,8 @@ namespace bat_mvc.Controllers
     [Authorize]
     public class FileTransferController : Controller
     {
-        ApplicationDbContext Database = new ApplicationDbContext();
-
+        ApplicationDbContext database = new ApplicationDbContext();
+        
 
 
         public ActionResult UploadDocument(string upload, int? ClassUnitID, string uploadMessage = "Choose file.")
@@ -43,7 +43,7 @@ namespace bat_mvc.Controllers
 
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public ActionResult Upload(string uploadTo,string classunit)
+        public ActionResult Upload(string uploadTo, string classunit)
         {
             //var folder = Database.Folders.SingleOrDefault(x => x.FolderID == _folder.FolderID);
             string message = "The file was not uploaded";
@@ -51,31 +51,26 @@ namespace bat_mvc.Controllers
 
             if (files.Count > 0)
             {
-
-
                 for (int i = 0; i < files.Count; i++)
                 {
                     if (files[i] != null && files[i].ContentLength > 0)
                     {
-
-
-
-
 
                         var fileName = Path.GetFileName(files[i].FileName);
                         //if (folder.Files.SingleOrDefault(x => x.FileName == fileName) == null)
                         //{
                         int uploadTo1 = new int();
                         int classunitID = new int();
-                        if (classunit != null)
+                        if (classunit != null && classunit != "")
                         {
                             classunitID = int.Parse(classunit);
                         }
                         else
                         {
                             ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
-                            var tempclass = Database.Users.Where(x => x.UserName == user.UserName).Include(z => z.ClassUnits);
-                            classunitID = user.ClassUnits.First().ClassUnitID;
+                            var tempUser = database.Users.Include(p => p.ClassUnits).SingleOrDefault(x => x.UserName == user.UserName);
+                            ClassUnit tempClass = tempUser.ClassUnits.FirstOrDefault();
+                            classunitID = tempClass.ClassUnitID;
 
                         }
 
@@ -87,7 +82,7 @@ namespace bat_mvc.Controllers
                         {
                             uploadTo1 = 0;
                         }
-                        
+
 
                         var path = System.Web.Hosting.HostingEnvironment.MapPath("~/Files/") + fileName;
                         if (uploadTo1 != null && classunit != null)
@@ -95,8 +90,8 @@ namespace bat_mvc.Controllers
                             Dossier newFile = new Dossier();
                             newFile.FileName = fileName;
                             newFile.FilePath = path;
-                            List<ClassUnit> tempList = Database.Classunits.Include(x => x.Participants).Include(x => x.Folders).ToList();
-                            ClassUnit temp = Database.Classunits.SingleOrDefault(x => x.ClassUnitID == classunitID);
+                            List<ClassUnit> tempList = database.Classunits.Include(x => x.Participants).Include(x => x.Folders).ToList();
+                            ClassUnit temp = database.Classunits.SingleOrDefault(x => x.ClassUnitID == classunitID);
 
                             List<Folder> folders = temp.Folders;
                             Folder ChangedFolder = new Folder();
@@ -107,16 +102,16 @@ namespace bat_mvc.Controllers
 
                             newFile.Folder = ChangedFolder;
 
-                            Database.Dossiers.Add(newFile);
+                            database.Dossiers.Add(newFile);
                         }
-                        
-                        
+
+
                         files[i].SaveAs(path);
 
                         //Database.Folders.SingleOrDefault(x => x.FolderID == _folder.FolderID)
                         //.Files.Add(new Dossier { FileName = files[i].FileName, FilePath = path });
 
-                        Database.SaveChanges();
+                        database.SaveChanges();
                         message = "The file was uploaded";
 
                         //}
@@ -125,8 +120,12 @@ namespace bat_mvc.Controllers
                         //    message = "Filename allredy taken.";
                         //}
                     }
+                    else
+                        message = "You can not upload an empty file.";
                 }
             }
+            else
+                message = "No file selected!";
 
             return RedirectToAction("UploadDocument", new { uploadMessage = message });
         }
@@ -149,7 +148,7 @@ namespace bat_mvc.Controllers
             DirectoryInfo directory = new DirectoryInfo(Server.MapPath(@"~\Files"));
             ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
 
-            List<ClassUnit> temp = Database.Classunits.Include(x => x.Participants).ToList();
+            List<ClassUnit> temp = database.Classunits.Include(x => x.Participants).ToList();
             List<string> clssunit = new List<string>();
             foreach (var item in temp)
             {
@@ -176,8 +175,8 @@ namespace bat_mvc.Controllers
 
                 foreach (var item in clssunit)
                 {
-                    SharedFolders.Add(Database.Folders.SingleOrDefault(x => x.FolderName == item + "Shared"));
-                    SubmissionFolders.Add(Database.Folders.SingleOrDefault(x => x.FolderName == item + "Submission"));
+                    SharedFolders.Add(database.Folders.SingleOrDefault(x => x.FolderName == item + "Shared"));
+                    SubmissionFolders.Add(database.Folders.SingleOrDefault(x => x.FolderName == item + "Submission"));
                 }
 
             }
@@ -186,12 +185,12 @@ namespace bat_mvc.Controllers
 
                 foreach (var item in clssunit)
                 {
-                    SharedFolders.Add(Database.Folders.SingleOrDefault(x => x.FolderName == item + "Shared"));
+                    SharedFolders.Add(database.Folders.SingleOrDefault(x => x.FolderName == item + "Shared"));
                 }
             }
 
 
-            var tem6p = Database.Folders.Include(x => x.Files).ToList();
+            var tem6p = database.Folders.Include(x => x.Files).ToList();
             //files = directory.GetFiles().ToList();
 
 
@@ -212,10 +211,10 @@ namespace bat_mvc.Controllers
             }
 
 
-            
 
 
-            Func<List<FileInfo>, List<FileViewModel>> FileInfoToFileViews = (fileInfo) => 
+
+            Func<List<FileInfo>, List<FileViewModel>> FileInfoToFileViews = (fileInfo) =>
             {
                 List<FileViewModel> fileViews = new List<FileViewModel>();
                 foreach (var item in fileInfo)
@@ -245,7 +244,7 @@ namespace bat_mvc.Controllers
                 return fileViews;
             };
 
-            
+
             return View(FileInfoToFileViews(files));
         }
 
