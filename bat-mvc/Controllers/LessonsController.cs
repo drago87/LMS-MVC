@@ -28,6 +28,7 @@ namespace bat_mvc.Controllers
         {
             var lessons = _ctx.Lessons.Include(x => x.ClassUnit).Include(z => z.Subject);
 
+            
             return View(lessons);
         }
 
