@@ -5,6 +5,7 @@ using Queries.Core.Repositories;
 using System;
 using System.Data.Entity;
 using System.Linq;
+using System.Net;
 using System.Web.Mvc;
 
 namespace bat_mvc.Controllers
@@ -27,6 +28,7 @@ namespace bat_mvc.Controllers
         {
             var lessons = _ctx.Lessons.Include(x => x.ClassUnit).Include(z => z.Subject);
 
+            
             return View(lessons);
         }
 

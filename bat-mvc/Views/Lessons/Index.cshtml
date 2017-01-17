@@ -35,10 +35,11 @@
             @Html.DisplayFor(modelItem => item.Subject.SubjectName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.StartTime)
+            
+            @Html.DisplayTextFor(modelItem => item.StartTime)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.StopTime)
+            @Html.DisplayTextFor(modelItem => item.StopTime)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.LessonID }) |
