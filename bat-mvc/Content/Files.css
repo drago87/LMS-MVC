@@ -1,12 +1,14 @@
 ﻿body {
-    background-color: #272b30;
-    color: white;
+    background-color: #272b30 !important;
+    color: white !important;
 }
 
 .image-wrap {
     position: relative;
 }
-
+.navbar-inverse .navbar-brand, .navbar-inverse .navbar-nav>li>a{
+    color: #cccccc !important;
+}
 .image-wrap .image {
     background-repeat: no-repeat;
     background-position: center center;
