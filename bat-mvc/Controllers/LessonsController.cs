@@ -5,6 +5,7 @@ using Queries.Core.Repositories;
 using System;
 using System.Data.Entity;
 using System.Linq;
+using System.Net;
 using System.Web.Mvc;
 
 namespace bat_mvc.Controllers
