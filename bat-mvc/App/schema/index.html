@@ -8,7 +8,10 @@
     </tr>
 
     <tr ng-repeat="lesson in model.lessons" ng-animate="'animate'">
-        <td>{{lesson.SubjectID}}</td>
+        <td>
+            <!--{{lesson.SubjectID}}-->
+            {{model.getSubjectNameForId(lesson.SubjectID)}}
+        </td>
         <td>{{lesson.StartTime}}</td>
         <td>{{lesson.StopTime}}</td>
         <td>
@@ -24,6 +27,8 @@
         <input type="text" class="form-control" id="InputSubjectName" ng-enter="model.submit()" ng-model="model.lesson.LessonName" />
     </div>
 </div>
+
+<button class="btn btn-default" ng-click="model.getSubjectNameForId(5)">Test</button>
 
 <button ng-hide="model.editing" class="btn btn-primary" ng-click="model.add()">Lägg till</button>
 <button ng-show="model.editing" class="btn btn-primary" ng-click="model.update()">Uppdatera</button>

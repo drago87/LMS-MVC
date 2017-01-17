@@ -80,10 +80,14 @@
             component: 'schemaIndex',
             resolve: {
                 subjects: function(Subject) {
-                    return Subject.query();
+                    var subjects = Subject.query();
+                    console.log("subjects: ", subjects)
+                    return subjects;
                 },
                 lessons: function(Lesson) {
-                    return Lesson.query();
+                    var lessons = Lesson.query();
+                    // console.log("lessons:", lessons);
+                    return lessons;
                 }
             }
         }

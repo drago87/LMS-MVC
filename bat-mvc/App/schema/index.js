@@ -15,6 +15,23 @@ angular.module("app")
     controller: function (Subject, Lesson, Common, $rootScope) {
         var vm = this;
 
+        vm.getSubjectNameForId = function(id) {
+            var ut = "";
+            angular.forEach(vm.subjects, function(value, key) {
+                if (value.SubjectID == id) {
+                    // this.push(key + ': ' + value.SubjectName);
+                    // this.log = value.SubjectName
+                    // console.log(value.SubjectName);
+                    ut = value.subjectname;
+                    // return (value.SubjectName);
+                }
+            });
+            return ut;
+        }
+        // vm.getSubjectNameForId(4);
+
+        // console.log("subjects.", vm.lessons);
+
         // $rootScope.$on("logout", function(){
         //     vm.lessons = [];
         //     vm.subjects = [];
